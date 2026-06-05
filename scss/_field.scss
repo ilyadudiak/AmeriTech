@@ -1,0 +1,93 @@
+@use "colors";
+@use "ui-tokens";
+
+// Block: field — Input field
+// Modifiers: --desktop | --mobile
+// States on .field__input: default, --focus, --active, --filled, --error
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$ui-field-error-gap;
+}
+
+.field__input {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: ui-tokens.$ui-field-padding;
+  border: 0;
+  border-radius: ui-tokens.$ui-field-radius;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+  outline: none;
+  transition: background-color ui-tokens.$ui-transition-fast;
+
+  &::placeholder {
+    color: colors.$color-black;
+    opacity: ui-tokens.$ui-opacity-muted;
+  }
+
+  &:focus,
+  &.field__input--focus {
+    background-color: ui-tokens.$ui-surface-input-focus;
+  }
+
+  &.field__input--active {
+    background-color: colors.$color-white;
+  }
+
+  &.field__input--error {
+    background-color: colors.$color-white;
+  }
+}
+
+.field__cursor {
+  display: inline-block;
+  width: 1px;
+  height: 1.2em;
+  background-color: colors.$color-black;
+  animation: field-cursor-blink 1s step-end infinite;
+}
+
+@keyframes field-cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.field__error {
+  margin: 0;
+  color: colors.$color-error;
+}
+
+.field--desktop {
+  max-width: ui-tokens.$ui-field-desktop-width;
+
+  .field__input {
+    min-height: ui-tokens.$ui-field-desktop-min-height;
+    @include ui-tokens.type-desktop-text-l;
+  }
+
+  .field__error {
+    @include ui-tokens.type-desktop-text-l;
+  }
+}
+
+.field--mobile {
+  max-width: ui-tokens.$ui-field-mobile-width;
+
+  .field__input {
+    min-height: ui-tokens.$ui-field-mobile-min-height;
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .field__error {
+    @include ui-tokens.type-mobile-text-l;
+  }
+}

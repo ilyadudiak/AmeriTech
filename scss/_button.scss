@@ -1,0 +1,165 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: btn — Button (White) & Button (Colored)
+// Modifiers: --white | --colored, --desktop | --mobile
+// States: default, --inactive
+// Desktop hover: two icons in track — exit ↗, enter ↙ (Figma / reference GIF)
+
+.btn {
+  display: inline-flex;
+  align-items: stretch;
+  gap: ui-tokens.$ui-btn-gap;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity ui-tokens.$ui-transition-fast;
+
+  &:disabled,
+  &.btn--inactive {
+    opacity: ui-tokens.$ui-opacity-inactive;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.btn__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: ui-tokens.$ui-btn-radius;
+  white-space: nowrap;
+}
+
+.btn__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: ui-tokens.$ui-btn-radius;
+}
+
+.btn__arrow-viewport {
+  display: block;
+  flex-shrink: 0;
+  width: ui-tokens.$ui-btn-arrow-icon-size;
+  height: ui-tokens.$ui-btn-arrow-icon-size;
+  min-width: ui-tokens.$ui-btn-arrow-icon-size;
+  min-height: ui-tokens.$ui-btn-arrow-icon-size;
+  overflow: hidden;
+}
+
+.btn__arrow-track {
+  position: relative;
+  display: block;
+  width: ui-tokens.$ui-btn-arrow-icon-size;
+  height: ui-tokens.$ui-btn-arrow-icon-size;
+  transition: transform ui-tokens.$ui-btn-arrow-transition;
+}
+
+.btn__arrow-icon {
+  display: block;
+  width: ui-tokens.$ui-btn-arrow-icon-size;
+  height: ui-tokens.$ui-btn-arrow-icon-size;
+  max-width: none;
+  max-height: none;
+}
+
+.btn__arrow-icon--incoming {
+  position: absolute;
+  top: ui-tokens.$ui-btn-arrow-translate-x;
+  left: calc(-1 * #{ui-tokens.$ui-btn-arrow-translate-x});
+}
+
+// ─── Desktop ───────────────────────────────────────────────────────────────
+
+.btn--desktop {
+  .btn__label {
+    padding: ui-tokens.$ui-btn-desktop-padding-y ui-tokens.$ui-btn-desktop-padding-x;
+    @include ui-tokens.type-desktop-button;
+  }
+
+  .btn__arrow {
+    width: ui-tokens.$ui-btn-desktop-arrow-size;
+    height: ui-tokens.$ui-btn-desktop-arrow-size;
+  }
+}
+
+// ─── Mobile ────────────────────────────────────────────────────────────────
+
+.btn--mobile {
+  .btn__label {
+    padding: ui-tokens.$ui-btn-mobile-padding-y ui-tokens.$ui-btn-mobile-padding-x;
+    @include ui-tokens.type-mobile-button;
+  }
+
+  .btn__arrow {
+    width: ui-tokens.$ui-btn-mobile-arrow-size;
+    height: ui-tokens.$ui-btn-mobile-arrow-size;
+  }
+}
+
+// ─── White variant ─────────────────────────────────────────────────────────
+
+.btn--white {
+  .btn__label,
+  .btn__arrow {
+    background-color: colors.$color-white;
+    color: colors.$color-black;
+  }
+}
+
+// ─── Colored variant ───────────────────────────────────────────────────────
+
+.btn--colored.btn--desktop {
+  .btn__label,
+  .btn__arrow {
+    background-color: colors.$color-dark-blue;
+    color: colors.$color-white;
+  }
+
+  .btn__arrow {
+    transition: background-color ui-tokens.$ui-transition-fast;
+  }
+}
+
+.btn--colored.btn--mobile {
+  .btn__label,
+  .btn__arrow {
+    background-color: colors.$color-dark-blue;
+    color: colors.$color-white;
+  }
+}
+
+// ─── Desktop hover — arrow slide + colored arrow box ───────────────────────
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .btn--desktop.btn--white:hover:not(:disabled):not(.btn--inactive) .btn__arrow-track,
+  .btn--desktop.btn--white.btn--state-hover .btn__arrow-track,
+  .btn--colored.btn--desktop:hover:not(:disabled):not(.btn--inactive) .btn__arrow-track,
+  .btn--colored.btn--desktop.btn--state-hover .btn__arrow-track {
+    transform: translate(
+      ui-tokens.$ui-btn-arrow-translate-x,
+      ui-tokens.$ui-btn-arrow-translate-y
+    );
+  }
+
+  .btn--colored.btn--desktop:hover:not(:disabled):not(.btn--inactive) .btn__arrow,
+  .btn--colored.btn--desktop.btn--state-hover .btn__arrow {
+    background-color: colors.$color-red;
+  }
+}
+
+// Hero cover button: mobile modifier, desktop sizing ≥1024px
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) and (min-width: variables.$breakpoint-header-desktop) {
+  .hero__btn.btn--mobile.btn--white:hover:not(:disabled):not(.btn--inactive) .btn__arrow-track {
+    transform: translate(
+      ui-tokens.$ui-btn-arrow-translate-x,
+      ui-tokens.$ui-btn-arrow-translate-y
+    );
+  }
+}

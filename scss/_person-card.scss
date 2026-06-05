@@ -1,0 +1,168 @@
+@use "colors";
+@use "ui-tokens";
+
+// Block: person-card — Small / Big / Mobile
+// Modifier: --small | --big | --mobile, --hover
+
+.person-card {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$ui-card-gap;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.person-card__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: ui-tokens.$ui-card-radius;
+}
+
+.person-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.person-card__bio {
+  position: absolute;
+  top: ui-tokens.$ui-card-mobile-padding;
+  right: ui-tokens.$ui-card-mobile-padding;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  max-width: 33px;
+  transition: max-width ui-tokens.$ui-transition-fast;
+}
+
+.person-card__symbol {
+  flex-shrink: 0;
+  width: ui-tokens.$ui-person-card-symbol-width;
+  height: ui-tokens.$ui-person-card-symbol-height;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.person-card__bio-text {
+  @include ui-tokens.type-desktop-link;
+  color: colors.$color-white;
+  text-decoration: underline;
+  text-decoration-thickness: 10%;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity ui-tokens.$ui-transition-fast;
+}
+
+.person-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$ui-card-info-gap-tight;
+}
+
+.person-card__name {
+  margin: 0;
+  color: colors.$color-black;
+}
+
+.person-card__role {
+  margin: 0;
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+}
+
+// ─── Small ─────────────────────────────────────────────────────────────────
+
+.person-card--small {
+  max-width: 375px;
+
+  .person-card__media {
+    height: ui-tokens.$ui-person-card-small-image-height;
+  }
+
+  .person-card__name {
+    @include ui-tokens.type-desktop-h3;
+  }
+
+  .person-card__role {
+    @include ui-tokens.type-desktop-text-m;
+  }
+
+  &:hover,
+  &.person-card--hover {
+    .person-card__bio {
+      max-width: 200px;
+    }
+
+    .person-card__bio-text {
+      opacity: 1;
+    }
+  }
+}
+
+// ─── Big ───────────────────────────────────────────────────────────────────
+
+.person-card--big {
+  max-width: 507px;
+
+  .person-card__media {
+    height: ui-tokens.$ui-person-card-big-image-height;
+  }
+
+  .person-card__name {
+    @include ui-tokens.type-desktop-h3;
+  }
+
+  .person-card__role {
+    @include ui-tokens.type-desktop-text-m;
+  }
+
+  &:hover,
+  &.person-card--hover {
+    .person-card__bio {
+      max-width: 200px;
+    }
+
+    .person-card__bio-text {
+      opacity: 1;
+    }
+  }
+}
+
+// ─── Mobile ────────────────────────────────────────────────────────────────
+
+.person-card--mobile {
+  max-width: ui-tokens.$ui-person-card-mobile-size;
+
+  .person-card__media {
+    aspect-ratio: 1;
+  }
+
+  .person-card__bio {
+    top: auto;
+    bottom: ui-tokens.$ui-card-mobile-padding;
+    max-width: none;
+  }
+
+  .person-card__bio-text {
+    @include ui-tokens.type-mobile-link;
+    opacity: 1;
+  }
+
+  .person-card__name {
+    @include ui-tokens.type-mobile-h3;
+  }
+
+  .person-card__role {
+    @include ui-tokens.type-mobile-text-m;
+  }
+}

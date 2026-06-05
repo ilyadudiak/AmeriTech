@@ -1,0 +1,182 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: portfolio — Our Work section (Desktop 9846:2354 / Mobile 9858:3494)
+
+.portfolio {
+  padding: ui-tokens.$portfolio-offset-top-desktop variables.$layout-gutter 0;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.portfolio__inner {
+  max-width: variables.$layout-max-width;
+  margin: 0 auto;
+}
+
+.portfolio__header {
+  display: grid;
+  grid-template-columns: minmax(0, ui-tokens.$portfolio-intro-max-width) minmax(0, 1fr);
+  justify-content: space-between;
+  column-gap: clamp(
+    ui-tokens.$portfolio-header-col-gap-min,
+    21.6vw,
+    ui-tokens.$portfolio-header-col-gap-max
+  );
+  align-items: start;
+}
+
+.portfolio__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.portfolio__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$about-label-padding-y ui-tokens.$about-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-black;
+  white-space: nowrap;
+  @include ui-tokens.type-desktop-descriptor;
+}
+
+.portfolio__title {
+  margin: ui-tokens.$portfolio-header-gap 0 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h2;
+}
+
+.portfolio__content {
+  max-width: ui-tokens.$portfolio-lead-max-width;
+  padding-top: ui-tokens.$portfolio-content-padding-top;
+  justify-self: end;
+}
+
+.portfolio__lead {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$portfolio-header-gap;
+
+  p {
+    margin: 0;
+    color: colors.$color-black;
+    opacity: ui-tokens.$portfolio-text-opacity;
+    @include ui-tokens.type-desktop-text-l;
+  }
+}
+
+.portfolio__actions--header {
+  margin-top: ui-tokens.$portfolio-actions-margin-top;
+}
+
+.portfolio__grid--desktop {
+  display: grid;
+  grid-template-columns: minmax(0, ui-tokens.$portfolio-grid-col-small * 1fr)
+    minmax(0, ui-tokens.$portfolio-grid-col-big * 1fr);
+  column-gap: ui-tokens.$portfolio-grid-col-gap;
+  row-gap: ui-tokens.$portfolio-grid-row-gap;
+  margin-top: ui-tokens.$portfolio-header-to-grid;
+}
+
+.portfolio__card--1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.portfolio__card--2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.portfolio__card--3 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.portfolio__card--4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.portfolio {
+  .project-card--small,
+  .project-card--big {
+    max-width: none;
+  }
+}
+
+.portfolio__grid--mobile,
+.portfolio__actions--footer {
+  display: none;
+}
+
+@media (max-width: ui-tokens.$portfolio-breakpoint-stack - 1px) {
+  .portfolio {
+    padding: ui-tokens.$portfolio-offset-top-mobile ui-tokens.$portfolio-mobile-gutter 48px;
+  }
+
+  .portfolio__header {
+    display: flex;
+    flex-direction: column;
+    gap: ui-tokens.$portfolio-header-gap;
+  }
+
+  .portfolio__title {
+    margin-top: ui-tokens.$portfolio-header-gap;
+    @include ui-tokens.type-mobile-h2;
+  }
+
+  .portfolio__content {
+    max-width: none;
+    padding-top: 0;
+    justify-self: stretch;
+  }
+
+  .portfolio__label {
+    @include ui-tokens.type-mobile-descriptor;
+  }
+
+  .portfolio__lead p {
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .portfolio__actions--header {
+    display: none;
+  }
+
+  .portfolio__grid--desktop {
+    display: none;
+  }
+
+  .portfolio__grid--mobile {
+    display: flex;
+    flex-direction: column;
+    gap: ui-tokens.$portfolio-cards-gap-mobile;
+    margin-top: ui-tokens.$portfolio-header-to-grid-mobile;
+
+    .project-card--mobile {
+      max-width: none;
+    }
+  }
+
+  .portfolio__actions--footer {
+    display: flex;
+    justify-content: center;
+    margin-top: ui-tokens.$portfolio-footer-actions-margin-top;
+  }
+
+  .portfolio .btn:hover .btn__arrow-track,
+  .portfolio .btn.btn--state-hover .btn__arrow-track {
+    transform: none;
+  }
+
+  .portfolio .btn--colored:hover .btn__arrow,
+  .portfolio .btn--colored.btn--state-hover .btn__arrow {
+    background-color: colors.$color-dark-blue;
+  }
+}

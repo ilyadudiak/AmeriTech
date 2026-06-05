@@ -1,0 +1,63 @@
+@use "colors";
+@use "ui-tokens";
+
+// Block: tab — Desktop & Mobile tabs
+// Modifiers: --desktop | --mobile
+// States: default, :hover / --state-hover, --active
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$ui-tab-padding-y ui-tokens.$ui-tab-padding-x;
+  border-radius: ui-tokens.$ui-tab-radius;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color ui-tokens.$ui-transition-fast,
+    color ui-tokens.$ui-transition-fast,
+    border-color ui-tokens.$ui-transition-fast;
+}
+
+// ─── Desktop ───────────────────────────────────────────────────────────────
+
+.tab--desktop {
+  min-height: ui-tokens.$ui-tab-desktop-height;
+  @include ui-tokens.type-desktop-tag;
+  color: colors.$color-black;
+
+  &:hover:not(.tab--active):not(.tab--inactive),
+  &.tab--state-hover {
+    background-color: ui-tokens.$ui-surface-tab-hover;
+  }
+
+  &.tab--active {
+    background-color: colors.$color-dark-blue;
+    border-color: colors.$color-dark-blue;
+    color: colors.$color-white;
+  }
+}
+
+// ─── Mobile (on dark background) ───────────────────────────────────────────
+
+.tab--mobile {
+  width: ui-tokens.$ui-tab-mobile-width;
+  min-height: ui-tokens.$ui-tab-mobile-height;
+  @include ui-tokens.type-mobile-tag;
+  border-color: ui-tokens.$ui-border-white-20;
+  color: colors.$color-white;
+
+  &:hover:not(.tab--active):not(.tab--inactive),
+  &.tab--state-hover {
+    border-color: ui-tokens.$ui-border-white-20;
+    color: colors.$color-white;
+  }
+
+  &.tab--active {
+    background-color: colors.$color-white;
+    border-color: ui-tokens.$ui-border-black-20;
+    color: colors.$color-black;
+  }
+}

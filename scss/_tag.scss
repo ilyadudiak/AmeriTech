@@ -1,0 +1,23 @@
+@use "colors";
+@use "ui-tokens";
+
+// Block: tag — Card overlay tag
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$ui-tag-padding-y ui-tokens.$ui-tag-padding-x;
+  border: 1px solid ui-tokens.$ui-border-white-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-white;
+  white-space: nowrap;
+}
+
+.tag--desktop {
+  @include ui-tokens.type-desktop-tag;
+}
+
+.tag--mobile {
+  @include ui-tokens.type-mobile-tag;
+}

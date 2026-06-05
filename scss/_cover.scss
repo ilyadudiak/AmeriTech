@@ -1,0 +1,54 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: cover — Hero shell (Desktop 9846:2378 / Mobile 9849:2324)
+// Background: Figma PNG exports (gradient + eagle + blur baked in)
+
+.cover {
+  position: relative;
+  min-height: max(100svh, ui-tokens.$cover-min-height-mobile);
+  overflow: hidden;
+  background-color: colors.$color-dark-blue;
+  // Gradient always fills full section height; eagle PNG scales with cover
+  background-image:
+    url("../assets/images/cover-bg-mobile.png"),
+    linear-gradient(
+      180deg,
+      colors.$color-dark-blue 0%,
+      colors.$color-cover-gradient-end ui-tokens.$cover-gradient-stop
+    );
+  background-repeat: no-repeat;
+  background-size: cover, 100% 100%;
+  background-position: center top, center top;
+}
+
+// Tablet / desktop — higher-res art (1600×900), downscales cleanly
+@media (min-width: ui-tokens.$cover-bg-switch) {
+  .cover {
+    min-height: ui-tokens.$cover-min-height-desktop;
+    background-image: url("../assets/images/cover-bg-desktop.png");
+    background-size: cover;
+    background-position: center top;
+  }
+}
+
+// Tablet range — keep eagle anchored bottom-right while scaling
+@media (min-width: ui-tokens.$cover-bg-switch) and (max-width: variables.$breakpoint-header-desktop - 1px) {
+  .cover {
+    min-height: max(100svh, ui-tokens.$cover-min-height-mobile);
+    background-position: 72% top;
+  }
+}
+
+@media (min-width: variables.$breakpoint-header-tablet) and (max-width: variables.$breakpoint-header-desktop - 1px) {
+  .cover {
+    background-position: 68% top;
+  }
+}
+
+@media (min-width: variables.$layout-max-width) {
+  .cover {
+    background-position: center top;
+  }
+}

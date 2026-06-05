@@ -1,0 +1,580 @@
+// UI element tokens — AmeriTech Figma (node 9892:6335)
+// Source: AmeriTech-Handoff--Copy- (ET5T4uGY9jBFsCfMeGYzml)
+
+@use "sass:math";
+@use "colors";
+@use "typography";
+
+// ─── Radius ────────────────────────────────────────────────────────────────
+
+$ui-radius-sm: 4px;
+$ui-radius-md: 8px;
+
+// ─── Opacity (states) ──────────────────────────────────────────────────────
+
+$ui-opacity-inactive: 0.4;
+$ui-opacity-link-inactive: 0.2;
+$ui-opacity-muted: 0.8;
+
+// ─── Borders ───────────────────────────────────────────────────────────────
+
+$ui-border-white-20: rgba(255, 255, 255, 0.2);
+$ui-border-black-20: rgba(0, 0, 0, 0.2);
+
+// ─── Surfaces (not in color palette) ───────────────────────────────────────
+
+$ui-surface-tab-hover: #f3f3f3;
+$ui-surface-input-focus: rgba(255, 255, 255, 0.8);
+
+// ─── Button ────────────────────────────────────────────────────────────────
+
+$ui-btn-gap: 4px;
+$ui-btn-radius: $ui-radius-md;
+
+// Desktop
+$ui-btn-desktop-padding-x: 40px;
+$ui-btn-desktop-padding-y: 18px;
+$ui-btn-desktop-arrow-size: 56px;
+
+// Mobile
+$ui-btn-mobile-padding-x: 28px;
+$ui-btn-mobile-padding-y: 16px;
+$ui-btn-mobile-arrow-size: 48px;
+
+$ui-btn-arrow-icon-size: 17px;
+$ui-btn-arrow-translate-x: 20px;
+$ui-btn-arrow-translate-y: -20px;
+$ui-btn-arrow-transition: 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+// ─── Slider / page arrow ───────────────────────────────────────────────────
+
+$ui-slider-btn-size: 48px;
+
+// ─── Tag ───────────────────────────────────────────────────────────────────
+
+$ui-tag-padding-x: 24px;
+$ui-tag-padding-y: 12px;
+$ui-tag-radius: $ui-radius-sm;
+
+// ─── Tab ───────────────────────────────────────────────────────────────────
+
+$ui-tab-padding-x: 24px;
+$ui-tab-padding-y: 12px;
+$ui-tab-radius: $ui-radius-sm;
+$ui-tab-desktop-height: 40px;
+$ui-tab-mobile-height: 38px;
+$ui-tab-mobile-width: 200px;
+
+// ─── Field (input) ─────────────────────────────────────────────────────────
+
+$ui-field-radius: $ui-radius-md;
+$ui-field-padding: 24px;
+$ui-field-error-gap: 20px;
+
+$ui-field-desktop-width: 380px;
+$ui-field-desktop-min-height: 72px;
+
+$ui-field-mobile-width: 350px;
+$ui-field-mobile-min-height: 70px;
+
+// ─── Menu link ─────────────────────────────────────────────────────────────
+
+$ui-menu-link-height: 62px;
+$ui-menu-link-arrow-size: 32px;
+$ui-menu-link-arrow-height: 39px;
+$ui-menu-link-arrow-single-line-offset: 5px;
+
+// ─── Cards ─────────────────────────────────────────────────────────────────
+
+$ui-card-gap: 20px;
+$ui-card-radius: $ui-radius-md;
+$ui-card-padding: 32px;
+$ui-card-mobile-padding: 20px;
+$ui-card-info-gap-tight: 6px;
+$ui-card-info-gap: 12px;
+
+// Project card heights
+$ui-project-card-small-height: 350px;
+$ui-project-card-big-height: 500px;
+$ui-project-card-mobile-size: 351px;
+$ui-project-card-btn-offset-default: -76px;
+$ui-project-card-btn-offset-hover: 32px;
+$ui-project-card-hover-transition: 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+// Project card hover — Figma 8849:3107→3109 / 8849:3143→3157
+// Values in cqw/cqh scale with .project-card__media (container-type: size).
+// Reference frame: small card 638×350; same motion on every desktop card size.
+
+$project-card-aspect-small: math.div(638, 350);
+$project-card-aspect-big: math.div(902, 500);
+
+$project-card-image-hover-width: 134.799%;
+$project-card-image-hover-height: 134.857%;
+$project-card-image-hover-left: -17.398%;
+$project-card-image-hover-top: -17.429%;
+
+$project-card-eagle-default-size: 1728.5cqw;
+$project-card-eagle-default-left: -814.2cqw;
+$project-card-eagle-default-top: -1525.4cqh;
+$project-card-eagle-hover-size: 392.79cqw;
+$project-card-eagle-hover-left: -146.39cqw;
+$project-card-eagle-hover-top: -308cqh;
+
+// Person card
+$ui-person-card-small-image-height: 420px;
+$ui-person-card-big-image-height: 600px;
+$ui-person-card-mobile-size: 351px;
+$ui-person-card-symbol-width: 33px;
+$ui-person-card-symbol-height: 29.63px;
+
+// Capabilities / News card
+$ui-content-card-height: 500px;
+$ui-content-card-width: 770px;
+$ui-content-card-mobile-size: 351px;
+
+// ─── Header (Cover 9846:2378 / Mobile 9849:2324) ───────────────────────────
+
+$header-height-desktop: 103px;
+$header-height-mobile: 80px;
+$header-max-width: 1600px;
+$header-gutter: 20px;
+$header-gutter-mobile: 12px;
+$header-bg: rgba(255, 255, 255, 0.05);
+$header-blur: 15px;
+$header-nav-gap-desktop: 40px;
+$header-nav-gap-tablet: 28px;
+$header-nav-right-offset-desktop: 80px;
+$header-nav-right-offset-tablet: 64px;
+$header-logo-width-desktop: 182.583px;
+$header-logo-height-desktop: 63px;
+$header-logo-top-desktop: 20px;
+$header-logo-width-mobile: 140px;
+$header-logo-height-mobile: 48px;
+$header-burger-width: 40px;
+$header-burger-padding-y: 8px;
+$header-burger-line-gap: 4px;
+$header-burger-line-height: 2px;
+$header-link-hover-opacity: 0.75;
+$header-nav-link-size-tablet: 16px;
+$header-nav-link-ls-tablet: -0.64px;
+
+// Open menu state (9895:8409)
+$header-bg-menu-open: transparent;
+$header-burger-color-menu-open: colors.$color-black;
+$menu-overlay-shadow: rgba(0, 0, 0, 0.6);
+$menu-panel-inset-mobile: 12px;
+$menu-panel-inset-desktop: 32px;
+$menu-panel-logo-top: 20px;
+$menu-panel-radius: $ui-radius-md;
+$menu-panel-nav-gap: 40px;
+$menu-panel-nav-top: 40px;
+$menu-panel-body-top: 220px;
+$menu-panel-body-gap: 16px;
+$menu-panel-links-max-width: 738px;
+$menu-panel-visual-height: 380px;
+$menu-panel-divider-color: rgba(0, 0, 0, 0.4);
+$menu-panel-divider-opacity: 0.4;
+$menu-panel-footer-height: 38px;
+$menu-panel-nav-right-offset: 114px;
+$menu-panel-close-top: 35px;
+$menu-panel-close-right: 32px;
+$menu-panel-links-viewport: $menu-panel-visual-height;
+$menu-panel-links-fade-height: 80px;
+$menu-transition-backdrop: 0.35s ease;
+$menu-transition-panel: 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+$menu-transition-burger: 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+$menu-stagger-step: 0.05s;
+
+// ─── Mobile menu (9958:6379 / 9926:10236 / 9926:10391) ─────────────────────
+
+$mobile-menu-gutter: 12px;
+$mobile-menu-content-width: 351px;
+$mobile-menu-header-offset-top: 8px;
+$mobile-menu-header-height: 40px;
+$mobile-menu-logo-width: 111px;
+$mobile-menu-logo-height: 40px;
+$mobile-menu-burger-width: 40px;
+$mobile-menu-nav-offset-top: 80px;
+$mobile-menu-row-padding-y: 20px;
+$mobile-menu-row-min-height: 64px;
+$mobile-menu-label-max-width: 296px;
+$mobile-menu-chevron-size: 24px;
+$mobile-menu-divider-color: rgba(0, 0, 0, 0.2);
+$mobile-menu-subnav-indent: 24px;
+$mobile-menu-subnav-gap: 20px;
+$mobile-menu-sublink-gap: 8px;
+$mobile-menu-sublink-arrow-size: 16px;
+$mobile-menu-nav-arrow-size: 24px;
+$mobile-menu-footer-padding-top: 56px;
+$mobile-menu-footer-padding-x: 12px;
+$mobile-menu-footer-padding-bottom: 12px;
+$mobile-menu-footer-fade-stop: 21.272%;
+$mobile-menu-footer-contacts-height: 48px;
+$mobile-menu-bg-blur: 15px;
+$mobile-menu-transition: 0.35s ease;
+$mobile-menu-accordion-duration: 0.4s;
+$mobile-menu-accordion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+$mobile-menu-chevron-duration: 0.28s;
+$mobile-menu-subnav-max-height: 520px;
+
+// ─── Cover (9846:2378 / Mobile 9849:2324) ─────────────────────────────────
+
+$cover-min-height-desktop: 900px;
+$cover-min-height-mobile: 700px;
+$cover-bg-switch: 768px;
+$cover-gradient-stop: 351.67%;
+$cover-hero-offset-desktop: 399px;
+$cover-hero-padding-bottom-desktop: 80px;
+$cover-hero-content-max-width: 662px;
+$cover-hero-content-min-height: 358px;
+$cover-hero-text-max-width: 619px;
+$cover-hero-title-text-gap: 32px;
+$cover-tagline-width-desktop: 297px;
+$cover-tagline-top-desktop: 520px;
+$cover-hero-offset-mobile: 56px;
+$cover-hero-content-margin-top-mobile: 189px;
+$cover-hero-title-text-gap-mobile: 38px;
+$cover-hero-actions-margin-top-mobile: 51px;
+$cover-hero-padding-bottom-mobile: 29px;
+$cover-tagline-max-width-mobile: 335px;
+
+// ─── About (9846:2365 / 9858:3292) ─────────────────────────────────────────
+
+$about-offset-top-desktop: 200px; // Home: About y=1100 − Cover h=900
+$about-offset-top-mobile: 120px; // Home / Mobile: Block y=820 − Cover h=700
+$about-intro-max-width: 656px;
+$about-intro-gap: 24px;
+$about-section-gap: 40px;
+$about-media-height-desktop: 600px;
+$about-media-height-mobile: 351px;
+$about-statement-max-width: 602px;
+$about-details-max-width: 638px;
+$about-bottom-col-gap: 188px;
+$about-bottom-btn-margin-top: 40px;
+$about-label-padding-x: 24px;
+$about-label-padding-y: 12px;
+$about-mobile-gutter: 12px;
+$about-text-opacity: 0.8;
+
+// ─── Competencies (9846:2377 / 9858:3344) ──────────────────────────────────
+
+$competencies-offset-top-desktop: 200px;
+$competencies-offset-top-mobile: 120px;
+$competencies-gradient-stop: 176.63%;
+$competencies-padding-top-desktop: 120px;
+$competencies-padding-bottom-desktop: 120px;
+$competencies-padding-top-mobile: 80px;
+$competencies-padding-bottom-mobile: 80px;
+$competencies-mobile-gutter: 12px;
+$competencies-mobile-inner-padding: 20px;
+$competencies-header-gap: 24px;
+$competencies-header-to-list-mobile: 40px;
+$competencies-lead-max-width: 564px;
+$competencies-list-margin-top: 80px;
+$competencies-grid-col-gap-min: 40px;
+$competencies-grid-col-gap-max: 120px;
+$competencies-grid-row-gap: 80px;
+$competencies-breakpoint-stack: 768px;
+$competencies-item-1-title-max-width-mobile: 250px;
+$competencies-list-gap-mobile: 60px;
+$competencies-actions-margin-top-desktop: 72px;
+$competencies-actions-margin-top-mobile: 40px;
+$competencies-lead-margin-top-mobile: 40px;
+$competencies-bullet-gap-desktop: 28px;
+$competencies-bullet-gap-mobile: 16px;
+$competencies-bullet-width: 12px;
+$competencies-bullet-height: 21px;
+$competencies-item-body-gap-desktop: 16px;
+$competencies-item-body-gap-mobile: 12px;
+$competencies-item-line-color: rgba(255, 255, 255, 0.4);
+$competencies-label-padding-x: 24px;
+$competencies-label-padding-y: 12px;
+$competencies-text-opacity: 0.8;
+$competencies-bg-lines-width: 1702px;
+$competencies-bg-lines-height: 1585px;
+$competencies-bg-lines-left-desktop: -270px;
+$competencies-bg-lines-top-desktop: 290px;
+$competencies-bg-lines-left-mobile: -1127px;
+$competencies-bg-lines-top-mobile: 231px;
+$competencies-fade-distance: 24px;
+$competencies-fade-duration: 0.65s;
+$competencies-fade-easing: cubic-bezier(0.22, 1, 0.36, 1);
+
+// ─── Portfolio (9846:2354 / 9858:3494) ─────────────────────────────────────
+
+$portfolio-offset-top-desktop: 200px;
+$portfolio-offset-top-mobile: 120px;
+$portfolio-mobile-gutter: 12px;
+$portfolio-intro-max-width: 453px;
+$portfolio-lead-max-width: 770px;
+$portfolio-header-gap: 24px;
+$portfolio-content-padding-top: 68px; // label h=44 + gap 24 → lead aligns with title
+$portfolio-header-to-grid: 60px;
+$portfolio-header-to-grid-mobile: 72px;
+$portfolio-header-col-gap-min: 40px;
+$portfolio-header-col-gap-max: 337px;
+$portfolio-grid-col-gap: 20px;
+$portfolio-grid-row-gap: 80px;
+$portfolio-grid-col-small: 638;
+$portfolio-grid-col-big: 902;
+$portfolio-actions-margin-top: 40px;
+$portfolio-cards-gap-mobile: 52px;
+$portfolio-footer-actions-margin-top: 40px;
+$portfolio-text-opacity: 0.8;
+$portfolio-breakpoint-stack: 768px;
+
+// ─── Footer (9846:2352 / 9858:3673) ────────────────────────────────────────
+
+$footer-offset-top-desktop: 200px;
+$footer-offset-top-mobile: 120px;
+$footer-mobile-gutter: 12px;
+$footer-wrapper-padding-bottom-desktop: 20px;
+$footer-card-radius: $ui-radius-md;
+$footer-gradient-stop-desktop: 408.11%;
+$footer-gradient-stop-mobile: 272.16%;
+$footer-eagle-opacity: 0.8;
+$footer-cta-padding-top-desktop: 160px;
+$footer-cta-padding-top-mobile: 100px;
+$footer-cta-max-width-desktop: 942px;
+$footer-cta-lead-max-width-desktop: 388px;
+$footer-cta-lead-max-width-mobile: 229px;
+$footer-cta-gap: 24px;
+$footer-cta-gap-mobile: 16px;
+$footer-cta-to-buttons: 40px;
+$footer-cta-to-buttons-mobile: 24px;
+$footer-cta-to-body-desktop: 300px;
+$footer-cta-max-width-mobile: 311px;
+$footer-cta-to-tagline-mobile: 80px;
+$footer-body-padding-x-desktop: 32px;
+$footer-body-padding-top-desktop: 60px;
+$footer-body-padding-x-mobile: 20px;
+$footer-tagline-max-width-desktop: 376px;
+$footer-tagline-max-width-mobile: 292px;
+$footer-columns-gap: 20px;
+$footer-columns-gap-mobile: 21px;
+$footer-column-header-to-links: 24px;
+$footer-link-gap-desktop: 8px;
+$footer-link-gap-mobile: 12px;
+$footer-tagline-to-columns-mobile: 40px;
+$footer-columns-row-gap-mobile: 52px;
+$footer-columns-to-brand-mobile: 52px;
+$footer-card-padding-bottom-mobile: 20px;
+$footer-logo-to-legal: 12px;
+$footer-logo-to-legal-mobile: 20px;
+$footer-legal-row-gap-mobile: 12px;
+$footer-text-opacity: 0.8;
+$footer-legal-opacity: 0.4;
+$footer-column-header-opacity-mobile: 0.8;
+$footer-eagle-width-desktop: 101.35%;
+$footer-eagle-top-desktop: 223px;
+$footer-eagle-width-mobile: 334%;
+$footer-eagle-left-mobile: -189.5%;
+$footer-eagle-top-mobile: 322px;
+
+// ─── Transitions ───────────────────────────────────────────────────────────
+
+$ui-transition-fast: 0.2s ease;
+
+// ─── Typography mixins ─────────────────────────────────────────────────────
+
+@mixin type-desktop-button {
+  font-family: typography.$font-desktop-button-family;
+  font-size: typography.$font-desktop-button-size;
+  font-weight: typography.$font-desktop-button-weight;
+  line-height: typography.$font-desktop-button-line-height;
+  letter-spacing: typography.$font-desktop-button-letter-spacing;
+}
+
+@mixin type-mobile-button {
+  font-family: typography.$font-mobile-button-family;
+  font-size: typography.$font-mobile-button-size;
+  font-weight: typography.$font-mobile-button-weight;
+  line-height: typography.$font-mobile-button-line-height;
+  letter-spacing: typography.$font-mobile-button-letter-spacing;
+}
+
+@mixin type-desktop-tag {
+  font-family: typography.$font-desktop-tag-family;
+  font-size: typography.$font-desktop-tag-size;
+  font-weight: typography.$font-desktop-tag-weight;
+  line-height: typography.$font-desktop-tag-line-height;
+  letter-spacing: typography.$font-desktop-tag-letter-spacing;
+}
+
+@mixin type-mobile-tag {
+  font-family: typography.$font-mobile-tag-family;
+  font-size: typography.$font-mobile-tag-size;
+  font-weight: typography.$font-mobile-tag-weight;
+  line-height: typography.$font-mobile-tag-line-height;
+  letter-spacing: typography.$font-mobile-tag-letter-spacing;
+}
+
+@mixin type-desktop-h3 {
+  font-family: typography.$font-desktop-h3-family;
+  font-size: typography.$font-desktop-h3-size;
+  font-weight: typography.$font-desktop-h3-weight;
+  line-height: typography.$font-desktop-h3-line-height;
+  letter-spacing: typography.$font-desktop-h3-letter-spacing;
+}
+
+@mixin type-desktop-h4 {
+  font-family: typography.$font-desktop-h4-family;
+  font-size: typography.$font-desktop-h4-size;
+  font-weight: typography.$font-desktop-h4-weight;
+  line-height: typography.$font-desktop-h4-line-height;
+  letter-spacing: typography.$font-desktop-h4-letter-spacing;
+}
+
+@mixin type-desktop-text-s {
+  font-family: typography.$font-desktop-text-s-family;
+  font-size: typography.$font-desktop-text-s-size;
+  font-weight: typography.$font-desktop-text-s-weight;
+  line-height: typography.$font-desktop-text-s-line-height;
+  letter-spacing: typography.$font-desktop-text-s-letter-spacing;
+}
+
+@mixin type-desktop-h2 {
+  font-family: typography.$font-desktop-h2-family;
+  font-size: typography.$font-desktop-h2-size;
+  font-weight: typography.$font-desktop-h2-weight;
+  line-height: typography.$font-desktop-h2-line-height;
+  letter-spacing: typography.$font-desktop-h2-letter-spacing;
+}
+
+@mixin type-desktop-descriptor {
+  font-family: typography.$font-desktop-descriptor-family;
+  font-size: typography.$font-desktop-descriptor-size;
+  font-weight: typography.$font-desktop-descriptor-weight;
+  line-height: typography.$font-desktop-descriptor-line-height;
+  letter-spacing: typography.$font-desktop-descriptor-letter-spacing;
+}
+
+@mixin type-mobile-h3 {
+  font-family: typography.$font-mobile-h3-family;
+  font-size: typography.$font-mobile-h3-size;
+  font-weight: typography.$font-mobile-h3-weight;
+  line-height: typography.$font-mobile-h3-line-height;
+  letter-spacing: typography.$font-mobile-h3-letter-spacing;
+}
+
+@mixin type-mobile-h4 {
+  font-family: typography.$font-mobile-h4-family;
+  font-size: typography.$font-mobile-h4-size;
+  font-weight: typography.$font-mobile-h4-weight;
+  line-height: typography.$font-mobile-h4-line-height;
+  letter-spacing: typography.$font-mobile-h4-letter-spacing;
+}
+
+@mixin type-mobile-text-s {
+  font-family: typography.$font-mobile-body-text-s-family;
+  font-size: typography.$font-mobile-body-text-s-size;
+  font-weight: typography.$font-mobile-body-text-s-weight;
+  line-height: typography.$font-mobile-body-text-s-line-height;
+  letter-spacing: typography.$font-mobile-body-text-s-letter-spacing;
+}
+
+@mixin type-mobile-h2 {
+  font-family: typography.$font-mobile-h2-family;
+  font-size: typography.$font-mobile-h2-size;
+  font-weight: typography.$font-mobile-h2-weight;
+  line-height: typography.$font-mobile-h2-line-height;
+  letter-spacing: typography.$font-mobile-h2-letter-spacing;
+}
+
+@mixin type-mobile-descriptor {
+  font-family: typography.$font-mobile-descriptor-family;
+  font-size: typography.$font-mobile-descriptor-size;
+  font-weight: typography.$font-mobile-descriptor-weight;
+  line-height: typography.$font-mobile-descriptor-line-height;
+  letter-spacing: typography.$font-mobile-descriptor-letter-spacing;
+}
+
+@mixin type-desktop-menu-link {
+  font-family: typography.$font-desktop-menu-link-family;
+  font-size: typography.$font-desktop-menu-link-size;
+  font-weight: typography.$font-desktop-menu-link-weight;
+  line-height: typography.$font-desktop-menu-link-line-height;
+  letter-spacing: typography.$font-desktop-menu-link-letter-spacing;
+}
+
+@mixin type-desktop-link {
+  font-family: typography.$font-desktop-link-family;
+  font-size: typography.$font-desktop-link-size;
+  font-weight: typography.$font-desktop-link-weight;
+  line-height: typography.$font-desktop-link-line-height;
+  letter-spacing: typography.$font-desktop-link-letter-spacing;
+}
+
+@mixin type-mobile-link {
+  font-family: typography.$font-mobile-link-family;
+  font-size: typography.$font-mobile-link-size;
+  font-weight: typography.$font-mobile-link-weight;
+  line-height: typography.$font-mobile-link-line-height;
+  letter-spacing: typography.$font-mobile-link-letter-spacing;
+}
+
+@mixin type-desktop-text-l {
+  font-family: typography.$font-desktop-text-l-family;
+  font-size: typography.$font-desktop-text-l-size;
+  font-weight: typography.$font-desktop-text-l-weight;
+  line-height: typography.$font-desktop-text-l-line-height;
+  letter-spacing: typography.$font-desktop-text-l-letter-spacing;
+}
+
+@mixin type-desktop-text-m {
+  font-family: typography.$font-desktop-text-m-family;
+  font-size: typography.$font-desktop-text-m-size;
+  font-weight: typography.$font-desktop-text-m-weight;
+  line-height: typography.$font-desktop-text-m-line-height;
+  letter-spacing: typography.$font-desktop-text-m-letter-spacing;
+}
+
+@mixin type-mobile-text-l {
+  font-family: typography.$font-mobile-body-text-l-family;
+  font-size: typography.$font-mobile-body-text-l-size;
+  font-weight: typography.$font-mobile-body-text-l-weight;
+  line-height: typography.$font-mobile-body-text-l-line-height;
+  letter-spacing: typography.$font-mobile-body-text-l-letter-spacing;
+}
+
+@mixin type-mobile-text-m {
+  font-family: typography.$font-mobile-body-text-m-family;
+  font-size: typography.$font-mobile-body-text-m-size;
+  font-weight: typography.$font-mobile-body-text-m-weight;
+  line-height: typography.$font-mobile-body-text-m-line-height;
+  letter-spacing: typography.$font-mobile-body-text-m-letter-spacing;
+}
+
+@mixin type-desktop-h1 {
+  font-family: typography.$font-desktop-h1-family;
+  font-size: typography.$font-desktop-h1-size;
+  font-weight: typography.$font-desktop-h1-weight;
+  line-height: typography.$font-desktop-h1-line-height;
+  letter-spacing: typography.$font-desktop-h1-letter-spacing;
+}
+
+@mixin type-mobile-h1 {
+  font-family: typography.$font-mobile-h1-family;
+  font-size: typography.$font-mobile-h1-size;
+  font-weight: typography.$font-mobile-h1-weight;
+  line-height: typography.$font-mobile-h1-line-height;
+  letter-spacing: typography.$font-mobile-h1-letter-spacing;
+}
+
+@mixin type-desktop-caption {
+  font-family: typography.$font-desktop-caption-family;
+  font-size: typography.$font-desktop-caption-size;
+  font-weight: typography.$font-desktop-caption-weight;
+  line-height: typography.$font-desktop-caption-line-height;
+  letter-spacing: typography.$font-desktop-caption-letter-spacing;
+  text-transform: typography.$font-desktop-caption-text-transform;
+}
+
+@mixin type-mobile-caption {
+  font-family: typography.$font-mobile-caption-family;
+  font-size: typography.$font-mobile-caption-size;
+  font-weight: typography.$font-mobile-caption-weight;
+  line-height: typography.$font-mobile-caption-line-height;
+  letter-spacing: typography.$font-mobile-caption-letter-spacing;
+  text-transform: typography.$font-mobile-caption-text-transform;
+}

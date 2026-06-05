@@ -1,0 +1,34 @@
+@use "ui-tokens";
+
+// Block: social-link — LinkedIn icon swap (Figma 9937:10086)
+
+.social-link {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity ui-tokens.$ui-transition-fast;
+  }
+
+  .social-link__icon--hover {
+    opacity: 0;
+  }
+
+  &:hover {
+    .social-link__icon--default {
+      opacity: 0;
+    }
+
+    .social-link__icon--hover {
+      opacity: 1;
+    }
+  }
+}

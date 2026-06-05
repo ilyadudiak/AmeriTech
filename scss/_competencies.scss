@@ -1,0 +1,317 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: competencies — Core Competencies (Desktop 9846:2377 / Mobile 9858:3344)
+// Layout: 2-col fluid ≥768px → 1-col stack <768px (not tied to header 1024px breakpoint)
+
+.competencies {
+  padding: ui-tokens.$competencies-offset-top-desktop variables.$layout-gutter 0;
+}
+
+.competencies__card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: variables.$layout-max-width;
+  margin: 0 auto;
+  border-radius: ui-tokens.$ui-card-radius;
+  background: linear-gradient(
+    180deg,
+    colors.$color-dark-blue 0%,
+    colors.$color-cover-gradient-end ui-tokens.$competencies-gradient-stop
+  );
+}
+
+.competencies__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.competencies__bg-art {
+  position: absolute;
+  top: ui-tokens.$competencies-bg-lines-top-desktop;
+  left: ui-tokens.$competencies-bg-lines-left-desktop;
+  width: ui-tokens.$competencies-bg-lines-width;
+  height: ui-tokens.$competencies-bg-lines-height;
+}
+
+.competencies__bg-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+}
+
+.competencies__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: ui-tokens.$competencies-padding-top-desktop variables.$layout-gutter
+    ui-tokens.$competencies-padding-bottom-desktop;
+}
+
+.competencies__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+}
+
+.competencies__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$competencies-label-padding-y ui-tokens.$competencies-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-white-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-white;
+  white-space: nowrap;
+  @include ui-tokens.type-desktop-descriptor;
+}
+
+.competencies__title {
+  margin: ui-tokens.$competencies-header-gap 0 0;
+  color: colors.$color-white;
+  @include ui-tokens.type-desktop-h2;
+}
+
+.competencies__title-break {
+  display: none;
+}
+
+.competencies__lead {
+  margin: ui-tokens.$competencies-header-gap 0 0;
+  color: colors.$color-white;
+  opacity: ui-tokens.$competencies-text-opacity;
+  @include ui-tokens.type-desktop-text-l;
+
+  &--mobile {
+    display: none;
+  }
+
+  &--desktop {
+    align-self: center;
+    max-width: ui-tokens.$competencies-lead-max-width;
+    text-align: center;
+  }
+}
+
+.competencies__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: ui-tokens.$competencies-grid-row-gap
+    clamp(
+      ui-tokens.$competencies-grid-col-gap-min,
+      7.5vw,
+      ui-tokens.$competencies-grid-col-gap-max
+    );
+  width: 100%;
+  margin: ui-tokens.$competencies-list-margin-top 0 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  transform: translateY(ui-tokens.$competencies-fade-distance);
+  transition:
+    opacity ui-tokens.$competencies-fade-duration ui-tokens.$competencies-fade-easing,
+    transform ui-tokens.$competencies-fade-duration ui-tokens.$competencies-fade-easing;
+
+  &--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.competencies__item {
+  display: flex;
+  gap: ui-tokens.$competencies-bullet-gap-desktop;
+  align-items: flex-start;
+}
+
+.competencies__item:nth-child(5) {
+  grid-column: 1;
+}
+
+.competencies__bullet {
+  flex-shrink: 0;
+  width: ui-tokens.$competencies-bullet-width;
+  height: ui-tokens.$competencies-bullet-height;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.competencies__item-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: ui-tokens.$competencies-item-body-gap-desktop;
+  min-width: 0;
+}
+
+.competencies__item-title {
+  margin: 0;
+  color: colors.$color-white;
+  @include ui-tokens.type-desktop-h3;
+}
+
+.competencies__item-title-break {
+  display: none;
+}
+
+.competencies__item-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: ui-tokens.$competencies-item-line-color;
+}
+
+.competencies__item-text {
+  margin: 0;
+  color: colors.$color-white;
+  opacity: ui-tokens.$competencies-text-opacity;
+  @include ui-tokens.type-desktop-text-m;
+}
+
+.competencies__actions {
+  align-self: center;
+  margin-top: ui-tokens.$competencies-actions-margin-top-desktop;
+}
+
+.competencies__btn--desktop {
+  display: inline-flex;
+}
+
+.competencies__btn--mobile {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .competencies__list {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+// ─── Stack layout (9858:3344) — single column below 768px ───────────────────
+
+@media (max-width: ui-tokens.$competencies-breakpoint-stack - 1px) {
+  .competencies {
+    padding: ui-tokens.$competencies-offset-top-mobile ui-tokens.$competencies-mobile-gutter 0;
+  }
+
+  .competencies__bg-art {
+    top: ui-tokens.$competencies-bg-lines-top-mobile;
+    left: ui-tokens.$competencies-bg-lines-left-mobile;
+  }
+
+  .competencies__inner {
+    padding: ui-tokens.$competencies-padding-top-mobile ui-tokens.$competencies-mobile-inner-padding
+      ui-tokens.$competencies-padding-bottom-mobile;
+  }
+
+  .competencies__header {
+    margin-bottom: ui-tokens.$competencies-header-to-list-mobile;
+  }
+
+  .competencies__label {
+    @include ui-tokens.type-mobile-descriptor;
+  }
+
+  .competencies__title {
+    @include ui-tokens.type-mobile-h2;
+  }
+
+  .competencies__title-break {
+    display: block;
+  }
+
+  .competencies__lead--desktop {
+    display: none;
+  }
+
+  .competencies__lead--mobile {
+    display: block;
+    width: 100%;
+    margin: ui-tokens.$competencies-lead-margin-top-mobile 0 0;
+    text-align: center;
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .competencies__list {
+    display: flex;
+    flex-direction: column;
+    gap: ui-tokens.$competencies-list-gap-mobile;
+    margin-top: 0;
+  }
+
+  .competencies__item:nth-child(1) {
+    order: 1;
+  }
+
+  .competencies__item:nth-child(2) {
+    order: 4;
+  }
+
+  .competencies__item:nth-child(3) {
+    order: 2;
+  }
+
+  .competencies__item:nth-child(4) {
+    order: 5;
+  }
+
+  .competencies__item:nth-child(5) {
+    order: 3;
+    grid-column: auto;
+  }
+
+  .competencies__item {
+    gap: ui-tokens.$competencies-bullet-gap-mobile;
+  }
+
+  .competencies__item-body {
+    gap: ui-tokens.$competencies-item-body-gap-mobile;
+  }
+
+  .competencies__item-title-break {
+    display: block;
+  }
+
+  .competencies__item:first-child .competencies__item-title {
+    max-width: ui-tokens.$competencies-item-1-title-max-width-mobile;
+  }
+
+  .competencies__item-title {
+    @include ui-tokens.type-mobile-h3;
+  }
+
+  .competencies__item-text {
+    @include ui-tokens.type-mobile-text-m;
+  }
+
+  .competencies__actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: ui-tokens.$competencies-actions-margin-top-mobile;
+  }
+
+  .competencies__btn--desktop {
+    display: none;
+  }
+
+  .competencies__btn--mobile {
+    display: inline-flex;
+  }
+}

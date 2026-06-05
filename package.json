@@ -1,0 +1,16 @@
+{
+  "name": "ameritech",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "sass": "sass --watch scss:css --style=expanded --poll",
+    "serve": "live-server --port=3000 --watch=css,js,index.html",
+    "dev": "npm-run-all --parallel sass serve",
+    "build:css": "sass scss:css --style=compressed --no-source-map"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "npm-run-all": "^4.1.5",
+    "sass": "~1.77.8"
+  }
+}

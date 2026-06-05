@@ -1,0 +1,196 @@
+// Typography tokens — AmeriTech Figma (node 9892:5122)
+// 26 text styles: 14 Desktop + 12 Mobile
+
+$font-family-aspekta: "Aspekta Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+// Letter spacing in Figma is in percent (-4 = -4%, 0 = 0%)
+$font-letter-spacing-tight: -0.04em;
+$font-letter-spacing-normal: 0;
+
+// ─── Desktop ───────────────────────────────────────────────────────────────
+
+// Desktop / H1
+$font-desktop-h1-family: $font-family-aspekta;
+$font-desktop-h1-size: 80px;
+$font-desktop-h1-weight: 470;
+$font-desktop-h1-line-height: 0.94;
+$font-desktop-h1-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / H2
+$font-desktop-h2-family: $font-family-aspekta;
+$font-desktop-h2-size: 54px;
+$font-desktop-h2-weight: 440;
+$font-desktop-h2-line-height: 1;
+$font-desktop-h2-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / H3
+$font-desktop-h3-family: $font-family-aspekta;
+$font-desktop-h3-size: 32px;
+$font-desktop-h3-weight: 440;
+$font-desktop-h3-line-height: 1;
+$font-desktop-h3-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / H4
+$font-desktop-h4-family: $font-family-aspekta;
+$font-desktop-h4-size: 24px;
+$font-desktop-h4-weight: 440;
+$font-desktop-h4-line-height: 1;
+$font-desktop-h4-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Menu Link
+$font-desktop-menu-link-family: $font-family-aspekta;
+$font-desktop-menu-link-size: 54px;
+$font-desktop-menu-link-weight: 440;
+$font-desktop-menu-link-line-height: 1;
+$font-desktop-menu-link-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Text L (Body Text [L])
+$font-desktop-text-l-family: $font-family-aspekta;
+$font-desktop-text-l-size: 20px;
+$font-desktop-text-l-weight: 420;
+$font-desktop-text-l-line-height: 1.2;
+$font-desktop-text-l-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Text M (Body Text [M])
+$font-desktop-text-m-family: $font-family-aspekta;
+$font-desktop-text-m-size: 18px;
+$font-desktop-text-m-weight: 420;
+$font-desktop-text-m-line-height: 1.2;
+$font-desktop-text-m-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Text S (Body Text [S])
+$font-desktop-text-s-family: $font-family-aspekta;
+$font-desktop-text-s-size: 16px;
+$font-desktop-text-s-weight: 400;
+$font-desktop-text-s-line-height: 1.1;
+$font-desktop-text-s-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Navbar Link
+$font-desktop-navbar-link-family: $font-family-aspekta;
+$font-desktop-navbar-link-size: 18px;
+$font-desktop-navbar-link-weight: 420;
+$font-desktop-navbar-link-line-height: 1.2;
+$font-desktop-navbar-link-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Link
+$font-desktop-link-family: $font-family-aspekta;
+$font-desktop-link-size: 20px;
+$font-desktop-link-weight: 470;
+$font-desktop-link-line-height: 1;
+$font-desktop-link-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Descriptor
+$font-desktop-descriptor-family: $font-family-aspekta;
+$font-desktop-descriptor-size: 20px;
+$font-desktop-descriptor-weight: 470;
+$font-desktop-descriptor-line-height: 1;
+$font-desktop-descriptor-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Button
+$font-desktop-button-family: $font-family-aspekta;
+$font-desktop-button-size: 20px;
+$font-desktop-button-weight: 470;
+$font-desktop-button-line-height: 1;
+$font-desktop-button-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Tag
+$font-desktop-tag-family: $font-family-aspekta;
+$font-desktop-tag-size: 16px;
+$font-desktop-tag-weight: 400;
+$font-desktop-tag-line-height: 1;
+$font-desktop-tag-letter-spacing: $font-letter-spacing-tight;
+
+// Desktop / Caption
+$font-desktop-caption-family: $font-family-aspekta;
+$font-desktop-caption-size: 16px;
+$font-desktop-caption-weight: 560;
+$font-desktop-caption-line-height: 1.2;
+$font-desktop-caption-letter-spacing: $font-letter-spacing-normal;
+$font-desktop-caption-text-transform: uppercase;
+
+// ─── Mobile ────────────────────────────────────────────────────────────────
+
+// Mobile / H1
+$font-mobile-h1-family: $font-family-aspekta;
+$font-mobile-h1-size: 44px;
+$font-mobile-h1-weight: 470;
+$font-mobile-h1-line-height: 0.94;
+$font-mobile-h1-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / H2
+$font-mobile-h2-family: $font-family-aspekta;
+$font-mobile-h2-size: 32px;
+$font-mobile-h2-weight: 440;
+$font-mobile-h2-line-height: 32px;
+$font-mobile-h2-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / H3
+$font-mobile-h3-family: $font-family-aspekta;
+$font-mobile-h3-size: 24px;
+$font-mobile-h3-weight: 440;
+$font-mobile-h3-line-height: 24px;
+$font-mobile-h3-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / H4
+$font-mobile-h4-family: $font-family-aspekta;
+$font-mobile-h4-size: 20px;
+$font-mobile-h4-weight: 440;
+$font-mobile-h4-line-height: 1;
+$font-mobile-h4-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / Body Text / L
+$font-mobile-body-text-l-family: $font-family-aspekta;
+$font-mobile-body-text-l-size: 18px;
+$font-mobile-body-text-l-weight: 420;
+$font-mobile-body-text-l-line-height: 22px;
+$font-mobile-body-text-l-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / Body Text / M
+$font-mobile-body-text-m-family: $font-family-aspekta;
+$font-mobile-body-text-m-size: 16px;
+$font-mobile-body-text-m-weight: 420;
+$font-mobile-body-text-m-line-height: 19px;
+$font-mobile-body-text-m-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / Body Text / S
+$font-mobile-body-text-s-family: $font-family-aspekta;
+$font-mobile-body-text-s-size: 14px;
+$font-mobile-body-text-s-weight: 400;
+$font-mobile-body-text-s-line-height: 1.09;
+$font-mobile-body-text-s-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / Link
+$font-mobile-link-family: $font-family-aspekta;
+$font-mobile-link-size: 16px;
+$font-mobile-link-weight: 470;
+$font-mobile-link-line-height: 1;
+$font-mobile-link-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / Descriptor
+$font-mobile-descriptor-family: $font-family-aspekta;
+$font-mobile-descriptor-size: 16px;
+$font-mobile-descriptor-weight: 470;
+$font-mobile-descriptor-line-height: 16px;
+$font-mobile-descriptor-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / Button
+$font-mobile-button-family: $font-family-aspekta;
+$font-mobile-button-size: 16px;
+$font-mobile-button-weight: 470;
+$font-mobile-button-line-height: 1;
+$font-mobile-button-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / Tag
+$font-mobile-tag-family: $font-family-aspekta;
+$font-mobile-tag-size: 14px;
+$font-mobile-tag-weight: 400;
+$font-mobile-tag-line-height: 1;
+$font-mobile-tag-letter-spacing: $font-letter-spacing-tight;
+
+// Mobile / Caption
+$font-mobile-caption-family: $font-family-aspekta;
+$font-mobile-caption-size: 12px;
+$font-mobile-caption-weight: 560;
+$font-mobile-caption-line-height: 1.2;
+$font-mobile-caption-letter-spacing: $font-letter-spacing-normal;
+$font-mobile-caption-text-transform: uppercase;

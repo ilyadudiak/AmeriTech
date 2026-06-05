@@ -1,0 +1,129 @@
+@use "colors";
+@use "ui-tokens";
+
+// Block: content-card — Capabilities & News cards
+// Modifier: --capabilities | --news, --desktop | --mobile, --hover
+
+.content-card {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$ui-card-gap;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.content-card__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: ui-tokens.$ui-card-radius;
+  background-color: colors.$color-white;
+}
+
+.content-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content-card__action {
+  position: absolute;
+  z-index: 2;
+  left: ui-tokens.$ui-card-padding;
+  transition: bottom ui-tokens.$ui-transition-fast;
+}
+
+.content-card__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-card__date {
+  margin: 0;
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+}
+
+.content-card__title {
+  margin: 0;
+  color: colors.$color-black;
+}
+
+.content-card__text {
+  margin: 0;
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+}
+
+// ─── Desktop ───────────────────────────────────────────────────────────────
+
+.content-card--desktop {
+  max-width: ui-tokens.$ui-content-card-width;
+
+  .content-card__media {
+    height: ui-tokens.$ui-content-card-height;
+  }
+
+  .content-card__action {
+    bottom: ui-tokens.$ui-project-card-btn-offset-default;
+  }
+
+  .content-card__title {
+    @include ui-tokens.type-desktop-h3;
+  }
+
+  .content-card__text {
+    @include ui-tokens.type-desktop-text-l;
+    max-width: 676px;
+  }
+
+  .content-card__date {
+    @include ui-tokens.type-desktop-text-m;
+  }
+
+  &:hover,
+  &.content-card--hover {
+    .content-card__action {
+      bottom: ui-tokens.$ui-card-padding;
+    }
+  }
+}
+
+.content-card--capabilities.content-card--desktop .content-card__info {
+  gap: ui-tokens.$ui-card-info-gap;
+}
+
+.content-card--news.content-card--desktop .content-card__info {
+  gap: ui-tokens.$ui-card-info-gap-tight;
+}
+
+// ─── Mobile ────────────────────────────────────────────────────────────────
+
+.content-card--mobile {
+  max-width: ui-tokens.$ui-content-card-mobile-size;
+
+  .content-card__media {
+    aspect-ratio: 1;
+  }
+
+  .content-card__action {
+    left: ui-tokens.$ui-card-mobile-padding;
+    bottom: ui-tokens.$ui-card-mobile-padding;
+  }
+
+  .content-card__title {
+    @include ui-tokens.type-mobile-h3;
+  }
+
+  .content-card__text {
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .content-card__date {
+    @include ui-tokens.type-mobile-text-m;
+  }
+
+  .content-card__info {
+    gap: ui-tokens.$ui-card-info-gap;
+  }
+}

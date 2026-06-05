@@ -1,0 +1,480 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+@use "typography";
+
+// Block: menu-overlay — Desktop nav panel (Figma 9909:7209 / 9895:8409)
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+}
+
+.menu-overlay__desktop {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.menu-overlay--open .menu-overlay__desktop {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.menu-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: ui-tokens.$menu-overlay-shadow;
+  opacity: 0;
+  transition: opacity ui-tokens.$menu-transition-backdrop;
+
+  .menu-overlay--open & {
+    opacity: 1;
+  }
+}
+
+.menu-overlay__panel {
+  position: absolute;
+  top: ui-tokens.$menu-panel-inset-mobile;
+  right: ui-tokens.$menu-panel-inset-mobile;
+  bottom: ui-tokens.$menu-panel-inset-mobile;
+  left: ui-tokens.$menu-panel-inset-mobile;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: ui-tokens.$menu-panel-radius;
+  background: colors.$color-white;
+  opacity: 0;
+  transform: translateY(-20px) scale(0.985);
+  transition:
+    transform ui-tokens.$menu-transition-panel,
+    opacity ui-tokens.$menu-transition-panel;
+
+  .menu-overlay--open & {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.menu-overlay__top {
+  flex-shrink: 0;
+  position: relative;
+  min-height: ui-tokens.$header-logo-height-desktop;
+  padding: ui-tokens.$menu-panel-nav-top ui-tokens.$menu-panel-inset-desktop 0;
+}
+
+.menu-overlay__logo {
+  position: absolute;
+  top: ui-tokens.$header-logo-top-desktop;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  width: ui-tokens.$header-logo-width-desktop;
+  height: ui-tokens.$header-logo-height-desktop;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.menu-overlay__close {
+  display: none;
+  position: absolute;
+  top: ui-tokens.$menu-panel-close-top;
+  right: ui-tokens.$menu-panel-close-right;
+  width: 42px;
+  height: 35px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-overlay__close-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 2px;
+  background: colors.$color-black;
+  transform-origin: center;
+  transition: transform ui-tokens.$menu-transition-burger;
+
+  &:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+.menu-overlay__nav {
+  display: none;
+  flex-wrap: wrap;
+  gap: ui-tokens.$menu-panel-nav-gap;
+  align-items: center;
+}
+
+.menu-overlay__nav-link {
+  font-family: typography.$font-desktop-navbar-link-family;
+  font-size: typography.$font-desktop-navbar-link-size;
+  font-weight: typography.$font-desktop-navbar-link-weight;
+  line-height: typography.$font-desktop-navbar-link-line-height;
+  letter-spacing: typography.$font-desktop-navbar-link-letter-spacing;
+  color: colors.$color-black;
+  text-decoration: none;
+  transition: opacity ui-tokens.$ui-transition-fast;
+
+  &:hover {
+    opacity: ui-tokens.$header-link-hover-opacity;
+  }
+}
+
+.menu-overlay__nav-link--inactive {
+  opacity: ui-tokens.$ui-opacity-inactive;
+}
+
+.menu-overlay__nav-link--active {
+  opacity: 1;
+}
+
+.menu-overlay__body {
+  flex: 1;
+  min-height: 0;
+  padding: 24px ui-tokens.$header-gutter 0;
+  overflow-y: auto;
+}
+
+.menu-overlay__links-column {
+  position: relative;
+  width: 100%;
+}
+
+.menu-overlay__links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  max-width: ui-tokens.$menu-panel-links-max-width;
+  overflow: visible;
+}
+
+.menu-overlay__entry {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  flex-shrink: 0;
+  padding-bottom: ui-tokens.$menu-panel-body-gap;
+  border-bottom: 1px solid ui-tokens.$menu-panel-divider-color;
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+}
+
+.menu-overlay__link.menu-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  width: fit-content;
+  max-width: 100%;
+  min-height: ui-tokens.$ui-menu-link-height;
+  padding: 9px 0;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity ui-tokens.$ui-transition-fast;
+
+  .menu-overlay--open & {
+    opacity: 1;
+  }
+
+  @for $i from 1 through 8 {
+    .menu-overlay--open .menu-overlay__entry:nth-child(#{$i}) & {
+      transition-delay: #{0.12 + ($i - 1) * ui-tokens.$menu-stagger-step};
+    }
+  }
+
+  @media (hover: hover) {
+    .menu-overlay__links:hover .menu-overlay__entry &:not(:hover) {
+      opacity: ui-tokens.$ui-opacity-link-inactive;
+      transition-delay: 0s;
+    }
+
+    .menu-overlay__links:hover .menu-overlay__entry &:hover {
+      opacity: 1;
+      transition-delay: 0s;
+    }
+  }
+
+  .menu-link__text {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .menu-link__arrow {
+    transform: translateY(ui-tokens.$ui-menu-link-arrow-single-line-offset);
+  }
+
+  &--wrap {
+    display: flex;
+    width: 100%;
+    min-height: 0;
+    align-items: center;
+
+    .menu-link__text {
+      flex: 1 1 auto;
+    }
+
+    .menu-link__arrow {
+      transform: none;
+    }
+  }
+}
+
+.menu-overlay__visual {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 220px;
+  margin-top: 28px;
+  border-radius: ui-tokens.$menu-panel-radius;
+  background: linear-gradient(
+    180deg,
+    colors.$color-dark-blue 0%,
+    colors.$color-cover-gradient-end ui-tokens.$cover-gradient-stop
+  );
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.4s ease 0.2s,
+    transform 0.4s ease 0.2s;
+
+  .menu-overlay--open & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-overlay__visual-img,
+.menu-overlay__visual-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+.menu-overlay__visual-video {
+  display: block;
+  background: colors.$color-black;
+}
+
+.menu-overlay__visual-img[hidden],
+.menu-overlay__visual-video[hidden] {
+  display: none !important;
+}
+
+.menu-overlay__footer {
+  display: grid;
+  flex-shrink: 0;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 12px;
+  min-height: ui-tokens.$menu-panel-footer-height;
+  padding: 20px ui-tokens.$header-gutter 24px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.35s ease 0.25s,
+    transform 0.35s ease 0.25s;
+
+  .menu-overlay--open & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-overlay__tagline {
+  margin: 0;
+  max-width: 297px;
+  color: colors.$color-black;
+  opacity: 0.6;
+  text-transform: uppercase;
+  @include ui-tokens.type-desktop-caption;
+}
+
+.menu-overlay__phone {
+  justify-self: center;
+  color: colors.$color-black;
+  opacity: 0.6;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity ui-tokens.$ui-transition-fast;
+  @include ui-tokens.type-desktop-text-m;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.menu-overlay__social {
+  justify-self: end;
+}
+
+// ─── Desktop layout (9909:7209) ────────────────────────────────────────────
+
+@media (min-width: variables.$breakpoint-header-desktop) {
+  .menu-overlay {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .menu-overlay--open {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .menu-overlay__panel {
+    top: ui-tokens.$menu-panel-inset-desktop;
+    right: ui-tokens.$menu-panel-inset-desktop;
+    bottom: ui-tokens.$menu-panel-inset-desktop;
+    left: ui-tokens.$menu-panel-inset-desktop;
+  }
+
+  .menu-overlay__close {
+    display: block;
+  }
+
+  .menu-overlay__top {
+    min-height: ui-tokens.$header-logo-height-desktop;
+    padding: ui-tokens.$menu-panel-nav-top ui-tokens.$menu-panel-inset-desktop 0;
+  }
+
+  .menu-overlay__nav {
+    display: flex;
+  }
+
+  .menu-overlay__nav--left {
+    max-width: calc(50% - 100px);
+  }
+
+  .menu-overlay__nav--right {
+    position: absolute;
+    top: ui-tokens.$menu-panel-nav-top;
+    right: ui-tokens.$menu-panel-nav-right-offset;
+  }
+
+  .menu-overlay__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+    padding: 0 ui-tokens.$menu-panel-inset-desktop;
+    margin-top: calc(ui-tokens.$menu-panel-body-top - 103px);
+    overflow: visible;
+  }
+
+  .menu-overlay__links-column {
+    align-self: start;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: ui-tokens.$menu-panel-links-fade-height;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity ui-tokens.$ui-transition-fast;
+    }
+
+    &::before {
+      top: 0;
+      background: linear-gradient(180deg, colors.$color-white 0%, transparent 100%);
+    }
+
+    &::after {
+      bottom: 0;
+      background: linear-gradient(0deg, colors.$color-white 0%, transparent 100%);
+    }
+
+    &--fade-top::before {
+      opacity: 1;
+    }
+
+    &--fade-bottom::after {
+      opacity: 1;
+    }
+
+    &--scrollable {
+      max-height: ui-tokens.$menu-panel-links-viewport;
+      overflow: hidden;
+    }
+  }
+
+  .menu-overlay__links--scrollable {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: ui-tokens.$menu-panel-links-viewport;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menu-overlay__entry {
+    border-bottom-color: ui-tokens.$menu-panel-divider-color;
+  }
+
+  .menu-overlay__visual {
+    height: ui-tokens.$menu-panel-visual-height;
+    margin-top: 0;
+  }
+
+  .menu-overlay__footer {
+    padding: 0 ui-tokens.$menu-panel-inset-desktop 32px;
+    margin-top: auto;
+  }
+
+  .menu-overlay__tagline {
+    align-self: center;
+  }
+
+  .menu-overlay__phone {
+    align-self: center;
+  }
+}
+
+@media (min-width: variables.$breakpoint-header-desktop) and (max-width: variables.$breakpoint-header-tablet) {
+  .menu-overlay__nav {
+    gap: ui-tokens.$header-nav-gap-tablet;
+  }
+
+  .menu-overlay__nav-link {
+    font-size: ui-tokens.$header-nav-link-size-tablet;
+    letter-spacing: ui-tokens.$header-nav-link-ls-tablet;
+  }
+
+  .menu-overlay__nav--right {
+    right: 96px;
+  }
+
+  .menu-overlay__close {
+    right: 24px;
+  }
+}
+
+@media (max-width: variables.$breakpoint-header-desktop - 1px) {
+  .menu-overlay {
+    display: none;
+  }
+}

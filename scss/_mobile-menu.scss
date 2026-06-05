@@ -1,0 +1,227 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: mobile-menu — Expands inside header (Figma 9958:6965 / 9958:6376)
+// Navbar grows downward; nav scrolls under sticky footer with fade.
+
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: variables.$breakpoint-header-desktop - 1px) {
+  .header__drawer {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity ui-tokens.$mobile-menu-transition;
+  }
+
+  .header--menu-open .header__drawer {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-menu__panel {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    background: colors.$color-white;
+  }
+
+  .mobile-menu__nav {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    min-height: 0;
+    width: 100%;
+    max-width: ui-tokens.$mobile-menu-content-width;
+    margin: 0 auto;
+    padding: 0 ui-tokens.$mobile-menu-gutter 48px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-menu__item {
+    border-top: 1px solid ui-tokens.$mobile-menu-divider-color;
+  }
+
+  .mobile-menu__group {
+    width: 100%;
+  }
+
+  .mobile-menu__row {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: ui-tokens.$mobile-menu-row-min-height;
+    padding: ui-tokens.$mobile-menu-row-padding-y 0;
+    border: 0;
+    background: transparent;
+    color: colors.$color-black;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .mobile-menu__row--trigger {
+    font: inherit;
+  }
+
+  .mobile-menu__label {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: ui-tokens.$mobile-menu-label-max-width;
+    @include ui-tokens.type-mobile-h3;
+  }
+
+  .mobile-menu__icon {
+    position: relative;
+    flex-shrink: 0;
+    width: ui-tokens.$mobile-menu-chevron-size;
+    height: ui-tokens.$mobile-menu-chevron-size;
+  }
+
+  .mobile-menu__icon--chevron .mobile-menu__chevron {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity ui-tokens.$mobile-menu-chevron-duration ease;
+  }
+
+  .mobile-menu__chevron--up {
+    opacity: 0;
+  }
+
+  .mobile-menu__group--open .mobile-menu__chevron--down {
+    opacity: 0;
+  }
+
+  .mobile-menu__group--open .mobile-menu__chevron--up {
+    opacity: 1;
+  }
+
+  .mobile-menu__nav-arrow {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mobile-menu__subnav-wrap {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height ui-tokens.$mobile-menu-accordion-duration
+      ui-tokens.$mobile-menu-accordion-easing;
+  }
+
+  .mobile-menu__group--open .mobile-menu__subnav-wrap {
+    max-height: ui-tokens.$mobile-menu-subnav-max-height;
+  }
+
+  .mobile-menu__subnav {
+    display: flex;
+    flex-direction: column;
+    gap: ui-tokens.$mobile-menu-subnav-gap;
+    padding: 0 0 ui-tokens.$mobile-menu-row-padding-y ui-tokens.$mobile-menu-subnav-indent;
+  }
+
+  .mobile-menu__sublink {
+    display: flex;
+    align-items: flex-start;
+    gap: ui-tokens.$mobile-menu-sublink-gap;
+    width: 100%;
+    color: colors.$color-black;
+    text-decoration: none;
+    transition: opacity ui-tokens.$ui-transition-fast;
+
+    &:hover {
+      opacity: ui-tokens.$header-link-hover-opacity;
+    }
+  }
+
+  .mobile-menu__sublink-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    @include ui-tokens.type-mobile-h4;
+  }
+
+  .mobile-menu__sublink-icon {
+    flex-shrink: 0;
+    width: ui-tokens.$mobile-menu-sublink-arrow-size;
+    height: ui-tokens.$mobile-menu-sublink-arrow-size;
+    margin-top: 2px;
+  }
+
+  .mobile-menu__footer {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: auto;
+    padding: ui-tokens.$mobile-menu-footer-padding-top ui-tokens.$mobile-menu-footer-padding-x
+      ui-tokens.$mobile-menu-footer-padding-bottom;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      colors.$color-white ui-tokens.$mobile-menu-footer-fade-stop
+    );
+  }
+
+  .mobile-menu__contacts {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: ui-tokens.$mobile-menu-footer-contacts-height;
+    gap: ui-tokens.$mobile-menu-gutter;
+  }
+
+  .mobile-menu__contact {
+    flex-shrink: 0;
+  }
+
+  .mobile-menu__phone {
+    flex: 1 1 auto;
+    min-width: 0;
+    color: colors.$color-black;
+    opacity: 0.6;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity ui-tokens.$ui-transition-fast;
+    @include ui-tokens.type-mobile-text-m;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .header__drawer,
+    .mobile-menu__subnav-wrap,
+    .mobile-menu__icon--chevron .mobile-menu__chevron {
+      transition: none;
+    }
+  }
+}
+
+@media (min-width: variables.$breakpoint-header-desktop) {
+  .header__drawer {
+    display: none !important;
+  }
+}

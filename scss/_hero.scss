@@ -1,0 +1,141 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: hero — Cover content (9846:2378 / 9849:2324)
+
+.hero {
+  position: relative;
+  z-index: 2;
+  max-width: variables.$layout-max-width;
+  min-height: ui-tokens.$cover-min-height-desktop;
+  margin: 0 auto;
+  padding: calc(ui-tokens.$header-height-desktop + ui-tokens.$cover-hero-offset-desktop)
+    variables.$layout-gutter ui-tokens.$cover-hero-padding-bottom-desktop;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  max-width: ui-tokens.$cover-hero-content-max-width;
+  min-height: ui-tokens.$cover-hero-content-min-height;
+}
+
+.hero__title {
+  margin: 0;
+  color: colors.$color-white;
+  @include ui-tokens.type-desktop-h1;
+}
+
+.hero__text {
+  max-width: ui-tokens.$cover-hero-text-max-width;
+  margin: ui-tokens.$cover-hero-title-text-gap 0 0;
+  color: colors.$color-white;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: stretch;
+  width: fit-content;
+  margin-top: auto;
+}
+
+.hero__btn-label--mobile {
+  display: none;
+}
+
+.hero__tagline {
+  position: absolute;
+  top: ui-tokens.$cover-tagline-top-desktop;
+  right: variables.$layout-gutter;
+  width: ui-tokens.$cover-tagline-width-desktop;
+  margin: 0;
+  color: colors.$color-white;
+  text-align: right;
+  opacity: ui-tokens.$ui-opacity-muted;
+  @include ui-tokens.type-desktop-caption;
+}
+
+// ─── Tablet ────────────────────────────────────────────────────────────────
+
+@media (max-width: variables.$breakpoint-header-tablet) {
+  .hero {
+    padding-top: calc(ui-tokens.$header-height-desktop + 320px);
+  }
+
+  .hero__title {
+    font-size: clamp(48px, 5vw, 80px);
+  }
+
+  .hero__tagline {
+    top: 480px;
+    width: 260px;
+    font-size: 14px;
+  }
+}
+
+// ─── Nav collapse (≤1023px) — Mobile Cover 9849:2324 ───────────────────────
+
+@media (max-width: variables.$breakpoint-header-desktop - 1px) {
+  .hero {
+    min-height: 0;
+    padding: calc(ui-tokens.$header-height-mobile + ui-tokens.$cover-hero-offset-mobile)
+      variables.$layout-gutter ui-tokens.$cover-hero-padding-bottom-mobile;
+  }
+
+  .hero__content {
+    max-width: none;
+    min-height: 0;
+    margin-top: ui-tokens.$cover-hero-content-margin-top-mobile;
+  }
+
+  .hero__title {
+    @include ui-tokens.type-mobile-h1;
+  }
+
+  .hero__text {
+    max-width: none;
+    margin-top: ui-tokens.$cover-hero-title-text-gap-mobile;
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .hero__actions {
+    margin-top: ui-tokens.$cover-hero-actions-margin-top-mobile;
+  }
+
+  .hero__btn-label--desktop {
+    display: none;
+  }
+
+  .hero__btn-label--mobile {
+    display: inline;
+  }
+
+  .hero__tagline {
+    position: static;
+    width: 100%;
+    max-width: ui-tokens.$cover-tagline-max-width-mobile;
+    margin: 0;
+    line-height: 1.05;
+    text-align: left;
+    opacity: 1;
+    @include ui-tokens.type-mobile-caption;
+  }
+}
+
+// ─── Desktop button (≥1024px) ──────────────────────────────────────────────
+
+@media (min-width: variables.$breakpoint-header-desktop) {
+  .hero__btn.btn--mobile {
+    .btn__label {
+      padding: ui-tokens.$ui-btn-desktop-padding-y ui-tokens.$ui-btn-desktop-padding-x;
+      @include ui-tokens.type-desktop-button;
+    }
+
+    .btn__arrow {
+      width: ui-tokens.$ui-btn-desktop-arrow-size;
+      height: ui-tokens.$ui-btn-desktop-arrow-size;
+    }
+  }
+}

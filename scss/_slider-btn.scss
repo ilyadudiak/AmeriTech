@@ -1,0 +1,53 @@
+@use "colors";
+@use "ui-tokens";
+
+// Block: slider-btn — Slider / Page Number Button
+// States: default, :hover / --state-hover, --inactive
+
+.slider-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: ui-tokens.$ui-slider-btn-size;
+  height: ui-tokens.$ui-slider-btn-size;
+  padding: 0;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-radius-sm;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color ui-tokens.$ui-transition-fast,
+    border-color ui-tokens.$ui-transition-fast,
+    opacity ui-tokens.$ui-transition-fast;
+
+  img {
+    width: 12px;
+    height: 6px;
+    transform: rotate(-90deg);
+  }
+
+  &:hover:not(:disabled):not(.slider-btn--inactive),
+  &.slider-btn--state-hover {
+    background-color: colors.$color-dark-blue;
+    border-color: transparent;
+
+    .slider-btn__icon--default {
+      display: none;
+    }
+
+    .slider-btn__icon--hover {
+      display: block;
+    }
+  }
+
+  &:disabled,
+  &.slider-btn--inactive {
+    opacity: ui-tokens.$ui-opacity-inactive;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.slider-btn__icon--hover {
+  display: none;
+}
