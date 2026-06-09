@@ -66,6 +66,59 @@ $project-card-mask-transition:
   top: ui-tokens.$project-card-image-hover-top;
 }
 
+@mixin project-card-tall-eagle-default {
+  -webkit-mask-size: ui-tokens.$project-card-tall-eagle-default-size
+    ui-tokens.$project-card-tall-eagle-default-size;
+  mask-size: ui-tokens.$project-card-tall-eagle-default-size
+    ui-tokens.$project-card-tall-eagle-default-size;
+  -webkit-mask-position: ui-tokens.$project-card-tall-eagle-default-left
+    ui-tokens.$project-card-tall-eagle-default-top;
+  mask-position: ui-tokens.$project-card-tall-eagle-default-left
+    ui-tokens.$project-card-tall-eagle-default-top;
+}
+
+@mixin project-card-tall-eagle-hover {
+  opacity: 1;
+  -webkit-mask-size: ui-tokens.$project-card-tall-eagle-hover-size
+    ui-tokens.$project-card-tall-eagle-hover-size;
+  mask-size: ui-tokens.$project-card-tall-eagle-hover-size
+    ui-tokens.$project-card-tall-eagle-hover-size;
+  -webkit-mask-position: ui-tokens.$project-card-tall-eagle-hover-left
+    ui-tokens.$project-card-tall-eagle-hover-top;
+  mask-position: ui-tokens.$project-card-tall-eagle-hover-left
+    ui-tokens.$project-card-tall-eagle-hover-top;
+}
+
+@mixin project-card-tall-image-hover {
+  width: ui-tokens.$project-card-tall-image-hover-width;
+  height: ui-tokens.$project-card-tall-image-hover-height;
+  left: ui-tokens.$project-card-tall-image-hover-left;
+  top: ui-tokens.$project-card-tall-image-hover-top;
+}
+
+@mixin project-card-medium-eagle-default {
+  -webkit-mask-size: ui-tokens.$project-card-medium-eagle-default-size
+    ui-tokens.$project-card-medium-eagle-default-size;
+  mask-size: ui-tokens.$project-card-medium-eagle-default-size
+    ui-tokens.$project-card-medium-eagle-default-size;
+  -webkit-mask-position: ui-tokens.$project-card-medium-eagle-default-left
+    ui-tokens.$project-card-medium-eagle-default-top;
+  mask-position: ui-tokens.$project-card-medium-eagle-default-left
+    ui-tokens.$project-card-medium-eagle-default-top;
+}
+
+@mixin project-card-medium-eagle-hover {
+  opacity: 1;
+  -webkit-mask-size: ui-tokens.$project-card-medium-eagle-hover-size
+    ui-tokens.$project-card-medium-eagle-hover-size;
+  mask-size: ui-tokens.$project-card-medium-eagle-hover-size
+    ui-tokens.$project-card-medium-eagle-hover-size;
+  -webkit-mask-position: ui-tokens.$project-card-medium-eagle-hover-left
+    ui-tokens.$project-card-medium-eagle-hover-top;
+  mask-position: ui-tokens.$project-card-medium-eagle-hover-left
+    ui-tokens.$project-card-medium-eagle-hover-top;
+}
+
 .project-card {
   display: flex;
   flex-direction: column;
@@ -163,7 +216,8 @@ $project-card-mask-transition:
 // ─── Desktop cards (shared hover) ──────────────────────────────────────────
 
 .project-card--small,
-.project-card--big {
+.project-card--big,
+.project-card--medium {
   .project-card__media {
     @include project-card-desktop-media;
   }
@@ -171,10 +225,6 @@ $project-card-mask-transition:
   .project-card__image,
   .project-card__eagle-blur-img {
     @include project-card-desktop-image;
-  }
-
-  .project-card__eagle-fx {
-    @include project-card-desktop-eagle-default;
   }
 
   .project-card__tag {
@@ -188,6 +238,24 @@ $project-card-mask-transition:
 
   .project-card__title {
     @include ui-tokens.type-desktop-h3;
+  }
+}
+
+.project-card--small {
+  .project-card__eagle-fx {
+    @include project-card-desktop-eagle-default;
+  }
+}
+
+.project-card--big {
+  .project-card__eagle-fx {
+    @include project-card-tall-eagle-default;
+  }
+}
+
+.project-card--medium {
+  .project-card__eagle-fx {
+    @include project-card-medium-eagle-default;
   }
 }
 
@@ -207,28 +275,65 @@ $project-card-mask-transition:
   }
 }
 
+.project-card--medium {
+  max-width: ui-tokens.$capabilities-card-width;
+
+  .project-card__media {
+    aspect-ratio: ui-tokens.$project-card-aspect-medium;
+  }
+}
+
 // Fallback when container query units are unavailable
 @supports not (width: 1cqw) {
-  .project-card--small,
-  .project-card--big {
-    .project-card__eagle-fx {
-      -webkit-mask-size: 1728.5% 1728.5%;
-      mask-size: 1728.5% 1728.5%;
-      -webkit-mask-position: -814.2% -1525.4%;
-      mask-position: -814.2% -1525.4%;
-    }
+  .project-card--small .project-card__eagle-fx {
+    -webkit-mask-size: 1728.5% 1728.5%;
+    mask-size: 1728.5% 1728.5%;
+    -webkit-mask-position: -814.2% -1525.4%;
+    mask-position: -814.2% -1525.4%;
+  }
+
+  .project-card--big .project-card__eagle-fx {
+    -webkit-mask-size: 1831.04% 1831.04%;
+    mask-size: 1831.04% 1831.04%;
+    -webkit-mask-position: -865.52% -1601.6%;
+    mask-position: -865.52% -1601.6%;
+  }
+
+  .project-card--medium .project-card__eagle-fx {
+    -webkit-mask-size: 4635.32% 4635.32%;
+    mask-size: 4635.32% 4635.32%;
+    -webkit-mask-position: -3732.73% -3601.6%;
+    mask-position: -3732.73% -3601.6%;
   }
 
   @media (hover: hover) and (prefers-reduced-motion: no-preference) and (min-width: ui-tokens.$portfolio-breakpoint-stack) {
     .project-card--small .project-card__media:hover,
-    .project-card--small .project-card__media.project-card__media--hover,
-    .project-card--big .project-card__media:hover,
-    .project-card--big .project-card__media.project-card__media--hover {
+    .project-card--small .project-card__media.project-card__media--hover {
       .project-card__eagle-fx {
         -webkit-mask-size: 392.79% 392.79%;
         mask-size: 392.79% 392.79%;
         -webkit-mask-position: -146.39% -308%;
         mask-position: -146.39% -308%;
+      }
+    }
+
+    .project-card--big .project-card__media:hover,
+    .project-card--big .project-card__media.project-card__media--hover {
+      .project-card__eagle-fx {
+        -webkit-mask-size: 392.79% 392.79%;
+        mask-size: 392.79% 392.79%;
+        -webkit-mask-position: -146.39% -303.8%;
+        mask-position: -146.39% -303.8%;
+      }
+    }
+
+    .project-card--medium .project-card__media:hover,
+    .project-card--medium .project-card__media.project-card__media--hover {
+      .project-card__eagle-fx {
+        -webkit-mask-size: 459.48% 459.48%;
+        mask-size: 459.48% 459.48%;
+        -webkit-mask-position: -179.74% -303.8%;
+        mask-position: -179.74% -303.8%;
       }
     }
   }
@@ -238,9 +343,7 @@ $project-card-mask-transition:
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) and (min-width: ui-tokens.$portfolio-breakpoint-stack) {
   .project-card--small .project-card__media:hover,
-  .project-card--small .project-card__media.project-card__media--hover,
-  .project-card--big .project-card__media:hover,
-  .project-card--big .project-card__media.project-card__media--hover {
+  .project-card--small .project-card__media.project-card__media--hover {
     .project-card__image,
     .project-card__eagle-blur-img {
       @include project-card-desktop-image-hover;
@@ -248,6 +351,38 @@ $project-card-mask-transition:
 
     .project-card__eagle-fx {
       @include project-card-desktop-eagle-hover;
+    }
+
+    .project-card__action {
+      bottom: ui-tokens.$ui-project-card-btn-offset-hover;
+    }
+  }
+
+  .project-card--big .project-card__media:hover,
+  .project-card--big .project-card__media.project-card__media--hover {
+    .project-card__image,
+    .project-card__eagle-blur-img {
+      @include project-card-tall-image-hover;
+    }
+
+    .project-card__eagle-fx {
+      @include project-card-tall-eagle-hover;
+    }
+
+    .project-card__action {
+      bottom: ui-tokens.$ui-project-card-btn-offset-hover;
+    }
+  }
+
+  .project-card--medium .project-card__media:hover,
+  .project-card--medium .project-card__media.project-card__media--hover {
+    .project-card__image,
+    .project-card__eagle-blur-img {
+      @include project-card-tall-image-hover;
+    }
+
+    .project-card__eagle-fx {
+      @include project-card-medium-eagle-hover;
     }
 
     .project-card__action {
@@ -298,7 +433,8 @@ $project-card-mask-transition:
 
 @media (max-width: variables.$breakpoint-mobile) {
   .project-card--small,
-  .project-card--big {
+  .project-card--big,
+  .project-card--medium {
     max-width: 100%;
   }
 }

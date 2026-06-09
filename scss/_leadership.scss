@@ -1,0 +1,138 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+@use "about-responsive";
+
+// Block: leadership — About page "Leadership Team" section (Desktop Figma 9846:2468)
+// Two-column intro above a responsive grid of person cards.
+
+.leadership {
+  padding: ui-tokens.$about-page-section-gap variables.$layout-gutter 0;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.leadership__inner {
+  max-width: variables.$layout-max-width;
+  margin: 0 auto;
+}
+
+.leadership__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$about-label-padding-y ui-tokens.$about-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-black;
+  white-space: nowrap;
+  @include ui-tokens.type-desktop-descriptor;
+}
+
+.leadership__columns {
+  display: grid;
+  grid-template-columns: ui-tokens.$about-page-intro-cols;
+  column-gap: clamp(24px, 4vw, 40px);
+  align-items: start;
+  margin-top: ui-tokens.$about-intro-gap;
+}
+
+.leadership__title {
+  margin: 0;
+  max-width: 529px;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h2;
+}
+
+.leadership__body {
+  margin: 0;
+  max-width: 688px;
+  color: colors.$color-black;
+  opacity: ui-tokens.$about-text-opacity;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+.leadership__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 60px) variables.$layout-gutter;
+  margin: ui-tokens.$about-section-gap 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leadership__grid .person-card--big {
+  max-width: none;
+}
+
+.leadership__grid .person-card__media {
+  height: auto;
+  aspect-ratio: 507 / 600;
+}
+
+.leadership__grid .person-card__image {
+  object-position: center var(--portrait-focus, 8%);
+  transform-origin: center bottom;
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+.leadership__grid .person-card:hover .person-card__image,
+.leadership__grid .person-card:focus-within .person-card__image {
+  transform: scale(1.05);
+}
+
+// ─── Tablet (768–1279px) ───────────────────────────────────────────────────
+
+@media (min-width: variables.$breakpoint-about-mobile) and (max-width: variables.$breakpoint-header-tablet - 1px) {
+  .leadership {
+    @include about-responsive.about-section-padding-tablet;
+  }
+
+  .leadership__grid {
+    @include about-responsive.about-card-grid-tablet;
+  }
+
+  @media (max-width: variables.$breakpoint-about-intro-stack - 1px) {
+    .leadership__columns {
+      @include about-responsive.about-intro-stack;
+    }
+
+    .leadership__title,
+    .leadership__body {
+      max-width: none;
+    }
+  }
+}
+
+// ─── Phone (≤767px) — Figma 9867:3400 ─────────────────────────────────────
+
+@media (max-width: variables.$breakpoint-about-mobile - 1px) {
+  .leadership {
+    @include about-responsive.about-section-padding-mobile;
+  }
+
+  .leadership__label {
+    @include ui-tokens.type-mobile-descriptor;
+  }
+
+  .leadership__columns {
+    @include about-responsive.about-intro-stack;
+  }
+
+  .leadership__title {
+    max-width: none;
+    @include ui-tokens.type-mobile-h2;
+  }
+
+  .leadership__body {
+    max-width: none;
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .leadership__grid {
+    grid-template-columns: 1fr;
+    gap: ui-tokens.$about-mobile-card-gap;
+    @include about-responsive.about-person-card-touch;
+  }
+}

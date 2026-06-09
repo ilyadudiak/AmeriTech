@@ -6,7 +6,8 @@
 // Background: Figma PNG (gradient + eagle blur baked in, like cover)
 
 .site-footer {
-  padding: ui-tokens.$footer-offset-top-desktop variables.$layout-gutter
+  padding: ui-tokens.$footer-offset-top-desktop
+    clamp(ui-tokens.$about-mobile-gutter, 3.2vw, variables.$layout-gutter)
     ui-tokens.$footer-wrapper-padding-bottom-desktop;
   background-color: colors.$color-white;
   color: colors.$color-white;
@@ -146,6 +147,7 @@
   grid-row: 1;
   margin: 0;
   justify-self: start;
+  min-width: 0;
 }
 
 .site-footer__credit {
@@ -232,20 +234,27 @@
   width: 243px;
 }
 
-// ─── Mobile (9858:3672) ──────────────────────────────────────────────────────
+// ─── Stacked footer (<1280px) — Figma mobile + tablet ───────────────────────
 
-@media (max-width: ui-tokens.$portfolio-breakpoint-stack - 1px) {
+@media (max-width: ui-tokens.$footer-breakpoint-desktop - 1px) {
   .site-footer {
-    padding: ui-tokens.$footer-offset-top-mobile ui-tokens.$footer-mobile-gutter 0;
+    padding-top: clamp(
+      ui-tokens.$footer-offset-top-mobile,
+      15vw,
+      ui-tokens.$footer-offset-top-desktop
+    );
+  }
+
+  .site-footer__inner {
+    width: 100%;
+    max-width: none;
   }
 
   .site-footer__card {
     box-sizing: border-box;
     width: 100%;
-    max-width: 351px;
-    margin-left: auto;
-    margin-right: auto;
-    min-height: calc((100vw - #{ui-tokens.$footer-mobile-gutter * 2}) * 1107 / 351);
+    max-width: none;
+    margin: 0;
     background-size: 100% 100%;
     background-position: center top;
   }
@@ -253,39 +262,9 @@
   .site-footer__cta {
     box-sizing: border-box;
     width: 100%;
-    max-width: ui-tokens.$footer-cta-max-width-mobile;
-    margin: 0 auto;
-    padding: ui-tokens.$footer-cta-padding-top-mobile 0 0;
-  }
-
-  .site-footer__label {
-    @include ui-tokens.type-mobile-descriptor;
-  }
-
-  .site-footer__title {
-    margin-top: ui-tokens.$footer-cta-gap-mobile;
     max-width: none;
-    @include ui-tokens.type-mobile-h2;
-  }
-
-  .site-footer__lead {
-    margin-top: ui-tokens.$footer-cta-gap-mobile;
-    max-width: ui-tokens.$footer-cta-lead-max-width-mobile;
-    margin-left: auto;
-    margin-right: auto;
-    @include ui-tokens.type-mobile-text-l;
-  }
-
-  .site-footer__actions {
-    margin-top: ui-tokens.$footer-cta-to-buttons-mobile;
-  }
-
-  .site-footer__btn--desktop {
-    display: none;
-  }
-
-  .site-footer__btn--mobile {
-    display: inline-flex;
+    margin: 0;
+    padding: ui-tokens.$footer-cta-padding-top-mobile ui-tokens.$footer-body-padding-x-mobile 0;
   }
 
   .site-footer__body {
@@ -296,9 +275,17 @@
       ui-tokens.$footer-card-padding-bottom-mobile;
   }
 
+  .site-footer__tagline,
+  .site-footer__columns,
+  .site-footer__brand,
+  .site-footer__legal {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
   .site-footer__tagline {
     margin-top: ui-tokens.$footer-cta-to-tagline-mobile;
-    max-width: ui-tokens.$footer-tagline-max-width-mobile;
+    max-width: none;
     @include ui-tokens.type-mobile-h3;
   }
 
@@ -366,6 +353,14 @@
   }
 
   .site-footer__copyright,
+  .site-footer__privacy,
+  .site-footer__credit {
+    grid-column: auto;
+    grid-row: auto;
+    justify-self: auto;
+  }
+
+  .site-footer__copyright,
   .site-footer__privacy {
     opacity: ui-tokens.$footer-legal-opacity;
     @include ui-tokens.type-mobile-text-s;
@@ -388,14 +383,89 @@
   }
 }
 
-@media (min-width: ui-tokens.$portfolio-breakpoint-stack) {
+// ─── Phone only (≤767px) — Figma 9858:3672 ─────────────────────────────────
+
+@media (max-width: ui-tokens.$portfolio-breakpoint-stack - 1px) {
+  .site-footer {
+    padding-inline: ui-tokens.$about-mobile-gutter;
+  }
+
+  .site-footer__card {
+    min-height: calc((100vw - #{ui-tokens.$about-mobile-gutter * 2}) * 1107 / 351);
+  }
+
+  .site-footer__label {
+    @include ui-tokens.type-mobile-descriptor;
+  }
+
+  .site-footer__title {
+    margin-top: ui-tokens.$footer-cta-gap-mobile;
+    max-width: none;
+    @include ui-tokens.type-mobile-h2;
+  }
+
+  .site-footer__lead {
+    margin-top: ui-tokens.$footer-cta-gap-mobile;
+    max-width: none;
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .site-footer__actions {
+    margin-top: ui-tokens.$footer-cta-to-buttons-mobile;
+  }
+
+  .site-footer__btn--desktop {
+    display: none;
+  }
+
+  .site-footer__btn--mobile {
+    display: inline-flex;
+  }
+}
+
+// ─── Tablet stacked (768–1279px) — desktop CTA, fluid top offset ───────────
+
+@media (min-width: ui-tokens.$portfolio-breakpoint-stack) and (max-width: ui-tokens.$footer-breakpoint-desktop - 1px) {
+  .site-footer__cta {
+    padding-top: clamp(100px, 12vw, ui-tokens.$footer-cta-padding-top-desktop);
+  }
+
+  .site-footer__label {
+    @include ui-tokens.type-desktop-descriptor;
+  }
+
+  .site-footer__title {
+    margin-top: ui-tokens.$footer-cta-gap;
+    @include ui-tokens.type-desktop-h2;
+  }
+
+  .site-footer__lead {
+    margin-top: ui-tokens.$footer-cta-gap;
+    max-width: ui-tokens.$footer-cta-lead-max-width-desktop;
+    @include ui-tokens.type-desktop-text-l;
+  }
+
+  .site-footer__actions {
+    margin-top: ui-tokens.$footer-cta-to-buttons;
+  }
+
+  .site-footer__btn--desktop {
+    display: inline-flex;
+  }
+
+  .site-footer__btn--mobile {
+    display: none;
+  }
+}
+
+@media (min-width: ui-tokens.$footer-breakpoint-desktop) {
   .site-footer__card {
     background-image: url("../assets/images/footer-bg-desktop.png");
   }
 }
 
 // Footer CTA hover — desktop only
-@media (hover: hover) and (prefers-reduced-motion: no-preference) and (min-width: ui-tokens.$portfolio-breakpoint-stack) {
+@media (hover: hover) and (prefers-reduced-motion: no-preference) and (min-width: ui-tokens.$footer-breakpoint-desktop) {
   .site-footer .btn--desktop.btn--white:hover:not(:disabled):not(.btn--inactive) .btn__arrow-track {
     transform: translate(
       ui-tokens.$ui-btn-arrow-translate-x,

@@ -598,6 +598,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   initMenu();
 
+  if (document.body.classList.contains("page-team-member")) {
+    document.querySelectorAll('.header__link[data-menu-trigger="about"]').forEach((link) => {
+      link.classList.add("header__link--active");
+      link.setAttribute("aria-current", "page");
+    });
+  }
+
+  if (document.body.classList.contains("page-capabilities")) {
+    document.querySelectorAll('.header__link[data-menu-trigger="capabilities"]').forEach((link) => {
+      link.classList.add("header__link--active");
+      link.setAttribute("aria-current", "page");
+    });
+  }
+
   initCompetenciesAnimation();
 
 });

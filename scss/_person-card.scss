@@ -10,18 +10,25 @@
   gap: ui-tokens.$ui-card-gap;
   width: 100%;
   padding: 0;
+  margin: 0;
   border: 0;
   background: transparent;
   text-align: left;
-  text-decoration: none;
   color: inherit;
-  cursor: pointer;
 }
 
 .person-card__media {
   position: relative;
   overflow: hidden;
   border-radius: ui-tokens.$ui-card-radius;
+}
+
+.person-card__media-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
 }
 
 .person-card__image {
@@ -34,12 +41,24 @@
   position: absolute;
   top: ui-tokens.$ui-card-mobile-padding;
   right: ui-tokens.$ui-card-mobile-padding;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   overflow: hidden;
   max-width: 33px;
+  text-decoration: none;
+  color: colors.$color-white;
   transition: max-width ui-tokens.$ui-transition-fast;
+}
+
+.person-card__bio:hover,
+.person-card__bio:focus-visible {
+  max-width: 200px;
+
+  .person-card__bio-text {
+    opacity: 1;
+  }
 }
 
 .person-card__symbol {
@@ -67,6 +86,8 @@
   display: flex;
   flex-direction: column;
   gap: ui-tokens.$ui-card-info-gap-tight;
+  text-decoration: none;
+  color: inherit;
 }
 
 .person-card__name {
@@ -98,6 +119,7 @@
   }
 
   &:hover,
+  &:focus-within,
   &.person-card--hover {
     .person-card__bio {
       max-width: 200px;
@@ -127,6 +149,7 @@
   }
 
   &:hover,
+  &:focus-within,
   &.person-card--hover {
     .person-card__bio {
       max-width: 200px;

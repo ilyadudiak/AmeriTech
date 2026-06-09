@@ -101,13 +101,14 @@ $ui-project-card-btn-offset-default: -76px;
 $ui-project-card-btn-offset-hover: 32px;
 $ui-project-card-hover-transition: 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 
-// Project card hover — Figma 8849:3107→3109 / 8849:3143→3157
+// Project card hover — Figma 8849:3107→3109 (638×350) / 8849:3143→3157 (902×500)
 // Values in cqw/cqh scale with .project-card__media (container-type: size).
-// Reference frame: small card 638×350; same motion on every desktop card size.
 
 $project-card-aspect-small: math.div(638, 350);
+$project-card-aspect-medium: math.div(770, 500);
 $project-card-aspect-big: math.div(902, 500);
 
+// Small cards — 638×350 reference
 $project-card-image-hover-width: 134.799%;
 $project-card-image-hover-height: 134.857%;
 $project-card-image-hover-left: -17.398%;
@@ -119,6 +120,27 @@ $project-card-eagle-default-top: -1525.4cqh;
 $project-card-eagle-hover-size: 392.79cqw;
 $project-card-eagle-hover-left: -146.39cqw;
 $project-card-eagle-hover-top: -308cqh;
+
+// Tall cards — 500px height (902×500 big portfolio, 770×500 capabilities)
+$project-card-tall-image-hover-width: 135.25%;
+$project-card-tall-image-hover-height: 135.2%;
+$project-card-tall-image-hover-left: -17.63%;
+$project-card-tall-image-hover-top: -17.6%;
+
+$project-card-tall-eagle-default-size: 1831.04cqw;
+$project-card-tall-eagle-default-left: -865.52cqw;
+$project-card-tall-eagle-default-top: -1601.6cqh;
+$project-card-tall-eagle-hover-size: 392.79cqw;
+$project-card-tall-eagle-hover-left: -146.39cqw;
+$project-card-tall-eagle-hover-top: -303.8cqh; // Figma 8849:3157 — (500 − 3538) / 2 / 500 × 100
+
+// Medium cards — 770×500 capabilities (Figma 9100:2913 default, hover = 3538px circle centered)
+$project-card-medium-eagle-default-size: 4635.32cqw;
+$project-card-medium-eagle-default-left: -3732.73cqw;
+$project-card-medium-eagle-default-top: -3601.6cqh;
+$project-card-medium-eagle-hover-size: 459.48cqw;
+$project-card-medium-eagle-hover-left: -179.74cqw;
+$project-card-medium-eagle-hover-top: -303.8cqh;
 
 // Person card
 $ui-person-card-small-image-height: 420px;
@@ -241,7 +263,16 @@ $cover-tagline-max-width-mobile: 335px;
 // ─── About (9846:2365 / 9858:3292) ─────────────────────────────────────────
 
 $about-offset-top-desktop: 200px; // Home: About y=1100 − Cover h=900
-$about-offset-top-mobile: 120px; // Home / Mobile: Block y=820 − Cover h=700
+$about-offset-top-mobile: 120px; // About mobile: section gap (Figma 9864:3121)
+$about-page-section-gap-mobile: 120px;
+$about-mobile-content-width: 351px;
+$about-mobile-card-gap: 40px;
+$about-mobile-media-height-roots: 250px;
+$about-cover-breadcrumb-top-mobile: 96px;
+$about-cover-content-top-mobile: 175px;
+$about-cover-title-text-gap-mobile: 24px;
+$about-page-section-gap: 200px; // About page: gap between Cover and each section (Figma 9846:2458)
+$about-page-intro-cols: minmax(0, 1fr) minmax(0, 1fr); // fluid title | body split
 $about-intro-max-width: 656px;
 $about-intro-gap: 24px;
 $about-section-gap: 40px;
@@ -255,6 +286,26 @@ $about-label-padding-x: 24px;
 $about-label-padding-y: 12px;
 $about-mobile-gutter: 12px;
 $about-text-opacity: 0.8;
+
+// ─── Team member bio page (9846:2939) ──────────────────────────────────────
+
+$team-member-content-width: 1560px;
+$team-member-breadcrumb-offset: 20px; // below header
+$team-member-breadcrumb-to-content: 60px;
+$team-member-photo-size: 638px;
+$team-member-column-gap: 152px;
+$team-member-bio-width: 770px;
+$team-member-bio-section-gap: 40px;
+$team-member-name-role-gap: 12px;
+$team-member-education-gap: 20px;
+$team-member-education-item-gap: 8px;
+$team-member-linkedin-inset: 20px;
+
+// Team member mobile rhythm (Figma 9874:5156) — used in clamp() min values
+$team-member-mobile-photo-to-text: 20px;
+$team-member-mobile-bio-section-gap: 32px;
+$team-member-mobile-education-list-indent: 27px;
+$team-member-stack-breakpoint: 920px; // container width for 2-col switch
 
 // ─── Competencies (9846:2377 / 9858:3344) ──────────────────────────────────
 
@@ -323,6 +374,19 @@ $portfolio-footer-actions-margin-top: 40px;
 $portfolio-text-opacity: 0.8;
 $portfolio-breakpoint-stack: 768px;
 
+// ─── Capabilities page (9846:3017 / Mobile TBD) ────────────────────────────
+
+$capabilities-offset-top-desktop: 200px; // cover bottom 650 → cards top 850
+$capabilities-offset-bottom-desktop: 200px; // last card bottom → footer top
+$capabilities-grid-col-gap: 20px;
+$capabilities-grid-row-gap: 80px;
+$capabilities-card-width: 770px;
+$capabilities-content-max-width: 1560px; // 1600 − 2×20 gutter
+$capabilities-cover-text-max-width: 476px;
+$capabilities-mobile-gutter: 12px;
+$capabilities-mobile-offset-top: 120px;
+$capabilities-mobile-card-gap: 52px;
+
 // ─── Footer (9846:2352 / 9858:3673) ────────────────────────────────────────
 
 $footer-offset-top-desktop: 200px;
@@ -370,6 +434,7 @@ $footer-eagle-top-desktop: 223px;
 $footer-eagle-width-mobile: 334%;
 $footer-eagle-left-mobile: -189.5%;
 $footer-eagle-top-mobile: 322px;
+$footer-breakpoint-desktop: 1280px; // side-by-side body + 3-col legal (~1186px content min)
 
 // ─── Transitions ───────────────────────────────────────────────────────────
 

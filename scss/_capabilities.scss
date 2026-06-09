@@ -1,0 +1,140 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: capabilities — Capabilities listing page (Figma 9846:3017)
+
+.page-capabilities .about-cover__text {
+  max-width: ui-tokens.$capabilities-cover-text-max-width;
+}
+
+.capabilities {
+  padding: ui-tokens.$capabilities-offset-top-desktop variables.$layout-gutter
+    ui-tokens.$capabilities-offset-bottom-desktop;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.capabilities__inner {
+  max-width: ui-tokens.$capabilities-content-max-width;
+  margin: 0 auto;
+}
+
+.capabilities__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: ui-tokens.$capabilities-grid-row-gap ui-tokens.$capabilities-grid-col-gap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.capabilities__grid > li {
+  min-width: 0;
+}
+
+// ─── Capability card info (below project-card media) ────────────────────────
+
+.capability-card {
+  width: 100%;
+  max-width: ui-tokens.$capabilities-card-width;
+}
+
+.capability-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$ui-card-info-gap;
+}
+
+.capability-card__title {
+  margin: 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h3;
+}
+
+.capability-card__text {
+  margin: 0;
+  max-width: 676px;
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+// project-card--medium — Figma 770×500 tokens (9100:2913), not portfolio big (902×500)
+.capabilities {
+  .project-card--medium {
+    max-width: none;
+  }
+}
+
+// ─── Two-column grid (≥1560 content = 770 + 20 + 770) ───────────────────────
+
+@media (min-width: ui-tokens.$capabilities-content-max-width + variables.$layout-gutter * 2) {
+  .capabilities__grid {
+    grid-template-columns: repeat(2, minmax(0, ui-tokens.$capabilities-card-width));
+    justify-content: space-between;
+  }
+
+  .capability-card {
+    max-width: none;
+  }
+}
+
+// Fluid two-column before full desktop width
+@media (min-width: ui-tokens.$portfolio-breakpoint-stack) and (max-width: ui-tokens.$capabilities-content-max-width + variables.$layout-gutter * 2 - 1px) {
+  .capabilities__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .capability-card {
+    max-width: none;
+  }
+}
+
+// ─── Mobile (≤767px) — match portfolio card behavior ───────────────────────
+
+@media (max-width: ui-tokens.$portfolio-breakpoint-stack - 1px) {
+  .capabilities {
+    padding: ui-tokens.$capabilities-mobile-offset-top
+      ui-tokens.$capabilities-mobile-gutter 48px;
+  }
+
+  .capability-card {
+    max-width: none;
+
+    .project-card--medium .project-card__eagle-fx {
+      display: none;
+    }
+
+    .project-card--medium .project-card__overlay {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 56.553%);
+    }
+
+    .project-card--medium .project-card__action {
+      left: ui-tokens.$ui-card-mobile-padding;
+      bottom: ui-tokens.$ui-card-mobile-padding;
+    }
+
+    .project-card--medium .project-card__media {
+      aspect-ratio: 1;
+    }
+
+    .btn:hover .btn__arrow-track,
+    .btn.btn--state-hover .btn__arrow-track {
+      transform: none;
+    }
+  }
+
+  .capabilities__grid {
+    gap: ui-tokens.$capabilities-mobile-card-gap;
+  }
+
+  .capability-card__title {
+    @include ui-tokens.type-mobile-h3;
+  }
+
+  .capability-card__text {
+    max-width: none;
+    @include ui-tokens.type-mobile-text-l;
+  }
+}

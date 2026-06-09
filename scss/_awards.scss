@@ -1,0 +1,284 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+@use "about-responsive";
+
+// Block: awards — About page "Award-Winning Results" (Desktop Figma 9846:2938)
+// Default: all names black. On row hover: active row black, others muted gray;
+// left preview slot shows the badge aligned to the row (js/awards.js).
+
+$awards-sticky-top-desktop: 120px;
+$awards-year-col: 112px;
+$awards-list-max: 902px;
+$awards-visual-width: 301px;
+$awards-group-gap: 28px;
+$awards-item-gap: 20px;
+$awards-header-to-body: 80px;
+$awards-body-gap: 188px;
+$awards-preview-easing: cubic-bezier(0.22, 1, 0.36, 1);
+$awards-preview-duration: 0.7s;
+$awards-name-muted: rgba(0, 0, 0, 0.4);
+
+.awards {
+  padding: ui-tokens.$about-page-section-gap variables.$layout-gutter 0;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.awards__inner {
+  max-width: variables.$layout-max-width;
+  margin: 0 auto;
+}
+
+.awards__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.awards__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$about-label-padding-y ui-tokens.$about-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-black;
+  white-space: nowrap;
+  @include ui-tokens.type-desktop-descriptor;
+}
+
+.awards__title {
+  margin: ui-tokens.$about-intro-gap 0 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h2;
+}
+
+.awards__body {
+  display: grid;
+  grid-template-columns: minmax(120px, 19%) minmax(0, 1fr);
+  column-gap: clamp(32px, 6vw, $awards-body-gap);
+  align-items: start;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin-top: clamp(40px, 6vw, $awards-header-to-body);
+  padding-left: 0;
+}
+
+// Empty by default; badge fades in on row hover (GIF reference).
+.awards__visual {
+  position: sticky;
+  top: $awards-sticky-top-desktop;
+  width: 100%;
+  max-width: $awards-visual-width;
+  min-height: 1px;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity $awards-preview-duration $awards-preview-easing,
+    visibility $awards-preview-duration $awards-preview-easing;
+}
+
+.awards__visual--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.awards__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  will-change: transform;
+  transition: transform $awards-preview-duration $awards-preview-easing;
+}
+
+.awards__list {
+  display: flex;
+  flex-direction: column;
+  gap: $awards-group-gap;
+  width: 100%;
+  max-width: none;
+}
+
+.awards__rule {
+  flex-shrink: 0;
+  height: 1px;
+  background-color: colors.$color-black;
+  opacity: 0.2;
+  border: 0;
+}
+
+.awards__group {
+  display: grid;
+  grid-template-columns: $awards-year-col minmax(0, 1fr);
+  column-gap: variables.$layout-gutter;
+  align-items: start;
+}
+
+.awards__year {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.4);
+  opacity: ui-tokens.$ui-opacity-muted;
+  @include ui-tokens.type-desktop-h4;
+}
+
+.awards__items {
+  display: flex;
+  flex-direction: column;
+  gap: $awards-group-gap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.awards__item {
+  display: flex;
+  flex-direction: column;
+  gap: $awards-item-gap;
+  cursor: pointer;
+  outline: none;
+
+  &:focus-visible .awards__name {
+    outline: 2px solid colors.$color-dark-blue;
+    outline-offset: 4px;
+  }
+}
+
+.awards__badge {
+  display: none;
+}
+
+.awards__name {
+  margin: 0;
+  color: colors.$color-black;
+  transition: color $awards-preview-duration $awards-preview-easing;
+  @include ui-tokens.type-desktop-h3;
+}
+
+// Hovered row stays black; all other names fade to inactive gray (GIF).
+@media (hover: hover) {
+  .awards__list--hovered .awards__name {
+    color: $awards-name-muted;
+  }
+
+  .awards__item--active .awards__name {
+    color: colors.$color-black;
+  }
+}
+
+.awards__line {
+  display: block;
+  height: 1px;
+  background-color: colors.$color-black;
+  opacity: 0.2;
+}
+
+.awards__item--last .awards__line {
+  display: none;
+}
+
+// ─── Tablet (768–1279px) ───────────────────────────────────────────────────
+
+@media (min-width: variables.$breakpoint-about-mobile) and (max-width: variables.$breakpoint-header-tablet - 1px) {
+  .awards {
+    @include about-responsive.about-section-padding-tablet;
+  }
+}
+
+// ─── Phone (≤767px) — Figma 9937:13592 ────────────────────────────────────
+
+@media (max-width: variables.$breakpoint-about-mobile - 1px) {
+  .awards {
+    @include about-responsive.about-section-padding-mobile;
+    padding-inline: 0;
+  }
+
+  .awards__inner {
+    max-width: none;
+  }
+
+  .awards__label {
+    @include ui-tokens.type-mobile-descriptor;
+  }
+
+  .awards__title {
+    @include ui-tokens.type-mobile-h2;
+  }
+
+  .awards__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    max-width: none;
+    margin-top: ui-tokens.$about-section-gap;
+    padding-inline: calc((100% - 348px) / 2);
+  }
+
+  .awards__visual {
+    display: none;
+  }
+
+  .awards__list {
+    gap: 28px;
+    width: 100%;
+    max-width: 348px;
+    margin: 0 auto;
+  }
+
+  .awards__group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .awards__year {
+    width: 112px;
+    margin: 0;
+    text-align: center;
+    @include ui-tokens.type-mobile-h4;
+  }
+
+  .awards__items {
+    gap: 28px;
+    width: 100%;
+  }
+
+  .awards__item {
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    cursor: default;
+  }
+
+  .awards__badge {
+    display: block;
+    width: auto;
+    max-width: 120px;
+    max-height: 122px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .awards__name {
+    width: 100%;
+    text-align: center;
+    @include ui-tokens.type-mobile-h3;
+  }
+
+  .awards__line {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .awards__visual,
+  .awards__image,
+  .awards__name {
+    transition: none;
+  }
+}

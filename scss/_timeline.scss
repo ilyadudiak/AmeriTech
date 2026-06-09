@@ -1,0 +1,555 @@
+@use "sass:math";
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+@use "about-responsive";
+
+// Block: timeline — About page "AmeriTech Timeline" slider (Desktop Figma 9919:11191)
+// A single active index drives three synced tracks: the content slider
+// (image + year + description), the right-side vertical year index, and the
+// bottom scrubber (date markers + progress line). All transitions are CSS
+// transforms/opacity; the index is updated by js/timeline.js.
+
+// ─── Local layout tokens (Figma 1560×888 frame) ─────────────────────────────
+
+$timeline-content-max: 1296px; // centered content block (image + text)
+$timeline-content-height: 460px; // image card height at full width
+$timeline-image-ratio: math.div(638, 460); // gradient image card aspect
+$timeline-image-pct: 49.23%; // 638 / 1296
+$timeline-gap-pct: 11.73%; // 152 / 1296
+$timeline-text-pct: 28.94%; // 375 / 1296
+
+$timeline-date-step: 681px; // centre-to-centre spacing of date markers
+$timeline-date-width: 197px; // marker / caption width
+$timeline-line-top: 63px; // progress line offset inside the scrubber
+$timeline-scrubber-height: 146px;
+
+$timeline-easing: cubic-bezier(0.76, 0, 0.24, 1);
+$timeline-slide-duration: 0.7s;
+$timeline-fade-duration: 0.6s;
+
+$timeline-gradient: linear-gradient(
+  180deg,
+  colors.$color-dark-blue 0%,
+  colors.$color-cover-gradient-end 176.63%
+);
+
+// ─── Section shell ───────────────────────────────────────────────────────────
+
+.timeline {
+  padding: ui-tokens.$about-page-section-gap variables.$layout-gutter 0;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+  overflow: hidden; // safety net for the off-screen scrubber markers
+}
+
+// Grid placement lets the prev/next arrows sit beside the title on desktop and
+// reflow to a full-width row at the bottom on mobile (Figma 9867:4374).
+.timeline__inner {
+  display: grid;
+  // minmax(0, …) lets the tracks shrink below the slider/scrubber content width
+  // instead of blowing the grid out to its min-content size.
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "label label"
+    "title nav"
+    "stage stage"
+    "scrubber scrubber";
+  align-items: start;
+  max-width: variables.$layout-max-width;
+  margin: 0 auto;
+}
+
+// ─── Header (label · title · arrows) ─────────────────────────────────────────
+
+.timeline__label {
+  grid-area: label;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: ui-tokens.$about-intro-gap;
+  padding: ui-tokens.$about-label-padding-y ui-tokens.$about-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-black;
+  white-space: nowrap;
+  @include ui-tokens.type-desktop-descriptor;
+}
+
+.timeline__title {
+  grid-area: title;
+  margin: 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h2;
+}
+
+.timeline__nav {
+  grid-area: nav;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.timeline__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: ui-tokens.$ui-slider-btn-size;
+  height: ui-tokens.$ui-slider-btn-size;
+  padding: 0;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-radius-sm;
+  background-color: transparent;
+  color: colors.$color-black;
+  cursor: pointer;
+  transition:
+    background-color ui-tokens.$ui-transition-fast,
+    border-color ui-tokens.$ui-transition-fast,
+    opacity ui-tokens.$ui-transition-fast;
+
+  &:hover {
+    background-color: ui-tokens.$ui-surface-tab-hover;
+    border-color: colors.$color-black;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+    background-color: transparent;
+    border-color: ui-tokens.$ui-border-black-20;
+  }
+
+  &:focus-visible {
+    outline: 2px solid colors.$color-dark-blue;
+    outline-offset: 2px;
+  }
+}
+
+.timeline__arrow-icon {
+  display: block;
+  width: 12px;
+  height: 6px;
+}
+
+.timeline__arrow--prev .timeline__arrow-icon {
+  transform: rotate(90deg);
+}
+
+.timeline__arrow--next .timeline__arrow-icon {
+  transform: rotate(-90deg);
+}
+
+// ─── Stage (content slider + vertical year index) ────────────────────────────
+
+.timeline__stage {
+  grid-area: stage;
+  position: relative;
+  margin-top: 60px;
+}
+
+.timeline__viewport {
+  max-width: $timeline-content-max;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.timeline__track {
+  display: flex;
+  will-change: transform;
+  transition: transform $timeline-slide-duration $timeline-easing;
+}
+
+.timeline__slide {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  gap: $timeline-gap-pct;
+}
+
+.timeline__media {
+  flex: 0 0 $timeline-image-pct;
+  aspect-ratio: #{$timeline-image-ratio};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: ui-tokens.$ui-radius-md;
+  background: $timeline-gradient;
+  overflow: hidden;
+
+  // Subtle reveal — the eagle settles into place as the slide arrives.
+  transform: scale(0.97);
+  opacity: 0.6;
+  transition:
+    transform $timeline-fade-duration ease 0.05s,
+    opacity $timeline-fade-duration ease 0.05s;
+}
+
+.timeline__media-eagle {
+  width: 52.35%; // 334 / 638
+  height: auto;
+  // The exported SVG carries no intrinsic ratio, so pin it explicitly.
+  aspect-ratio: math.div(334, 299.892);
+}
+
+.timeline__text {
+  flex: 0 0 $timeline-text-pct;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  // Text rises + fades in just after the slide lands.
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity $timeline-fade-duration ease 0.18s,
+    transform $timeline-fade-duration ease 0.18s;
+}
+
+.timeline__slide--active {
+  .timeline__media {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .timeline__text {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.timeline__year {
+  margin: 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h3;
+}
+
+.timeline__desc {
+  margin: 0;
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+// Vertical year index — 33px rhythm (Figma 9919:10642: ticks at 0, 33, 66…)
+.timeline__years {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: right;
+}
+
+.timeline__year-tick {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: colors.$color-black;
+  cursor: pointer;
+  line-height: 33px;
+  opacity: ui-tokens.$ui-opacity-inactive;
+  transition: opacity ui-tokens.$ui-transition-fast;
+  @include ui-tokens.type-desktop-text-s;
+
+  &:hover {
+    opacity: ui-tokens.$ui-opacity-muted;
+  }
+
+  &:focus-visible {
+    outline: 2px solid colors.$color-dark-blue;
+    outline-offset: 2px;
+  }
+}
+
+.timeline__year-tick--active {
+  opacity: 1;
+}
+
+// ─── Scrubber (progress line + date markers) ─────────────────────────────────
+
+.timeline__scrubber {
+  --timeline-step: #{$timeline-date-step};
+  grid-area: scrubber;
+  position: relative;
+  height: $timeline-scrubber-height;
+  margin-top: 100px;
+  overflow: hidden;
+}
+
+.timeline__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: $timeline-line-top;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    colors.$color-dark-blue 0%,
+    colors.$color-cover-gradient-end 100%
+  );
+}
+
+.timeline__dates {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  // --timeline-active (the current index) is set by js/timeline.js; the step is
+  // shared with the markers so both stay in sync across breakpoints.
+  transform: translateX(calc(var(--timeline-active, 0) * var(--timeline-step) * -1));
+  transition: transform $timeline-slide-duration $timeline-easing;
+}
+
+.timeline__date {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: $timeline-date-width;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  // --pos is the marker's slot; the track itself shifts the active one to centre.
+  transform: translateX(calc(-50% + var(--pos, 0) * var(--timeline-step)));
+
+  &:focus-visible {
+    outline: 2px solid colors.$color-dark-blue;
+    outline-offset: 4px;
+  }
+}
+
+.timeline__date-year {
+  margin: 0;
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-inactive;
+  transition: opacity 0.4s ease;
+  @include ui-tokens.type-desktop-h4;
+}
+
+.timeline__date-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 54px;
+  background-color: colors.$color-white;
+
+  img {
+    display: block;
+    width: 54px;
+    height: auto;
+    // The exported SVG carries no intrinsic ratio, so pin it explicitly.
+    aspect-ratio: math.div(54, 48.486);
+    opacity: ui-tokens.$ui-opacity-inactive;
+    transition: opacity 0.4s ease;
+  }
+}
+
+.timeline__date-caption {
+  margin: 0;
+  width: $timeline-date-width;
+  text-align: center;
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-inactive;
+  transition: opacity 0.4s ease;
+  @include ui-tokens.type-desktop-text-m;
+}
+
+.timeline__date--active {
+  .timeline__date-year {
+    opacity: 1;
+  }
+
+  .timeline__date-icon img {
+    opacity: 1;
+  }
+
+  .timeline__date-caption {
+    opacity: ui-tokens.$ui-opacity-muted;
+  }
+}
+
+// Hover on scrubber markers — Figma 9937:10251: inactive → full color.
+@media (hover: hover) {
+  .timeline__date:hover {
+    .timeline__date-year {
+      opacity: 1;
+    }
+
+    .timeline__date-icon img {
+      opacity: 1;
+    }
+
+    .timeline__date-caption {
+      opacity: 1;
+    }
+  }
+
+  .timeline__date--active:hover {
+    .timeline__date-caption {
+      opacity: 1;
+    }
+  }
+}
+
+.timeline__date:focus-visible {
+  .timeline__date-year {
+    opacity: 1;
+  }
+
+  .timeline__date-icon img {
+    opacity: 1;
+  }
+
+  .timeline__date-caption {
+    opacity: 1;
+  }
+}
+
+.timeline__date--active:focus-visible {
+  .timeline__date-caption {
+    opacity: 1;
+  }
+}
+
+// ─── Stacked layout + single centred scrubber (<1024px) — Figma 9867:4374 ─
+// One year marker centred; progress line spans full width; neighbours hidden.
+
+@media (max-width: variables.$breakpoint-about-timeline-stack - 1px) {
+  .timeline {
+    @include about-responsive.about-section-padding-tablet;
+  }
+
+  .timeline__inner {
+    max-width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "label"
+      "title"
+      "stage"
+      "scrubber"
+      "nav";
+  }
+
+  .timeline__nav {
+    justify-self: stretch;
+    justify-content: space-between;
+    gap: 0;
+    margin-top: 20px;
+  }
+
+  .timeline__stage {
+    margin-top: 40px;
+  }
+
+  .timeline__viewport {
+    max-width: none;
+    overflow: hidden;
+  }
+
+  .timeline__slide {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .timeline__media {
+    flex: none;
+    width: 100%;
+    aspect-ratio: math.div(351, 220);
+  }
+
+  .timeline__media-eagle {
+    width: 46.72%;
+  }
+
+  .timeline__text {
+    flex: none;
+    gap: 12px;
+  }
+
+  .timeline__years {
+    display: none;
+  }
+
+  .timeline__scrubber {
+    height: 136px;
+    margin-top: 40px;
+    overflow: hidden;
+  }
+
+  .timeline__progress {
+    top: 59px;
+    left: 0;
+    right: 0;
+  }
+}
+
+// ─── Phone (≤767px) — tighter section padding + mobile type ────────────────
+
+@media (max-width: variables.$breakpoint-about-mobile - 1px) {
+  .timeline {
+    @include about-responsive.about-section-padding-mobile;
+  }
+
+  .timeline__label {
+    @include ui-tokens.type-mobile-descriptor;
+  }
+
+  .timeline__title {
+    @include ui-tokens.type-mobile-h2;
+  }
+
+  .timeline__year {
+    @include ui-tokens.type-mobile-h3;
+  }
+
+  .timeline__desc {
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .timeline__date-year {
+    @include ui-tokens.type-mobile-h4;
+  }
+
+  .timeline__date-caption {
+    @include ui-tokens.type-mobile-text-m;
+  }
+}
+
+// ─── Reduced motion ──────────────────────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline__track,
+  .timeline__dates,
+  .timeline__media,
+  .timeline__text,
+  .timeline__date-year,
+  .timeline__date-caption,
+  .timeline__date-icon img {
+    transition: none;
+  }
+
+  .timeline__media {
+    transform: none;
+    opacity: 1;
+  }
+
+  .timeline__text {
+    transform: none;
+    opacity: 1;
+  }
+}

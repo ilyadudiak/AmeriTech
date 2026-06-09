@@ -1,0 +1,130 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: about-cover — About page hero banner
+// Mobile  Figma 9864:3122 (375×500) · Desktop Figma 9846:2868 (1600×650)
+// Phone ≤767: compact mobile hero. ≥768: full-width desktop hero (fluid on tablet).
+
+.about-cover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  min-height: clamp(520px, 62vw, 650px);
+  padding: 0 variables.$layout-gutter;
+  background-color: colors.$color-dark-blue;
+  background-image: linear-gradient(
+    180deg,
+    colors.$color-dark-blue 0%,
+    colors.$color-cover-gradient-end 176.63%
+  );
+  text-align: center;
+}
+
+.about-cover__lines {
+  position: absolute;
+  top: -34%;
+  left: -17%;
+  width: 106.5%;
+  pointer-events: none;
+  user-select: none;
+}
+
+.about-cover__lines-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.about-cover__breadcrumbs {
+  position: absolute;
+  top: clamp(96px, 12vw, 143px);
+  left: variables.$layout-gutter;
+  z-index: 2;
+}
+
+.about-cover__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: min(700px, 100%);
+  margin-top: 0;
+}
+
+.about-cover__title {
+  margin: 0;
+  color: colors.$color-white;
+  font-size: clamp(40px, 8vw, 80px);
+  font-weight: 440;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.about-cover__text {
+  max-width: min(426px, 100%);
+  margin: clamp(24px, 3vw, 32px) 0 0;
+  color: colors.$color-white;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+// ─── Phone (≤767px) — Figma 9864:3122 ─────────────────────────────────────
+
+@media (max-width: variables.$breakpoint-about-mobile - 1px) {
+  .about-cover {
+    min-height: 500px;
+    justify-content: flex-start;
+    padding: 0 ui-tokens.$about-mobile-gutter;
+    background-image: linear-gradient(
+      180deg,
+      colors.$color-dark-blue 0%,
+      colors.$color-cover-gradient-end 351.67%
+    );
+  }
+
+  .about-cover__lines {
+    top: 6px;
+    left: -199px;
+    width: 910px;
+    max-width: none;
+  }
+
+  .about-cover__breadcrumbs {
+    top: ui-tokens.$about-cover-breadcrumb-top-mobile;
+    left: ui-tokens.$about-mobile-gutter;
+  }
+
+  .about-cover__content {
+    max-width: ui-tokens.$about-mobile-content-width;
+    margin-top: ui-tokens.$about-cover-content-top-mobile;
+  }
+
+  .about-cover__title {
+    white-space: normal;
+    @include ui-tokens.type-mobile-h1;
+  }
+
+  .about-cover__text {
+    max-width: none;
+    margin-top: ui-tokens.$about-cover-title-text-gap-mobile;
+    @include ui-tokens.type-mobile-text-l;
+  }
+}
+
+// ─── Desktop (≥1280px) ───────────────────────────────────────────────────────
+
+@media (min-width: variables.$breakpoint-header-tablet) {
+  .about-cover {
+    min-height: 650px;
+  }
+
+  .about-cover__title {
+    white-space: nowrap;
+    @include ui-tokens.type-desktop-h1;
+  }
+}

@@ -1,0 +1,62 @@
+@use "ui-tokens";
+@use "variables";
+
+// Shared About page responsive helpers — phone ≤767, tablet 768–1279, desktop ≥1280.
+// Keeps layouts full-width and filled between desktop and mobile Figma.
+
+@mixin about-section-padding-tablet {
+  padding-top: clamp(#{ui-tokens.$about-page-section-gap-mobile}, 14vw, #{ui-tokens.$about-page-section-gap});
+  padding-inline: variables.$layout-gutter;
+  padding-bottom: 0;
+}
+
+@mixin about-section-padding-mobile {
+  padding-top: ui-tokens.$about-page-section-gap-mobile;
+  padding-inline: ui-tokens.$about-mobile-gutter;
+  padding-bottom: 0;
+}
+
+@mixin about-intro-stack {
+  grid-template-columns: 1fr;
+  row-gap: ui-tokens.$about-intro-gap;
+}
+
+@mixin about-card-grid-tablet {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 60px) variables.$layout-gutter;
+}
+
+@mixin about-person-card-touch {
+  .person-card__media {
+    aspect-ratio: 1;
+  }
+
+  .person-card__image {
+    object-position: center 10%;
+  }
+
+  .person-card__bio {
+    top: auto;
+    bottom: ui-tokens.$ui-card-mobile-padding;
+    max-width: none;
+    overflow: visible;
+  }
+
+  .person-card__bio-text {
+    opacity: 1;
+    @include ui-tokens.type-mobile-link;
+  }
+
+  .person-card__name {
+    @include ui-tokens.type-mobile-h3;
+  }
+
+  .person-card__role {
+    @include ui-tokens.type-mobile-text-m;
+  }
+
+  .person-card:hover .person-card__image,
+  .person-card:focus-within .person-card__image {
+    transform: none;
+  }
+}

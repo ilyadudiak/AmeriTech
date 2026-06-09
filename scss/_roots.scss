@@ -1,0 +1,119 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+@use "about-responsive";
+
+// Block: roots — About page "Our Roots" section (Desktop Figma 9846:2461)
+// Two-column intro (heading | body) above a full-width image; stacks on phone.
+
+.roots {
+  padding: ui-tokens.$about-page-section-gap variables.$layout-gutter 0;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.roots__inner {
+  max-width: variables.$layout-max-width;
+  margin: 0 auto;
+}
+
+.roots__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$about-label-padding-y ui-tokens.$about-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-black;
+  white-space: nowrap;
+  @include ui-tokens.type-desktop-descriptor;
+}
+
+.roots__columns {
+  display: grid;
+  grid-template-columns: ui-tokens.$about-page-intro-cols;
+  column-gap: clamp(24px, 4vw, 40px);
+  align-items: start;
+  margin-top: ui-tokens.$about-intro-gap;
+}
+
+.roots__title {
+  margin: 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h2;
+}
+
+.roots__body {
+  max-width: 638px;
+
+  p {
+    margin: 0;
+    color: colors.$color-black;
+    opacity: ui-tokens.$about-text-opacity;
+    @include ui-tokens.type-desktop-text-l;
+  }
+
+  p + p {
+    margin-top: 1.2em;
+  }
+}
+
+.roots__media {
+  height: clamp(250px, 38vw, #{ui-tokens.$about-media-height-desktop});
+  margin: ui-tokens.$about-section-gap 0 0;
+  overflow: hidden;
+  border-radius: ui-tokens.$ui-card-radius;
+  background-color: colors.$color-light-blue;
+  background-image: url("../assets/images/about-roots.jpg");
+  background-repeat: no-repeat;
+  background-position: 52% 28%;
+  background-size: 128% auto;
+}
+
+// ─── Tablet (768–1279px) ───────────────────────────────────────────────────
+
+@media (min-width: variables.$breakpoint-about-mobile) and (max-width: variables.$breakpoint-header-tablet - 1px) {
+  .roots {
+    @include about-responsive.about-section-padding-tablet;
+  }
+
+  @media (max-width: variables.$breakpoint-about-intro-stack - 1px) {
+    .roots__columns {
+      @include about-responsive.about-intro-stack;
+    }
+  }
+}
+
+// ─── Phone (≤767px) — Figma 9864:3138 ─────────────────────────────────────
+
+@media (max-width: variables.$breakpoint-about-mobile - 1px) {
+  .roots {
+    @include about-responsive.about-section-padding-mobile;
+  }
+
+  .roots__label {
+    @include ui-tokens.type-mobile-descriptor;
+  }
+
+  .roots__columns {
+    @include about-responsive.about-intro-stack;
+  }
+
+  .roots__title {
+    @include ui-tokens.type-mobile-h2;
+  }
+
+  .roots__body {
+    max-width: none;
+
+    p {
+      @include ui-tokens.type-mobile-text-l;
+    }
+  }
+
+  .roots__media {
+    height: ui-tokens.$about-mobile-media-height-roots;
+    background-position: center;
+    background-size: cover;
+  }
+}

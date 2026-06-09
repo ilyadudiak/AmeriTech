@@ -1,0 +1,287 @@
+@use "colors";
+@use "typography";
+@use "ui-tokens";
+@use "variables";
+
+// Block: team-member — bio page (Desktop Figma 9846:2939 / Mobile 9874:5156)
+// Fluid layout: stacked full-width by default; 2-col + sticky when container ≥920px.
+
+.page-team-member {
+  background: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.team-member {
+  box-sizing: border-box;
+  container-type: inline-size;
+  container-name: team-member;
+  width: 100%;
+  max-width: variables.$layout-max-width;
+  margin-inline: auto;
+  padding-inline: clamp(
+    ui-tokens.$about-mobile-gutter,
+    3.2vw,
+    variables.$layout-gutter
+  );
+}
+
+.team-member__breadcrumbs {
+  padding-top: calc(
+    clamp(
+      ui-tokens.$header-height-mobile,
+      10vw,
+      ui-tokens.$header-height-desktop
+    ) + clamp(16px, 2vw, ui-tokens.$team-member-breadcrumb-offset)
+  );
+}
+
+.team-member__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(
+    ui-tokens.$team-member-mobile-photo-to-text,
+    4vw,
+    ui-tokens.$team-member-bio-section-gap
+  );
+  align-items: start;
+  width: 100%;
+  max-width: ui-tokens.$team-member-content-width;
+  margin-top: clamp(40px, 8vw, ui-tokens.$team-member-breadcrumb-to-content);
+}
+
+.team-member__photo-wrap {
+  align-self: start;
+  width: 100%;
+  max-width: none;
+}
+
+.team-member__photo {
+  position: relative;
+  width: 100%;
+  max-width: ui-tokens.$team-member-photo-size;
+  margin: 0;
+  border-radius: ui-tokens.$ui-radius-md;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.team-member__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.team-member__linkedin {
+  position: absolute;
+  top: ui-tokens.$team-member-linkedin-inset;
+  right: ui-tokens.$team-member-linkedin-inset;
+  z-index: 2;
+  display: block;
+  width: 44px;
+  height: 44px;
+}
+
+.team-member__linkedin-icon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity ui-tokens.$ui-transition-fast;
+}
+
+.team-member__linkedin-icon--hover {
+  opacity: 0;
+}
+
+.team-member__linkedin:hover .team-member__linkedin-icon--default,
+.team-member__linkedin:focus-visible .team-member__linkedin-icon--default {
+  opacity: 0;
+}
+
+.team-member__linkedin:hover .team-member__linkedin-icon--hover,
+.team-member__linkedin:focus-visible .team-member__linkedin-icon--hover {
+  opacity: 1;
+}
+
+.team-member__bio {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(
+    ui-tokens.$team-member-mobile-bio-section-gap,
+    4vw,
+    ui-tokens.$team-member-bio-section-gap
+  );
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+.team-member__header {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$team-member-name-role-gap;
+}
+
+.team-member__name {
+  margin: 0;
+  font-family: typography.$font-mobile-h1-family;
+  font-size: clamp(
+    typography.$font-mobile-h1-size,
+    5.5vw,
+    typography.$font-desktop-h1-size
+  );
+  font-weight: typography.$font-mobile-h1-weight;
+  line-height: typography.$font-mobile-h1-line-height;
+  letter-spacing: typography.$font-mobile-h1-letter-spacing;
+}
+
+.team-member__role {
+  margin: 0;
+  opacity: ui-tokens.$about-text-opacity;
+  font-family: typography.$font-mobile-caption-family;
+  font-size: clamp(
+    typography.$font-mobile-caption-size,
+    2.5vw,
+    typography.$font-desktop-caption-size
+  );
+  font-weight: typography.$font-mobile-caption-weight;
+  line-height: typography.$font-mobile-caption-line-height;
+  letter-spacing: typography.$font-mobile-caption-letter-spacing;
+  text-transform: typography.$font-mobile-caption-text-transform;
+}
+
+.team-member__text {
+  display: flex;
+  flex-direction: column;
+  opacity: ui-tokens.$about-text-opacity;
+  @include ui-tokens.type-mobile-text-l;
+  font-size: clamp(
+    typography.$font-mobile-body-text-l-size,
+    2.8vw,
+    typography.$font-desktop-text-l-size
+  );
+
+  p {
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  p + p {
+    margin-top: 1.2em;
+  }
+}
+
+.team-member__education {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$team-member-education-gap;
+}
+
+.team-member__education-title {
+  margin: 0;
+  font-family: typography.$font-mobile-h4-family;
+  font-size: clamp(
+    typography.$font-mobile-h4-size,
+    3vw,
+    typography.$font-desktop-h4-size
+  );
+  font-weight: typography.$font-mobile-h4-weight;
+  line-height: typography.$font-mobile-h4-line-height;
+  letter-spacing: typography.$font-mobile-h4-letter-spacing;
+}
+
+.team-member__education-list {
+  margin: 0;
+  padding-left: clamp(
+    ui-tokens.$team-member-mobile-education-list-indent,
+    4vw,
+    30px
+  );
+  opacity: ui-tokens.$about-text-opacity;
+  @include ui-tokens.type-mobile-text-l;
+  font-size: clamp(
+    typography.$font-mobile-body-text-l-size,
+    2.8vw,
+    typography.$font-desktop-text-l-size
+  );
+  list-style: disc;
+
+  li + li {
+    margin-top: ui-tokens.$team-member-education-item-gap;
+  }
+}
+
+// ─── Two-column + sticky (container ≥920px) ────────────────────────────────
+
+@container team-member (min-width: 920px) {
+  .team-member__inner {
+    grid-template-columns:
+      minmax(0, min(#{ui-tokens.$team-member-photo-size}, 41cqi))
+      minmax(0, 1fr);
+    column-gap: clamp(24px, 9.5cqi, ui-tokens.$team-member-column-gap);
+  }
+
+  .team-member__photo-wrap {
+    position: sticky;
+    top: clamp(16px, 2vw, ui-tokens.$team-member-breadcrumb-offset);
+    width: min(100%, ui-tokens.$team-member-photo-size);
+    max-width: ui-tokens.$team-member-photo-size;
+  }
+
+  .team-member__bio {
+    max-width: ui-tokens.$team-member-bio-width;
+  }
+}
+
+@container team-member (min-width: #{ui-tokens.$team-member-content-width}) {
+  .team-member__inner {
+    grid-template-columns:
+      ui-tokens.$team-member-photo-size
+      minmax(0, ui-tokens.$team-member-bio-width);
+    column-gap: ui-tokens.$team-member-column-gap;
+  }
+
+  .team-member__photo-wrap {
+    width: ui-tokens.$team-member-photo-size;
+  }
+}
+
+// ─── Light header on white bio pages ───────────────────────────────────────
+
+.page-team-member .header__link {
+  color: colors.$color-black;
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.page-team-member .header__link--active {
+  opacity: 1;
+}
+
+.page-team-member .header__logo-img--light {
+  opacity: 0;
+}
+
+.page-team-member .header__logo-img--dark {
+  opacity: 1;
+}
+
+.page-team-member .header__burger-line {
+  background: colors.$color-black;
+}
+
+@media (max-width: variables.$breakpoint-header-desktop - 1px) {
+  .page-team-member .header:not(.header--menu-open) .header__logo-img--light {
+    opacity: 0;
+  }
+
+  .page-team-member .header:not(.header--menu-open) .header__logo-img--dark {
+    opacity: 1;
+  }
+}

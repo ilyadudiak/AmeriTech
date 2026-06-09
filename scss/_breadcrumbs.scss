@@ -1,0 +1,46 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: breadcrumbs — page path navigation (Figma 9846:2877)
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  @include ui-tokens.type-mobile-text-m;
+}
+
+.breadcrumbs__item {
+  color: colors.$color-white;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity ui-tokens.$ui-transition-fast;
+}
+
+a.breadcrumbs__item:hover {
+  opacity: ui-tokens.$ui-opacity-muted;
+}
+
+.breadcrumbs__separator {
+  color: colors.$color-white;
+}
+
+.breadcrumbs__item--current {
+  color: colors.$color-grey;
+}
+
+.breadcrumbs--dark .breadcrumbs__item,
+.breadcrumbs--dark .breadcrumbs__separator {
+  color: colors.$color-black;
+}
+
+.breadcrumbs--dark .breadcrumbs__item--current {
+  color: colors.$color-grey;
+}
+
+@media (min-width: variables.$breakpoint-header-desktop) {
+  .breadcrumbs {
+    @include ui-tokens.type-desktop-text-m;
+  }
+}

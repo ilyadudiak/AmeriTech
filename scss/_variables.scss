@@ -9,3 +9,8 @@ $layout-gutter: 20px;
 
 $breakpoint-header-desktop: 1024px;
 $breakpoint-header-tablet: 1280px;
+
+// About page layout — phone Figma at 375px; tablet/desktop fill width above this
+$breakpoint-about-mobile: 768px;
+$breakpoint-about-intro-stack: 900px;
+$breakpoint-about-timeline-stack: 1024px; // stacked timeline + single scrubber marker
