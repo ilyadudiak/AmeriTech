@@ -33,8 +33,15 @@
 
 .progress-page__logo {
   display: block;
-  width: 160px;
-  height: auto;
+  flex-shrink: 0;
+  width: ui-tokens.$header-logo-width-mobile;
+  height: ui-tokens.$header-logo-height-mobile;
+  object-fit: contain;
+
+  @media (min-width: variables.$breakpoint-md) {
+    width: ui-tokens.$header-logo-width-desktop;
+    height: ui-tokens.$header-logo-height-desktop;
+  }
 }
 
 .progress-page__title {
