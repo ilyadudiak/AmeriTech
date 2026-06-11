@@ -1,0 +1,428 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: projects — Featured Projects (Figma 9846:3942 / 9874:6234)
+// ≤767: mobile stack · 768–1599: fluid asymmetric grid · ≥1600: desktop metrics
+
+.page-projects .about-cover__text {
+  max-width: clamp(
+    #{ui-tokens.$projects-cover-text-max-width-mobile},
+    42vw,
+    #{ui-tokens.$projects-cover-text-max-width}
+  );
+}
+
+.projects {
+  padding: clamp(
+      #{ui-tokens.$projects-offset-top-mobile},
+      12.5vw,
+      #{ui-tokens.$projects-offset-top-desktop}
+    )
+    clamp(#{ui-tokens.$projects-mobile-gutter}, 2.5vw, #{variables.$layout-gutter})
+    clamp(#{ui-tokens.$projects-section-bottom-mobile}, 6vw, 120px);
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.projects__inner {
+  width: 100%;
+  max-width: variables.$layout-max-width;
+  margin: 0 auto;
+}
+
+.projects__toolbar {
+  width: 100%;
+  max-width: 100%;
+}
+
+// ─── Filters — desktop: All + wrapped tabs · mobile: All + Filter panel ───
+
+.projects__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: ui-tokens.$projects-filter-gap;
+  width: 100%;
+}
+
+.projects__filters-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ui-tokens.$projects-filter-gap;
+  flex: 0 0 auto;
+}
+
+.projects__filters-primary {
+  flex: 0 0 auto;
+}
+
+.projects__filters-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: ui-tokens.$projects-filter-bar-height-mobile;
+  padding: ui-tokens.$ui-tab-padding-y ui-tokens.$ui-tab-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-tab-radius;
+  background: transparent;
+  cursor: pointer;
+  color: colors.$color-dark-blue;
+  font: inherit;
+  @include ui-tokens.type-mobile-tag;
+  transition:
+    background-color ui-tokens.$ui-transition-fast,
+    border-color ui-tokens.$ui-transition-fast;
+
+  &:hover {
+    background-color: ui-tokens.$ui-surface-tab-hover;
+  }
+}
+
+.projects__filters-toggle-icon {
+  display: block;
+  width: 10px;
+  height: 5px;
+  transition: transform ui-tokens.$ui-transition-fast;
+}
+
+.projects__filters-toggle[aria-expanded="true"] .projects__filters-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.projects__filters-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: ui-tokens.$projects-filter-gap;
+  flex: 1 1 280px;
+  max-width: min(1297px, 100%);
+}
+
+.projects__filter {
+  font: inherit;
+  white-space: normal;
+  text-align: center;
+}
+
+.projects__empty {
+  margin: clamp(40px, 4vw, #{ui-tokens.$projects-toolbar-grid-gap-desktop}) 0 0;
+  color: colors.$color-black;
+  opacity: ui-tokens.$portfolio-text-opacity;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+// ─── Grid — fluid 638/902 columns (desktop/tablet) ─────────────────────────
+
+.projects__grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, ui-tokens.$portfolio-grid-col-small * 1fr)
+    minmax(0, ui-tokens.$portfolio-grid-col-big * 1fr);
+  column-gap: clamp(12px, 1.5vw, #{ui-tokens.$portfolio-grid-col-gap});
+  row-gap: clamp(40px, 6vw, #{ui-tokens.$portfolio-grid-row-gap});
+  width: 100%;
+  margin: clamp(
+      #{ui-tokens.$projects-toolbar-grid-gap-mobile},
+      4vw,
+      #{ui-tokens.$projects-toolbar-grid-gap-desktop}
+    )
+    0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.projects__item--slot-1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.projects__item--slot-2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.projects__item--slot-3 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.projects__item--slot-4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.projects__item--slot-5 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.projects__item--slot-6 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.projects {
+  .project-card--small,
+  .project-card--big {
+    max-width: none;
+  }
+}
+
+.projects__card--mobile {
+  display: none;
+}
+
+// ─── Pagination ────────────────────────────────────────────────────────────
+
+.projects__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: ui-tokens.$projects-filter-gap;
+  width: 100%;
+  margin-top: clamp(
+    #{ui-tokens.$projects-grid-to-pagination-mobile},
+    6vw,
+    #{ui-tokens.$projects-grid-to-pagination-desktop}
+  );
+}
+
+.projects-pagination__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: ui-tokens.$ui-slider-btn-size;
+  height: ui-tokens.$ui-slider-btn-size;
+  padding: 0 ui-tokens.$ui-tab-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-radius-sm;
+  background: transparent;
+  cursor: pointer;
+  color: colors.$color-black;
+  font: inherit;
+  @include ui-tokens.type-desktop-text-l;
+  transition:
+    background-color ui-tokens.$ui-transition-fast,
+    color ui-tokens.$ui-transition-fast,
+    border-color ui-tokens.$ui-transition-fast;
+
+  &:hover:not(.projects-pagination__page--active) {
+    background-color: ui-tokens.$ui-surface-tab-hover;
+  }
+
+  &.projects-pagination__page--active {
+    background-color: colors.$color-dark-blue;
+    border-color: colors.$color-dark-blue;
+    color: colors.$color-white;
+  }
+}
+
+.projects-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: ui-tokens.$ui-slider-btn-size;
+  height: ui-tokens.$ui-slider-btn-size;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+.projects-pagination__arrow--prev img {
+  transform: rotate(90deg);
+}
+
+.projects-pagination__arrow--next img {
+  transform: rotate(-90deg);
+}
+
+// ─── Phone (≤767) — filters Figma 9874:6550 / 9895:15418 ─────────────────
+
+@media (max-width: ui-tokens.$portfolio-breakpoint-stack - 1px) {
+  .page-projects .about-cover__content {
+    max-width: ui-tokens.$projects-mobile-content-width;
+  }
+
+  .page-projects .about-cover__text {
+    max-width: ui-tokens.$projects-cover-text-max-width-mobile;
+  }
+
+  .projects {
+    padding-top: ui-tokens.$projects-offset-top-mobile;
+    padding-inline: ui-tokens.$projects-mobile-gutter;
+    padding-bottom: ui-tokens.$projects-section-bottom-mobile;
+  }
+
+  .projects__inner {
+    max-width: ui-tokens.$projects-mobile-content-width;
+    margin-inline: auto;
+  }
+
+  .projects__filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: ui-tokens.$projects-filter-gap;
+  }
+
+  .projects__filters-row {
+    width: 100%;
+    min-height: ui-tokens.$projects-filter-bar-height-mobile;
+  }
+
+  .projects__filters-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  // All Projects — always primary dark fill (Figma 9874:6550 / 9895:15418)
+  .projects__filters-primary .projects__filter {
+    min-height: ui-tokens.$projects-filter-bar-height-mobile;
+    background-color: colors.$color-dark-blue;
+    border-color: colors.$color-dark-blue;
+    color: colors.$color-white;
+    @include ui-tokens.type-mobile-tag;
+
+    &:hover {
+      background-color: colors.$color-dark-blue;
+      border-color: colors.$color-dark-blue;
+      color: colors.$color-white;
+    }
+  }
+
+  // Open panel — dark blue box, wrapped tabs (Figma 9874:6573)
+  .projects__filters-group {
+    display: none;
+    flex: none;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: ui-tokens.$projects-filter-gap;
+    width: 100%;
+    max-width: none;
+    padding: ui-tokens.$projects-mobile-filter-panel-padding;
+    border-radius: ui-tokens.$ui-tab-radius;
+    background-color: colors.$color-dark-blue;
+  }
+
+  .projects__filters-group--open {
+    display: flex;
+  }
+
+  // Inactive — white text + white border (Figma 9874:6574)
+  .projects__filters-group .projects__filter {
+    width: auto;
+    max-width: 100%;
+    min-height: ui-tokens.$ui-tab-mobile-height;
+    padding: ui-tokens.$ui-tab-padding-y ui-tokens.$ui-tab-padding-x;
+    border-color: ui-tokens.$ui-border-white-20;
+    background-color: transparent;
+    color: colors.$color-white;
+    white-space: normal;
+    @include ui-tokens.type-mobile-tag;
+
+    &:hover:not(.tab--active) {
+      border-color: ui-tokens.$ui-border-white-20;
+      background-color: transparent;
+      color: colors.$color-white;
+    }
+
+    // Active — white fill + black text (Figma 9895:15432)
+    &.tab--active {
+      background-color: colors.$color-white;
+      border-color: ui-tokens.$ui-border-white-20;
+      color: colors.$color-black;
+    }
+  }
+
+  .projects__empty {
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .projects__grid {
+    display: flex;
+    flex-direction: column;
+    gap: ui-tokens.$projects-cards-gap-mobile;
+    margin-top: ui-tokens.$projects-toolbar-grid-gap-mobile;
+  }
+
+  .projects__item {
+    display: block;
+    width: 100%;
+
+    &[hidden] {
+      display: none !important;
+    }
+  }
+
+  .projects__item--slot-1,
+  .projects__item--slot-2,
+  .projects__item--slot-3,
+  .projects__item--slot-4,
+  .projects__item--slot-5,
+  .projects__item--slot-6 {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .projects__card:not(.projects__card--mobile) {
+    display: none;
+  }
+
+  .projects__card--mobile {
+    display: flex;
+    flex-direction: column;
+    gap: ui-tokens.$projects-card-stack-gap-mobile;
+    width: 100%;
+    max-width: none;
+  }
+
+  .projects .project-card--mobile {
+    max-width: none;
+
+    .project-card__media {
+      width: 100%;
+      aspect-ratio: 1;
+    }
+  }
+
+  .projects__pagination {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 4px;
+    margin-top: ui-tokens.$projects-cards-gap-mobile;
+  }
+
+  .projects-pagination__page,
+  .projects-pagination__ellipsis {
+    min-width: ui-tokens.$ui-slider-btn-size;
+    padding: 0;
+    @include ui-tokens.type-mobile-text-m;
+  }
+
+  .projects .btn:hover .btn__arrow-track,
+  .projects .btn.btn--state-hover .btn__arrow-track {
+    transform: none;
+  }
+}
+
+// ─── Tablet (768–1023) — fluid grid, filters wrap ──────────────────────────
+
+@media (min-width: ui-tokens.$portfolio-breakpoint-stack) and (max-width: 1023px) {
+  .projects__filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .projects__filters-row {
+    width: 100%;
+  }
+
+  .projects__filters-group {
+    justify-content: flex-start;
+    max-width: none;
+  }
+}

@@ -1,0 +1,1041 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: market-detail — 9846:3703 desktop / 9874:5791 mobile
+// Fluid ≥768: columns fill width · stack only ≤767
+
+@mixin market-detail-section-padding {
+  padding: clamp(
+      #{ui-tokens.$market-detail-section-gap-mobile},
+      12.5vw,
+      #{ui-tokens.$market-detail-section-gap}
+    )
+    clamp(#{ui-tokens.$market-detail-mobile-gutter}, 2.5vw, #{variables.$layout-gutter}) 0;
+}
+
+@mixin market-detail-fluid-col-gap {
+  column-gap: clamp(24px, 5vw, #{ui-tokens.$capabilities-grid-col-gap});
+}
+
+@mixin market-detail-fluid-h2 {
+  font-size: clamp(32px, 4.2vw, 54px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+@mixin market-detail-fluid-h3 {
+  font-size: clamp(24px, 2.5vw, 32px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+@mixin market-detail-hanging-disc {
+  position: relative;
+  margin-left: (-1 * ui-tokens.$market-detail-benefits-disc-offset);
+  padding-left: ui-tokens.$market-detail-benefits-disc-offset;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.4em;
+    left: 21px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+}
+
+.page-market-detail .about-cover__text {
+  max-width: min(#{ui-tokens.$market-detail-cover-text-max-width}, 100%);
+}
+
+.page-market-detail .about-cover__content {
+  width: 100%;
+  max-width: min(700px, 100%);
+}
+
+// ─── Shared bullet row (mobile) / hidden on desktop where hanging discs apply ─
+
+.market-detail-item__bullet {
+  flex-shrink: 0;
+  width: ui-tokens.$competencies-bullet-width;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+// ─── Intro — 9874:5950 mobile (left) · 9846:3852 desktop (center) ───────────
+
+.market-intro {
+  @include market-detail-section-padding;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.market-intro__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ui-tokens.$market-detail-header-gap;
+  width: 100%;
+  max-width: ui-tokens.$market-detail-content-max-width;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.market-intro__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$about-label-padding-y ui-tokens.$about-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-black;
+  white-space: nowrap;
+  @include ui-tokens.type-desktop-descriptor;
+}
+
+.market-intro__title {
+  margin: 0;
+  width: 100%;
+  max-width: min(#{ui-tokens.$market-detail-intro-title-max-width}, 100%);
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h2;
+  @include market-detail-fluid-h2;
+}
+
+.market-intro__text {
+  margin: 0;
+  width: 100%;
+  max-width: min(#{ui-tokens.$market-detail-intro-text-max-width}, 100%);
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+// ─── Challenges — 9846:3775 desktop · 9874:5998 mobile ─────────────────────
+
+.market-challenges {
+  @include market-detail-section-padding;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.market-challenges__inner {
+  width: 100%;
+  max-width: ui-tokens.$market-detail-content-max-width;
+  margin: 0 auto;
+}
+
+.market-challenges__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$about-label-padding-y ui-tokens.$about-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-black;
+  white-space: nowrap;
+  @include ui-tokens.type-desktop-descriptor;
+}
+
+.market-challenges__layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  @include market-detail-fluid-col-gap;
+  align-items: start;
+  margin-top: clamp(
+    #{ui-tokens.$market-detail-header-gap},
+    5vw,
+    #{ui-tokens.$market-detail-label-to-content}
+  );
+}
+
+.market-challenges__title {
+  margin: 0;
+  width: 100%;
+  max-width: min(#{ui-tokens.$market-detail-challenges-title-max-width}, 100%);
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h2;
+  @include market-detail-fluid-h2;
+}
+
+.market-challenges__list {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$market-detail-list-gap;
+  width: 100%;
+  min-width: 0;
+  justify-self: stretch;
+  overflow: visible;
+}
+
+.market-challenges__entry-row {
+  display: flex;
+  gap: ui-tokens.$competencies-bullet-gap-desktop;
+  align-items: flex-start;
+}
+
+.market-challenges__entry {
+  overflow: visible;
+}
+
+.market-challenges__entry-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: ui-tokens.$market-detail-item-text-gap;
+  min-width: 0;
+  overflow: visible;
+}
+
+.market-challenges__entry-title {
+  margin: 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h3;
+  @include market-detail-fluid-h3;
+  @include market-detail-hanging-disc;
+}
+
+.market-challenges__entry-line {
+  display: none;
+}
+
+.market-challenges__entry-text {
+  margin: 0;
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+  @include ui-tokens.type-desktop-text-m;
+}
+
+.market-challenges__entry:not(:last-child)::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: ui-tokens.$market-detail-list-gap;
+  background-color: colors.$color-black;
+  opacity: 0.2;
+}
+
+.market-detail-item__bullet--dark {
+  display: none;
+}
+
+// ─── Process — 9846:3800 desktop · 9874:5999 mobile ────────────────────────
+
+.market-process {
+  @include market-detail-section-padding;
+}
+
+.market-process__card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: ui-tokens.$market-detail-content-max-width;
+  margin: 0 auto;
+  border-radius: ui-tokens.$ui-card-radius;
+  background: linear-gradient(
+    180deg,
+    colors.$color-dark-blue 0%,
+    colors.$color-cover-gradient-end ui-tokens.$competencies-gradient-stop
+  );
+}
+
+.market-process__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.market-process__bg-art {
+  position: absolute;
+  top: ui-tokens.$competencies-bg-lines-top-desktop;
+  left: ui-tokens.$competencies-bg-lines-left-desktop;
+  width: ui-tokens.$competencies-bg-lines-width;
+  height: ui-tokens.$competencies-bg-lines-height;
+}
+
+.market-process__bg-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+}
+
+.market-process__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: ui-tokens.$competencies-padding-top-desktop variables.$layout-gutter
+    ui-tokens.$competencies-padding-bottom-desktop;
+  text-align: center;
+}
+
+.market-process__label,
+.market-process__title,
+.market-process__lead {
+  align-self: center;
+}
+
+.market-process__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$competencies-label-padding-y ui-tokens.$competencies-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-white-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-white;
+  white-space: nowrap;
+  @include ui-tokens.type-desktop-descriptor;
+}
+
+.market-process__title {
+  margin: ui-tokens.$market-detail-header-gap 0 0;
+  width: 100%;
+  max-width: min(900px, 100%);
+  color: colors.$color-white;
+  @include ui-tokens.type-desktop-h2;
+  @include market-detail-fluid-h2;
+}
+
+.market-process__lead {
+  margin: ui-tokens.$market-detail-header-gap 0 0;
+  width: 100%;
+  max-width: min(#{ui-tokens.$market-detail-process-lead-max-width}, 100%);
+  color: colors.$color-white;
+  opacity: ui-tokens.$competencies-text-opacity;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+.market-process__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: ui-tokens.$competencies-grid-row-gap
+    clamp(
+      ui-tokens.$competencies-grid-col-gap-min,
+      7.5vw,
+      ui-tokens.$competencies-grid-col-gap-max
+    );
+  width: 100%;
+  margin: ui-tokens.$competencies-list-margin-top 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.market-process__item {
+  display: flex;
+  gap: ui-tokens.$competencies-bullet-gap-desktop;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.market-process__bullet {
+  flex-shrink: 0;
+  width: ui-tokens.$competencies-bullet-width;
+  height: ui-tokens.$competencies-bullet-height;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.market-process__item-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: ui-tokens.$competencies-item-body-gap-desktop;
+  min-width: 0;
+}
+
+.market-process__item-title {
+  margin: 0;
+  color: colors.$color-white;
+  @include ui-tokens.type-desktop-h3;
+  @include market-detail-fluid-h3;
+}
+
+.market-process__item-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: ui-tokens.$competencies-item-line-color;
+}
+
+.market-process__item-text {
+  margin: 0;
+  color: colors.$color-white;
+  opacity: ui-tokens.$competencies-text-opacity;
+  @include ui-tokens.type-desktop-text-m;
+}
+
+// ─── Benefits — 9846:3857 desktop · 9874:6064 mobile ─────────────────────
+
+.market-benefits {
+  @include market-detail-section-padding;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.market-benefits__inner {
+  display: grid;
+  // Figma ratio 638 : 770 — both columns grow fluidly
+  grid-template-columns: minmax(0, 638fr) minmax(0, 770fr);
+  column-gap: clamp(24px, 6vw, #{ui-tokens.$market-detail-benefits-col-gap});
+  align-items: start;
+  width: 100%;
+  max-width: ui-tokens.$market-detail-content-max-width;
+  margin: 0 auto;
+}
+
+.market-benefits__media {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  justify-self: stretch;
+  align-self: start;
+  overflow: hidden;
+  border-radius: ui-tokens.$ui-card-radius;
+  aspect-ratio: ui-tokens.$market-detail-benefits-image-ratio;
+
+  picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+  }
+}
+
+.market-benefits__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.market-benefits__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+.market-benefits__headline {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.market-benefits__title {
+  margin: 0;
+  width: 100%;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h2;
+  @include market-detail-fluid-h2;
+}
+
+.market-benefits__lead {
+  margin: ui-tokens.$market-detail-benefits-lead-offset 0 0;
+  width: 100%;
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+.market-benefits__list {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$market-detail-benefits-list-gap;
+  width: 100%;
+  margin: ui-tokens.$market-detail-benefits-list-offset 0 0;
+  overflow: visible;
+  list-style: none;
+  padding: 0;
+}
+
+.market-benefits__item {
+  overflow: visible;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin-top: ui-tokens.$market-detail-benefits-list-gap;
+    background-color: colors.$color-black;
+    opacity: 0.2;
+  }
+}
+
+.market-benefits__separator {
+  display: none;
+  width: 100%;
+  height: 1px;
+  background-color: colors.$color-black;
+  opacity: 0.2;
+  list-style: none;
+}
+
+.market-benefits__item-row {
+  display: flex;
+  gap: ui-tokens.$competencies-bullet-gap-desktop;
+  align-items: flex-start;
+}
+
+.market-benefits__item .market-detail-item__bullet--dark {
+  display: none;
+}
+
+.market-benefits__item-title {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h3;
+  @include market-detail-fluid-h3;
+  @include market-detail-hanging-disc;
+}
+
+// ─── Related capabilities — 9846:3875 desktop · 9874:6161 mobile ───────────
+
+.market-related {
+  @include market-detail-section-padding;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.market-related__inner {
+  width: 100%;
+  max-width: ui-tokens.$market-detail-content-max-width;
+  margin: 0 auto;
+}
+
+.market-related__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: variables.$layout-gutter;
+}
+
+.market-related__title {
+  margin: 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h2;
+  @include market-detail-fluid-h2;
+}
+
+.market-related__nav {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.market-related__viewport {
+  overflow: hidden;
+  margin-top: clamp(
+    #{ui-tokens.$market-detail-mobile-related-header-offset},
+    10vw,
+    #{ui-tokens.$market-detail-related-header-offset}
+  );
+}
+
+.market-related__track {
+  display: flex;
+  gap: ui-tokens.$capabilities-grid-col-gap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: transform ui-tokens.$market-detail-slider-duration ui-tokens.$market-detail-slider-easing;
+  will-change: transform;
+}
+
+.market-related__slide {
+  flex: 0 0 calc((100% - #{ui-tokens.$capabilities-grid-col-gap}) / 2);
+  min-width: 0;
+}
+
+.market-related .project-card--medium {
+  max-width: none;
+}
+
+.market-related .capability-card {
+  width: 100%;
+}
+
+.market-related__arrow--prev .slider-btn__icon {
+  transform: rotate(90deg);
+}
+
+.market-related__arrow--next .slider-btn__icon {
+  transform: rotate(-90deg);
+}
+
+// ─── Fluid tablet/desktop (≥768) ───────────────────────────────────────────
+
+@media (min-width: ui-tokens.$market-detail-mobile-breakpoint) {
+  .market-process__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: ui-tokens.$market-detail-mobile-breakpoint) and (max-width: 1023px) {
+  // Tablet: stack benefits so image is full-width, not a narrow side column
+  .market-benefits__inner {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+    row-gap: clamp(32px, 5vw, #{ui-tokens.$market-detail-mobile-benefits-section-gap});
+  }
+
+  .market-benefits__media {
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+    aspect-ratio: ui-tokens.$market-detail-benefits-image-ratio;
+  }
+}
+
+@media (min-width: 1024px) {
+  .market-benefits__inner {
+    grid-template-columns: minmax(0, 638fr) minmax(0, 770fr);
+    align-items: start;
+  }
+
+  .market-benefits__media {
+    aspect-ratio: ui-tokens.$market-detail-benefits-image-ratio;
+  }
+}
+
+@media (min-width: variables.$breakpoint-header-tablet) {
+  .market-intro__title,
+  .market-challenges__title,
+  .market-process__title,
+  .market-benefits__title,
+  .market-related__title {
+    font-size: 54px;
+  }
+
+  .market-challenges__entry-title,
+  .market-process__item-title,
+  .market-benefits__item-title {
+    font-size: 32px;
+  }
+}
+
+@media (min-width: ui-tokens.$portfolio-breakpoint-stack) {
+  .market-related .capability-card {
+    .btn--mobile {
+      .btn__label {
+        padding: ui-tokens.$ui-btn-desktop-padding-y ui-tokens.$ui-btn-desktop-padding-x;
+        @include ui-tokens.type-desktop-button;
+      }
+
+      .btn__arrow {
+        width: ui-tokens.$ui-btn-desktop-arrow-size;
+        height: ui-tokens.$ui-btn-desktop-arrow-size;
+      }
+    }
+
+    .capability-card__title {
+      @include ui-tokens.type-desktop-h3;
+    }
+
+    .capability-card__text {
+      @include ui-tokens.type-desktop-text-l;
+    }
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) and (min-width: ui-tokens.$portfolio-breakpoint-stack) {
+  .market-related .capability-card .btn--mobile.btn--white:hover:not(:disabled):not(.btn--inactive) .btn__arrow-track,
+  .market-related .capability-card .btn--mobile.btn--white.btn--state-hover .btn__arrow-track {
+    transform: translate(
+      ui-tokens.$ui-btn-arrow-translate-x,
+      ui-tokens.$ui-btn-arrow-translate-y
+    );
+  }
+}
+
+// ─── Mobile — Figma 9874:5791 (375 artboard · 351 content · 12px gutter) ───
+
+@mixin market-detail-mobile-shell {
+  padding-top: ui-tokens.$market-detail-section-gap-mobile;
+  padding-inline: ui-tokens.$market-detail-mobile-gutter;
+  padding-bottom: 0;
+}
+
+@mixin market-detail-mobile-content-width {
+  width: 100%;
+  max-width: ui-tokens.$market-detail-mobile-content-width;
+  margin-inline: auto;
+}
+
+@media (max-width: ui-tokens.$market-detail-mobile-breakpoint - 1px) {
+  .market-intro,
+  .market-challenges,
+  .market-process,
+  .market-benefits,
+  .market-related {
+    @include market-detail-mobile-shell;
+  }
+
+  .market-intro__inner,
+  .market-challenges__inner,
+  .market-related__inner {
+    @include market-detail-mobile-content-width;
+  }
+
+  .page-market-detail {
+    .about-cover__content {
+      @include market-detail-mobile-content-width;
+      align-items: center;
+      text-align: center;
+    }
+
+    .about-cover__text {
+      max-width: ui-tokens.$market-detail-mobile-cover-text-max-width;
+      margin-inline: auto;
+    }
+  }
+
+  .market-intro__inner {
+    align-items: flex-start;
+    text-align: left;
+    gap: ui-tokens.$market-detail-header-gap;
+  }
+
+  .market-intro__label,
+  .market-challenges__label,
+  .market-process__label {
+    @include ui-tokens.type-mobile-descriptor;
+  }
+
+  .market-intro__title,
+  .market-challenges__title,
+  .market-process__title,
+  .market-benefits__title,
+  .market-related__title {
+    @include ui-tokens.type-mobile-h2;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .market-challenges__entry-title,
+  .market-process__item-title,
+  .market-benefits__item-title,
+  .market-related .capability-card__title {
+    @include ui-tokens.type-mobile-h3;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .market-intro__title {
+    max-width: ui-tokens.$market-detail-mobile-intro-title-max-width;
+  }
+
+  .market-intro__text,
+  .market-benefits__lead,
+  .market-process__lead {
+    @include ui-tokens.type-mobile-text-l;
+  }
+
+  .market-intro__text {
+    max-width: none;
+    width: 100%;
+  }
+
+  // Challenges — Figma 9874:5998: headline gap 24, list gap 40
+  .market-challenges__inner {
+    width: 100%;
+  }
+
+  .market-challenges__label {
+    display: inline-flex;
+  }
+
+  .market-challenges__layout {
+    grid-template-columns: 1fr;
+    row-gap: ui-tokens.$market-detail-mobile-block-gap;
+    margin-top: ui-tokens.$market-detail-header-gap;
+    width: 100%;
+  }
+
+  .market-challenges__title {
+    max-width: none;
+  }
+
+  .market-challenges__list {
+    max-width: none;
+    justify-self: stretch;
+    width: 100%;
+    gap: ui-tokens.$market-detail-mobile-challenges-list-gap;
+  }
+
+  .market-challenges__entry:not(:last-child)::after {
+    display: none;
+  }
+
+  .market-challenges__entry-row {
+    gap: ui-tokens.$market-detail-mobile-item-row-gap;
+  }
+
+  .market-detail-item__bullet--dark {
+    display: block;
+    width: ui-tokens.$competencies-bullet-width;
+  }
+
+  .market-challenges__entry-title {
+    margin: 0;
+    padding: 0;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  .market-challenges__entry-line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: colors.$color-black;
+    opacity: 0.2;
+  }
+
+  .market-challenges__entry-body {
+    gap: ui-tokens.$market-detail-mobile-item-body-gap;
+  }
+
+  .market-challenges__entry-text {
+    @include ui-tokens.type-mobile-text-m;
+  }
+
+  // Process — Figma 9874:5999: card 351, py 80 px 20, headline 311, list gap 60
+  .market-process {
+    padding-top: ui-tokens.$market-detail-section-gap-mobile;
+    padding-inline: ui-tokens.$market-detail-mobile-gutter;
+    padding-bottom: 0;
+  }
+
+  .market-process__card {
+    max-width: ui-tokens.$market-detail-mobile-content-width;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .market-process__bg-art {
+    top: ui-tokens.$competencies-bg-lines-top-mobile;
+    left: ui-tokens.$competencies-bg-lines-left-mobile;
+  }
+
+  .market-process__inner {
+    align-items: flex-start;
+    padding: ui-tokens.$competencies-padding-top-mobile ui-tokens.$competencies-mobile-inner-padding
+      ui-tokens.$competencies-padding-bottom-mobile;
+    text-align: left;
+  }
+
+  .market-process__label,
+  .market-process__title,
+  .market-process__lead {
+    max-width: ui-tokens.$market-detail-mobile-process-inner-width;
+    align-self: flex-start;
+    text-align: left;
+  }
+
+  .market-process__title {
+    margin-top: ui-tokens.$market-detail-header-gap;
+  }
+
+  .market-process__lead {
+    margin-top: ui-tokens.$market-detail-header-gap;
+  }
+
+  .market-process__list {
+    grid-template-columns: 1fr;
+    gap: ui-tokens.$market-detail-mobile-process-item-gap;
+    margin-top: ui-tokens.$market-detail-mobile-block-gap;
+    width: 100%;
+  }
+
+  .market-process__item {
+    gap: ui-tokens.$market-detail-mobile-item-row-gap;
+  }
+
+  .market-process__item-body {
+    gap: ui-tokens.$market-detail-mobile-item-body-gap;
+  }
+
+  .market-process__item-text {
+    @include ui-tokens.type-mobile-text-m;
+  }
+
+  // Benefits — Figma 9874:6064: image 351², blocks gap 40, list gap 24
+  .market-benefits__inner {
+    @include market-detail-mobile-content-width;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+    row-gap: ui-tokens.$market-detail-mobile-benefits-section-gap;
+  }
+
+  .market-benefits__content {
+    display: contents;
+  }
+
+  .market-benefits__media {
+    width: 100%;
+    max-width: ui-tokens.$market-detail-mobile-benefits-image-size;
+    margin-inline: auto;
+    aspect-ratio: 1;
+  }
+
+  .market-benefits__headline {
+    display: flex;
+    flex-direction: column;
+    gap: ui-tokens.$market-detail-header-gap;
+    width: 100%;
+  }
+
+  .market-benefits__title,
+  .market-benefits__lead {
+    max-width: none;
+    width: 100%;
+  }
+
+  .market-benefits__lead {
+    margin-top: 0;
+  }
+
+  .market-benefits__list {
+    display: flex;
+    flex-direction: column;
+    gap: ui-tokens.$market-detail-mobile-benefits-list-gap;
+    width: 100%;
+    margin-top: 0;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .market-benefits__item {
+    &::after {
+      display: none;
+    }
+  }
+
+  .market-benefits__separator {
+    display: block;
+  }
+
+  .market-benefits__item-row {
+    display: flex;
+    gap: ui-tokens.$market-detail-mobile-item-row-gap;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .market-benefits__item .market-detail-item__bullet--dark {
+    display: block;
+    height: 19px;
+  }
+
+  .market-benefits__item-title {
+    margin: 0;
+    padding: 0;
+    flex: 1;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  // Capabilities — Figma 9874:6161
+  .market-related__header {
+    width: 100%;
+    max-width: ui-tokens.$market-detail-mobile-content-width;
+    margin-inline: auto;
+  }
+
+  .market-related__viewport {
+    margin-top: ui-tokens.$market-detail-mobile-related-header-offset;
+    width: 100%;
+    max-width: ui-tokens.$market-detail-mobile-content-width;
+    margin-inline: auto;
+  }
+
+  .market-related__slide {
+    flex: 0 0 100%;
+  }
+
+  .market-related .capability-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .capability-card__info {
+      gap: 12px;
+    }
+    .project-card--medium .project-card__eagle-fx {
+      display: none;
+    }
+
+    .project-card--medium .project-card__overlay {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 56.553%);
+    }
+
+    .project-card--medium .project-card__media {
+      width: 100%;
+      aspect-ratio: 1;
+    }
+
+    .project-card--medium .project-card__action {
+      left: ui-tokens.$ui-card-mobile-padding;
+      bottom: ui-tokens.$ui-card-mobile-padding;
+      transition: none;
+    }
+
+    .project-card__action .btn--mobile {
+      .btn__label {
+        padding: ui-tokens.$ui-btn-mobile-padding-y ui-tokens.$ui-btn-mobile-padding-x;
+        @include ui-tokens.type-mobile-button;
+      }
+
+      .btn__arrow {
+        width: ui-tokens.$ui-btn-mobile-arrow-size;
+        height: ui-tokens.$ui-btn-mobile-arrow-size;
+      }
+    }
+
+    .btn:hover .btn__arrow-track,
+    .btn.btn--state-hover .btn__arrow-track {
+      transform: none;
+    }
+
+    .capability-card__title {
+      @include ui-tokens.type-mobile-h3;
+    }
+
+    .capability-card__text {
+      max-width: none;
+      @include ui-tokens.type-mobile-text-l;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .market-related__track {
+    transition: none;
+  }
+}

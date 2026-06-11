@@ -114,6 +114,10 @@
     margin-top: ui-tokens.$about-cover-title-text-gap-mobile;
     @include ui-tokens.type-mobile-text-l;
   }
+
+  .page-market-detail .about-cover__text {
+    max-width: ui-tokens.$market-detail-mobile-cover-text-max-width;
+  }
 }
 
 // ─── Desktop (≥1280px) ───────────────────────────────────────────────────────

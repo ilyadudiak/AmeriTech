@@ -134,13 +134,13 @@ $project-card-tall-eagle-hover-size: 392.79cqw;
 $project-card-tall-eagle-hover-left: -146.39cqw;
 $project-card-tall-eagle-hover-top: -303.8cqh; // Figma 8849:3157 — (500 − 3538) / 2 / 500 × 100
 
-// Medium cards — 770×500 capabilities (Figma 9100:2913 default, hover = 3538px circle centered)
-$project-card-medium-eagle-default-size: 4635.32cqw;
-$project-card-medium-eagle-default-left: -3732.73cqw;
-$project-card-medium-eagle-default-top: -3601.6cqh;
-$project-card-medium-eagle-hover-size: 459.48cqw;
-$project-card-medium-eagle-hover-left: -179.74cqw;
-$project-card-medium-eagle-hover-top: -303.8cqh;
+// Medium cards — 770×500 capabilities
+// Default: same tall tokens as portfolio big (500px height, same motion path).
+// Hover: mask scaled so eagle hole (625/2506 of mask) fits card width − 4px (2px inset each side).
+//   766 ÷ (625/2506) ≈ 3073px mask → 398.58cqw, centered on 770×500.
+$project-card-medium-eagle-hover-size: 398.58cqw;
+$project-card-medium-eagle-hover-left: -149.55cqw;
+$project-card-medium-eagle-hover-top: -257.31cqh;
 
 // Person card
 $ui-person-card-small-image-height: 420px;
@@ -374,18 +374,203 @@ $portfolio-footer-actions-margin-top: 40px;
 $portfolio-text-opacity: 0.8;
 $portfolio-breakpoint-stack: 768px;
 
-// ─── Capabilities page (9846:3017 / Mobile TBD) ────────────────────────────
+// ─── Projects page (9846:3942 desktop / 9874:6234 mobile) ─────────────────
+
+$projects-cover-text-max-width: 454px;
+$projects-cover-text-max-width-mobile: 301px;
+$projects-offset-top-desktop: 200px;
+$projects-offset-top-mobile: 120px;
+$projects-mobile-gutter: 12px;
+$projects-mobile-content-width: 351px;
+$projects-toolbar-grid-gap-desktop: 60px;
+$projects-toolbar-grid-gap-mobile: 40px;
+$projects-grid-to-pagination-desktop: 80px;
+$projects-grid-to-pagination-mobile: 0px;
+$projects-filter-gap: 12px;
+$projects-filter-bar-height-mobile: 38px;
+$projects-mobile-filter-panel-padding: 20px;
+$projects-cards-gap-mobile: 52px;
+$projects-card-stack-gap-mobile: 20px;
+$projects-section-bottom-mobile: 48px;
+$projects-mobile-page-size: 4;
+
+// ─── Capabilities page (9846:3017 desktop / 9874:5295 mobile) ─────────────
 
 $capabilities-offset-top-desktop: 200px; // cover bottom 650 → cards top 850
-$capabilities-offset-bottom-desktop: 200px; // last card bottom → footer top
 $capabilities-grid-col-gap: 20px;
 $capabilities-grid-row-gap: 80px;
 $capabilities-card-width: 770px;
 $capabilities-content-max-width: 1560px; // 1600 − 2×20 gutter
 $capabilities-cover-text-max-width: 476px;
 $capabilities-mobile-gutter: 12px;
-$capabilities-mobile-offset-top: 120px;
+$capabilities-mobile-content-width: 351px;
+$capabilities-mobile-offset-top: 120px; // cover 500 → cards 620
 $capabilities-mobile-card-gap: 52px;
+$capabilities-mobile-cover-text-max-width: 301px;
+
+// ─── Markets page (9846:3094 desktop / 9874:5601 mobile) ─────────────────
+// Same card grid metrics as capabilities — 2 cards in one row on desktop.
+
+$markets-offset-top-desktop: $capabilities-offset-top-desktop;
+$markets-grid-col-gap: $capabilities-grid-col-gap;
+$markets-grid-row-gap: $capabilities-grid-row-gap;
+$markets-card-width: $capabilities-card-width;
+$markets-content-max-width: $capabilities-content-max-width;
+$markets-cover-text-max-width: $capabilities-cover-text-max-width;
+$markets-mobile-gutter: $capabilities-mobile-gutter;
+$markets-mobile-content-width: $capabilities-mobile-content-width;
+$markets-mobile-offset-top: $capabilities-mobile-offset-top;
+$markets-mobile-card-gap: $capabilities-mobile-card-gap;
+$markets-mobile-cover-text-max-width: $capabilities-mobile-cover-text-max-width;
+
+// ─── Market detail inner page (9846:3703) ───────────────────────────────────
+
+$market-detail-content-max-width: 1560px;
+$market-detail-section-gap: $about-page-section-gap;
+$market-detail-section-gap-mobile: $about-page-section-gap-mobile;
+$market-detail-cover-text-max-width: 432px;
+$market-detail-intro-title-max-width: 752px;
+$market-detail-intro-text-max-width: 840px;
+$market-detail-header-gap: 24px;
+$market-detail-label-to-content: 68px;
+$market-detail-challenges-title-max-width: 577px;
+$market-detail-split-col-gap: clamp(24px, 9.5vw, 152px);
+$market-detail-list-gap: 24px;
+$market-detail-item-text-gap: 8px; // title 32px → body top 40 (Figma 9846:3777)
+$market-detail-disc-offset: 48px;
+$market-detail-process-lead-max-width: 648px;
+$market-detail-benefits-image-max-width: 638px;
+$market-detail-benefits-image-height: 770px;
+$market-detail-benefits-image-ratio: math.div(638, 770);
+$market-detail-benefits-content-max-width: 770px;
+$market-detail-benefits-col-gap: 152px; // 790 − 638
+$market-detail-benefits-lead-max-width: 638px;
+$market-detail-benefits-title-max-width: 770px;
+$market-detail-benefits-lead-offset: 24px; // lead top 132 − 2×54 title lines (Figma 9846:3874)
+$market-detail-benefits-list-offset: 36px; // list top 264 − lead top 132 − ~96 lead height
+$market-detail-benefits-list-gap: 32px;
+$market-detail-benefits-disc-offset: 48px;
+$market-detail-related-header-offset: 94px;
+$market-detail-slider-duration: 0.7s;
+$market-detail-slider-easing: cubic-bezier(0.76, 0, 0.24, 1);
+
+// Mobile — Figma 9874:5791 (375 artboard, 351 content, 12px gutter)
+$market-detail-mobile-breakpoint: 768px;
+$market-detail-mobile-gutter: 12px;
+$market-detail-mobile-content-width: 351px;
+$market-detail-mobile-block-gap: 40px;
+$market-detail-mobile-challenges-list-gap: 40px;
+$market-detail-mobile-process-inner-width: 311px;
+$market-detail-mobile-process-item-gap: 60px;
+$market-detail-mobile-benefits-image-size: 351px;
+$market-detail-mobile-benefits-section-gap: 40px;
+$market-detail-mobile-benefits-list-gap: 24px;
+$market-detail-mobile-item-row-gap: 16px;
+$market-detail-mobile-item-body-gap: 12px;
+$market-detail-mobile-intro-title-max-width: 329px;
+$market-detail-mobile-cover-text-max-width: 301px;
+$market-detail-mobile-related-header-offset: 24px;
+
+// ─── Project detail (9846:4056 desktop / 9874:7280 mobile) ─────────────────
+
+$project-detail-content-max-width: 1560px;
+$project-detail-sidebar-width: 375px;
+$project-detail-main-gap: 20px;
+$project-detail-hero-title-gap: 40px;
+$project-detail-hero-image-height: 524px;
+$project-detail-hero-image-ratio: math.div(1165, 524);
+$project-detail-facts-gap: 20px;
+$project-detail-facts-col-width: 243px;
+$project-detail-lead-max-width: 335px;
+$project-detail-scope-image-ratio: math.div(638, 770);
+$project-detail-scope-list-offset: 60px;
+$project-detail-scope-list-gap: 32px;
+$project-detail-challenges-index-width: 31px;
+$project-detail-challenges-challenge-width: 507px;
+$project-detail-challenges-col-offset: 395px;
+$project-detail-challenges-col-gap: 151px;
+$project-detail-challenges-row-height: 146px;
+$project-detail-challenges-header-offset: 68px;
+$project-detail-gallery-image-ratio: math.div(638, 700);
+$project-detail-gallery-slide-ratio: math.div(320, 400);
+$project-detail-gallery-gap: 20px;
+$project-detail-gallery-gap-mobile: 8px;
+$project-detail-gallery-header-offset: 68px;
+$project-detail-gallery-lightbox-inset-mobile: 12px; // Figma 9941:15527
+$project-detail-gallery-lightbox-inset-desktop: 20px;
+$project-detail-gallery-lightbox-close-top-desktop: 32px;
+$project-detail-gallery-lightbox-close-right-desktop: 32px;
+$project-detail-gallery-lightbox-close-top-mobile: 12px;
+$project-detail-gallery-lightbox-close-right-mobile: 12px;
+$project-detail-gallery-lightbox-video-mute-gap: 12px;
+$project-detail-gallery-lightbox-nav-offset: 20px;
+$project-detail-gallery-lightbox-nav-gap: 16px;
+$project-detail-gallery-lightbox-nav-bottom: 32px;
+$project-detail-gallery-lightbox-image-radius: 8px;
+$project-detail-gallery-lightbox-overlay: rgba(0, 0, 0, 0.6);
+$project-detail-gallery-lightbox-gutter-fill: rgba(255, 255, 255, 0.35);
+$project-detail-gallery-lightbox-gutter-blur: 16px;
+$project-detail-gallery-lightbox-close-size: 48px; // Figma 9941:15514
+$project-detail-gallery-lightbox-arrow-inactive-opacity: 0.6;
+$project-detail-gallery-lightbox-arrow-radius: 3.5px;
+$project-detail-gallery-lightbox-video-play-size: 80px; // Figma 9941:15490
+$project-detail-gallery-lightbox-video-play-border: rgba(255, 255, 255, 0.4);
+$project-detail-gallery-lightbox-video-play-icon-size: 28px;
+$project-detail-gallery-lightbox-video-mute-size: 48px;
+$project-detail-gallery-lightbox-video-mute-icon-size: 24px;
+$project-detail-gallery-lightbox-video-mute-radius: 4px; // Figma 9941:15509 / 9941:16522
+$project-detail-gallery-lightbox-video-mute-top-desktop: 32px;
+$project-detail-gallery-lightbox-video-mute-top-mobile: 12px;
+$project-detail-gallery-autoplay-delay: 5000ms;
+$project-detail-lightbox-transition-ms: 1400;
+$project-detail-highlight-size-mobile: 351px; // Figma 9883:7859
+$project-detail-highlight-size: 507px; // Figma 9846:4153
+$project-detail-highlight-fluid-span: $project-detail-highlight-size - $project-detail-highlight-size-mobile;
+$project-detail-highlight-symbol-width-mobile: 48.227px;
+$project-detail-highlight-symbol-height-mobile: 43.302px;
+$project-detail-highlight-symbol-width-desktop: 59.583px;
+$project-detail-highlight-symbol-height: 53.499px;
+$project-detail-highlight-padding: 20px;
+$project-detail-highlight-text-top-mobile: 152px;
+$project-detail-highlight-text-top-tall-mobile: 116px;
+$project-detail-highlight-text-top: 238px;
+$project-detail-highlight-text-top-tall: 205.5px;
+$project-detail-highlight-text-offset-ratio-mobile: 0.2527; // (152 - 20 - 43.302) / 351
+$project-detail-highlight-text-offset-ratio-tall-mobile: 0.1501; // (116 - 20 - 43.302) / 351
+$project-detail-highlight-text-offset-ratio: 0.3245; // (238 - 20 - 53.499) / 507
+$project-detail-highlight-text-offset-ratio-tall: 0.2604; // (205.5 - 20 - 53.499) / 507
+$project-detail-highlight-text-max-width-mobile: 197px;
+$project-detail-highlight-text-max-width: 381px;
+$project-detail-highlight-text-narrow-max-width-mobile: 197px;
+$project-detail-highlight-text-narrow-max-width: 232px;
+$project-detail-highlight-title-max-width-mobile: 234px; // Figma 9883:7613
+$project-detail-highlight-gap: 20px;
+$project-detail-highlight-gap-mobile: 12px;
+$project-detail-highlight-block-gap: 40px; // Figma 9883:7609 header → cards
+$project-detail-section-header-gap-mobile: 24px; // Figma 9883:7610 descriptor → title
+$project-detail-highlight-symbol-width-fluid: 0.072795; // (59.583 - 48.227) / 156
+$project-detail-highlight-text-offset-fluid: 0.071759; // (0.3245 - 0.2527) / 156
+$project-detail-highlight-text-offset-tall-fluid: 0.110263; // (0.2604 - 0.1501) / 156
+$project-detail-highlight-text-max-width-fluid: 1.179487; // (381 - 197) / 156
+$project-detail-highlight-text-narrow-max-width-fluid: 0.224359; // (232 - 197) / 156
+$project-detail-highlight-text-max-width-ratio-mobile: 0.5613; // 197 / 351
+$project-detail-highlight-text-narrow-max-width-ratio-mobile: 0.5613; // 197 / 351
+$project-detail-highlight-type-fluid: 0.051282; // (32 - 24) / 156
+$project-detail-highlight-symbol-aspect-ratio: 1.114; // 48.227 / 43.302
+$project-detail-section-gap: $about-page-section-gap;
+$project-detail-section-gap-mobile: $about-page-section-gap-mobile;
+$project-detail-mobile-gutter: 12px;
+$project-detail-mobile-content-width: 351px;
+$project-detail-mobile-hero-stack-gap: 60px;
+$project-detail-mobile-hero-inner-gap: 20px;
+$project-detail-mobile-facts-row-gap: 16px;
+$project-detail-mobile-services-gap: 12px;
+$project-detail-mobile-block-gap: 40px;
+$project-detail-mobile-challenge-card-gap: 24px;
+$project-detail-mobile-challenge-card-padding: 20px;
+$project-detail-mobile-challenge-inner-gap: 32px;
+$project-detail-mobile-challenge-label-gap: 16px;
+$project-detail-mobile-challenge-body-gap: 20px;
 
 // ─── Footer (9846:2352 / 9858:3673) ────────────────────────────────────────
 

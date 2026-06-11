@@ -1,0 +1,290 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: gallery-lightbox — Figma 9937:13609 (desktop) / 9941:15527 (mobile)
+// Content inset: 20px on all sides; gutter shows blurred + whitened page edge
+
+$gallery-lightbox-z: 200;
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: $gallery-lightbox-z;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  padding: ui-tokens.$project-detail-gallery-lightbox-inset-mobile;
+  margin: 0;
+  border: 0;
+  background: ui-tokens.$project-detail-gallery-lightbox-gutter-fill;
+  backdrop-filter: blur(ui-tokens.$project-detail-gallery-lightbox-gutter-blur);
+  color: colors.$color-white;
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(ui-tokens.$project-detail-gallery-lightbox-gutter-blur);
+
+  @media (min-width: variables.$breakpoint-md) {
+    padding: ui-tokens.$project-detail-gallery-lightbox-inset-desktop;
+  }
+
+  &:not([open]) {
+    display: none;
+  }
+
+  &::backdrop {
+    background: ui-tokens.$project-detail-gallery-lightbox-overlay;
+  }
+}
+
+.gallery-lightbox__panel {
+  position: relative;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.gallery-lightbox__figure {
+  grid-area: 1 / 1;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: ui-tokens.$project-detail-gallery-lightbox-image-radius;
+}
+
+.gallery-lightbox__video-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.gallery-lightbox__image,
+.gallery-lightbox__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: colors.$color-black;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.gallery-lightbox__image {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+
+  .gallery-lightbox[open] &:not([hidden]) {
+    opacity: 1;
+  }
+}
+
+.gallery-lightbox__close {
+  grid-area: 1 / 1;
+  z-index: 2;
+  position: relative;
+  align-self: start;
+  justify-self: end;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: ui-tokens.$project-detail-gallery-lightbox-close-size;
+  height: ui-tokens.$project-detail-gallery-lightbox-close-size;
+  margin-top: ui-tokens.$project-detail-gallery-lightbox-close-top-mobile;
+  margin-right: ui-tokens.$project-detail-gallery-lightbox-close-right-mobile;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  @media (min-width: variables.$breakpoint-md) {
+    margin-top: ui-tokens.$project-detail-gallery-lightbox-close-top-desktop;
+    margin-right: ui-tokens.$project-detail-gallery-lightbox-close-right-desktop;
+  }
+
+  &:focus-visible {
+    outline: 2px solid colors.$color-white;
+    outline-offset: 2px;
+  }
+}
+
+.gallery-lightbox__close-icon {
+  display: block;
+  width: ui-tokens.$project-detail-gallery-lightbox-close-size;
+  height: ui-tokens.$project-detail-gallery-lightbox-close-size;
+}
+
+.gallery-lightbox__nav {
+  grid-area: 1 / 1;
+  z-index: 2;
+  align-self: end;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: ui-tokens.$project-detail-gallery-lightbox-nav-gap;
+  margin-bottom: ui-tokens.$project-detail-gallery-lightbox-nav-bottom;
+}
+
+.gallery-lightbox-arrow {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: ui-tokens.$ui-slider-btn-size;
+  height: ui-tokens.$ui-slider-btn-size;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: opacity ui-tokens.$ui-transition-fast;
+
+  &:focus-visible {
+    outline: 2px solid colors.$color-white;
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &.gallery-lightbox-arrow--inactive {
+    opacity: ui-tokens.$project-detail-gallery-lightbox-arrow-inactive-opacity;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.gallery-lightbox-arrow__icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-lightbox-arrow__box {
+  fill: colors.$color-white;
+  stroke: colors.$color-white;
+  stroke-width: 1;
+}
+
+.gallery-lightbox-arrow__chevron {
+  fill: none;
+  stroke: colors.$color-black;
+  stroke-width: 1.2;
+  stroke-linecap: square;
+}
+
+.gallery-lightbox-arrow--prev .gallery-lightbox-arrow__icon {
+  transform: scaleX(-1);
+}
+
+// Video controls — Figma 9941:15465 (Play) / 9941:16509 (Pause) / 9941:15496 (Mute)
+
+.gallery-lightbox__video-playpause {
+  grid-area: 1 / 1;
+  z-index: 2;
+  align-self: center;
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: ui-tokens.$project-detail-gallery-lightbox-video-play-size;
+  height: ui-tokens.$project-detail-gallery-lightbox-video-play-size;
+  padding: 0;
+  border: 1px solid ui-tokens.$project-detail-gallery-lightbox-video-play-border;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid colors.$color-white;
+    outline-offset: 4px;
+  }
+}
+
+.gallery-lightbox__video-playpause-icon {
+  display: block;
+  width: ui-tokens.$project-detail-gallery-lightbox-video-play-icon-size;
+  height: ui-tokens.$project-detail-gallery-lightbox-video-play-icon-size;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.gallery-lightbox__video-mute {
+  grid-area: 1 / 1;
+  z-index: 2;
+  align-self: start;
+  justify-self: end;
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: ui-tokens.$project-detail-gallery-lightbox-video-mute-size;
+  height: ui-tokens.$project-detail-gallery-lightbox-video-mute-size;
+  margin-top: ui-tokens.$project-detail-gallery-lightbox-video-mute-top-mobile;
+  margin-right: calc(
+    ui-tokens.$project-detail-gallery-lightbox-close-right-mobile +
+      ui-tokens.$project-detail-gallery-lightbox-close-size +
+      ui-tokens.$project-detail-gallery-lightbox-video-mute-gap
+  );
+  padding: 0;
+  border: 0;
+  border-radius: ui-tokens.$project-detail-gallery-lightbox-video-mute-radius;
+  background: colors.$color-white;
+  cursor: pointer;
+
+  @media (min-width: variables.$breakpoint-md) {
+    margin-top: ui-tokens.$project-detail-gallery-lightbox-video-mute-top-desktop;
+    margin-right: calc(
+      ui-tokens.$project-detail-gallery-lightbox-close-right-desktop +
+        ui-tokens.$project-detail-gallery-lightbox-close-size +
+        ui-tokens.$project-detail-gallery-lightbox-video-mute-gap
+    );
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid colors.$color-white;
+    outline-offset: 2px;
+  }
+}
+
+.gallery-lightbox__video-mute-box {
+  display: none;
+}
+
+.gallery-lightbox__video-mute-icon {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: ui-tokens.$project-detail-gallery-lightbox-video-mute-icon-size;
+  height: ui-tokens.$project-detail-gallery-lightbox-video-mute-icon-size;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+body.is-lightbox-open {
+  overflow: hidden;
+}

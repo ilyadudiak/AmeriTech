@@ -46,13 +46,33 @@
 
 @use "capabilities";
 
+@use "markets";
+
+@use "market-detail";
+
 @use "competencies";
 
+@use "slider-btn";
+
 @use "tag";
+
+@use "tab";
+
+@use "descriptor";
 
 @use "project-card";
 
 @use "portfolio";
+
+@use "projects";
+
+@use "project-detail";
+
+@use "gallery-lightbox";
+
+@use "highlight-card";
+
+@use "progress";
 
 @use "footer";
 

@@ -1,0 +1,27 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: descriptor — bordered label pill (Figma Desktop 20px / Mobile 16px)
+
+.descriptor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: ui-tokens.$about-label-padding-y ui-tokens.$about-label-padding-x;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-tag-radius;
+  color: colors.$color-black;
+  white-space: nowrap;
+  @include ui-tokens.type-mobile-descriptor;
+}
+
+.descriptor--center {
+  align-self: center;
+}
+
+@media (min-width: variables.$breakpoint-md) {
+  .descriptor {
+    @include ui-tokens.type-desktop-descriptor;
+  }
+}

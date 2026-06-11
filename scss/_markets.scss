@@ -1,0 +1,191 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: markets — Figma 9846:3094 (desktop) / 9874:5601 (mobile)
+// Card grid + project-card--medium hover identical to capabilities.
+// Desktop: cover 650 → cards 850 (200px), cards 770×636, col gap 20, footer gap 200.
+// Mobile: cover 500 → cards 620 (120px), cards 351×351, stack gap 52, footer gap 120.
+
+.page-markets .about-cover__text {
+  max-width: ui-tokens.$markets-cover-text-max-width;
+}
+
+.markets {
+  padding: clamp(
+      #{ui-tokens.$markets-mobile-offset-top},
+      12.5vw,
+      #{ui-tokens.$markets-offset-top-desktop}
+    )
+    clamp(#{ui-tokens.$markets-mobile-gutter}, 2.5vw, #{variables.$layout-gutter}) 0;
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.markets__inner {
+  width: 100%;
+  max-width: ui-tokens.$markets-content-max-width;
+  margin-inline: auto;
+}
+
+.markets__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(
+      #{ui-tokens.$markets-mobile-card-gap},
+      6vw,
+      #{ui-tokens.$markets-grid-row-gap}
+    )
+    clamp(#{ui-tokens.$markets-mobile-gutter}, 1.25vw, #{ui-tokens.$markets-grid-col-gap});
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.markets__grid > li {
+  min-width: 0;
+}
+
+.market-card {
+  width: 100%;
+}
+
+.market-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: ui-tokens.$ui-card-info-gap;
+}
+
+.market-card__title {
+  margin: 0;
+  color: colors.$color-black;
+  @include ui-tokens.type-desktop-h3;
+}
+
+.market-card__text {
+  margin: 0;
+  max-width: min(676px, 100%);
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+  @include ui-tokens.type-desktop-text-l;
+}
+
+.markets .project-card--medium {
+  max-width: none;
+}
+
+// ─── Two-column grid (≥768) ────────────────────────────────────────────────
+
+@media (min-width: ui-tokens.$portfolio-breakpoint-stack) {
+  .markets__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .market-card {
+    max-width: none;
+
+    .btn--mobile {
+      .btn__label {
+        padding: ui-tokens.$ui-btn-desktop-padding-y ui-tokens.$ui-btn-desktop-padding-x;
+        @include ui-tokens.type-desktop-button;
+      }
+
+      .btn__arrow {
+        width: ui-tokens.$ui-btn-desktop-arrow-size;
+        height: ui-tokens.$ui-btn-desktop-arrow-size;
+      }
+    }
+  }
+}
+
+@media (min-width: ui-tokens.$markets-content-max-width + variables.$layout-gutter * 2) {
+  .markets__grid {
+    grid-template-columns: repeat(2, minmax(0, ui-tokens.$markets-card-width));
+    justify-content: space-between;
+  }
+}
+
+// ─── Mobile (≤767px) — Figma 9874:5601 ───────────────────────────────────
+
+@media (max-width: ui-tokens.$portfolio-breakpoint-stack - 1px) {
+  .page-markets {
+    .about-cover__text {
+      max-width: ui-tokens.$markets-mobile-cover-text-max-width;
+      margin-inline: auto;
+    }
+  }
+
+  .markets {
+    padding: ui-tokens.$markets-mobile-offset-top ui-tokens.$markets-mobile-gutter 0;
+  }
+
+  .markets__grid {
+    row-gap: ui-tokens.$markets-mobile-card-gap;
+    column-gap: 0;
+  }
+
+  .market-card {
+    max-width: none;
+    width: 100%;
+
+    .project-card--medium {
+      max-width: none;
+      width: 100%;
+    }
+
+    .project-card--medium .project-card__eagle-fx {
+      display: none;
+    }
+
+    .project-card--medium .project-card__overlay {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 56.553%);
+    }
+
+    .project-card--medium .project-card__media {
+      width: 100%;
+      aspect-ratio: 1;
+    }
+
+    .project-card--medium .project-card__action {
+      left: ui-tokens.$ui-card-mobile-padding;
+      bottom: ui-tokens.$ui-card-mobile-padding;
+      transition: none;
+    }
+
+    .project-card__action .btn--mobile {
+      .btn__label {
+        padding: ui-tokens.$ui-btn-mobile-padding-y ui-tokens.$ui-btn-mobile-padding-x;
+        @include ui-tokens.type-mobile-button;
+      }
+
+      .btn__arrow {
+        width: ui-tokens.$ui-btn-mobile-arrow-size;
+        height: ui-tokens.$ui-btn-mobile-arrow-size;
+      }
+    }
+
+    .btn:hover .btn__arrow-track,
+    .btn.btn--state-hover .btn__arrow-track {
+      transform: none;
+    }
+  }
+
+  .market-card__title {
+    @include ui-tokens.type-mobile-h3;
+  }
+
+  .market-card__text {
+    max-width: none;
+    @include ui-tokens.type-mobile-text-l;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) and (min-width: ui-tokens.$portfolio-breakpoint-stack) {
+  .market-card .btn--mobile.btn--white:hover:not(:disabled):not(.btn--inactive) .btn__arrow-track,
+  .market-card .btn--mobile.btn--white.btn--state-hover .btn__arrow-track {
+    transform: translate(
+      ui-tokens.$ui-btn-arrow-translate-x,
+      ui-tokens.$ui-btn-arrow-translate-y
+    );
+  }
+}

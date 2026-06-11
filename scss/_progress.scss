@@ -1,0 +1,136 @@
+@use "colors";
+@use "ui-tokens";
+@use "variables";
+
+// Block: progress-page — internal stakeholder progress overview
+
+.page-progress {
+  background-color: colors.$color-white;
+  color: colors.$color-black;
+}
+
+.progress-page {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 40px ui-tokens.$project-detail-mobile-gutter;
+}
+
+.progress-page__inner {
+  width: 100%;
+  max-width: 560px;
+}
+
+.progress-page__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.progress-page__logo {
+  display: block;
+  width: 160px;
+  height: auto;
+}
+
+.progress-page__title {
+  margin: 0;
+  @include ui-tokens.type-mobile-h2;
+
+  @media (min-width: variables.$breakpoint-md) {
+    @include ui-tokens.type-desktop-h2;
+  }
+}
+
+.progress-page__section {
+  &:not(:last-child) {
+    margin-bottom: 40px;
+  }
+}
+
+.progress-page__section-title {
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid ui-tokens.$ui-border-black-20;
+  @include ui-tokens.type-mobile-h4;
+
+  @media (min-width: variables.$breakpoint-md) {
+    @include ui-tokens.type-desktop-h4;
+  }
+}
+
+.progress-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.progress-page__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  padding: 12px 16px;
+  border: 1px solid ui-tokens.$ui-border-black-20;
+  border-radius: ui-tokens.$ui-card-radius;
+}
+
+.progress-page__link {
+  color: colors.$color-black;
+  text-decoration: none;
+  transition: opacity ui-tokens.$ui-transition-fast;
+  @include ui-tokens.type-mobile-text-m;
+
+  @media (min-width: variables.$breakpoint-md) {
+    @include ui-tokens.type-desktop-text-m;
+  }
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &:focus-visible {
+    outline: 2px solid colors.$color-black;
+    outline-offset: 2px;
+  }
+}
+
+.progress-page__label {
+  color: colors.$color-black;
+  opacity: ui-tokens.$ui-opacity-muted;
+  @include ui-tokens.type-mobile-text-m;
+
+  @media (min-width: variables.$breakpoint-md) {
+    @include ui-tokens.type-desktop-text-m;
+  }
+}
+
+.progress-page__status {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: ui-tokens.$ui-tag-radius;
+  white-space: nowrap;
+  @include ui-tokens.type-mobile-tag;
+
+  @media (min-width: variables.$breakpoint-md) {
+    @include ui-tokens.type-desktop-tag;
+  }
+}
+
+.progress-page__status--ready {
+  color: colors.$color-white;
+  background-color: colors.$color-dark-blue;
+}
+
+.progress-page__status--pending {
+  color: colors.$color-black;
+  background-color: colors.$color-grey;
+}

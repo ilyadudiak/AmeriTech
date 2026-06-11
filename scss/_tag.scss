@@ -21,3 +21,8 @@
 .tag--mobile {
   @include ui-tokens.type-mobile-tag;
 }
+
+.tag--outline {
+  border-color: ui-tokens.$ui-border-black-20;
+  color: colors.$color-black;
+}

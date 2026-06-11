@@ -1,0 +1,96 @@
+@use "colors";
+@use "typography";
+@use "ui-tokens";
+@use "variables";
+
+// Block: highlight-card — Figma 9846:4153 desktop / 9883:7859 mobile
+
+.highlight-card {
+  container-type: inline-size;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: ui-tokens.$project-detail-highlight-padding;
+  border-radius: ui-tokens.$ui-card-radius;
+  background: colors.$color-dark-blue url("../assets/images/project-highlight-card-bg.png") center / cover no-repeat;
+  text-align: center;
+}
+
+.highlight-card__symbol {
+  position: relative;
+  z-index: 1;
+  display: block;
+  flex-shrink: 0;
+  width: min(
+    ui-tokens.$project-detail-highlight-symbol-width-desktop,
+    calc(
+      #{ui-tokens.$project-detail-highlight-symbol-width-mobile} +
+        (100cqw - #{ui-tokens.$project-detail-highlight-size-mobile}) *
+        #{ui-tokens.$project-detail-highlight-symbol-width-fluid}
+    )
+  );
+  height: auto;
+  aspect-ratio: ui-tokens.$project-detail-highlight-symbol-aspect-ratio;
+}
+
+.highlight-card__text {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  max-width: min(
+    ui-tokens.$project-detail-highlight-text-max-width,
+    max(
+      calc(100% * #{ui-tokens.$project-detail-highlight-text-max-width-ratio-mobile}),
+      calc(
+        #{ui-tokens.$project-detail-highlight-text-max-width-mobile} +
+          (100cqw - #{ui-tokens.$project-detail-highlight-size-mobile}) *
+          #{ui-tokens.$project-detail-highlight-text-max-width-fluid}
+      )
+    )
+  );
+  color: colors.$color-white;
+  font-family: typography.$font-mobile-h3-family;
+  font-weight: typography.$font-mobile-h3-weight;
+  font-size: min(
+    typography.$font-desktop-h3-size,
+    calc(
+      #{typography.$font-mobile-h3-size} +
+        (100cqw - #{ui-tokens.$project-detail-highlight-size-mobile}) *
+        #{ui-tokens.$project-detail-highlight-type-fluid}
+    )
+  );
+  line-height: 1;
+  letter-spacing: typography.$font-mobile-h3-letter-spacing;
+}
+
+.highlight-card--narrow-text .highlight-card__text {
+  max-width: min(
+    ui-tokens.$project-detail-highlight-text-narrow-max-width,
+    max(
+      calc(100% * #{ui-tokens.$project-detail-highlight-text-narrow-max-width-ratio-mobile}),
+      calc(
+        #{ui-tokens.$project-detail-highlight-text-narrow-max-width-mobile} +
+          (100cqw - #{ui-tokens.$project-detail-highlight-size-mobile}) *
+          #{ui-tokens.$project-detail-highlight-text-narrow-max-width-fluid}
+      )
+    )
+  );
+}
+
+@container (min-width: #{ui-tokens.$project-detail-highlight-size}) {
+  .highlight-card__text {
+    top: ui-tokens.$project-detail-highlight-text-top;
+    transform: translateX(-50%);
+  }
+
+  .highlight-card--tall-text .highlight-card__text {
+    top: ui-tokens.$project-detail-highlight-text-top-tall;
+  }
+}

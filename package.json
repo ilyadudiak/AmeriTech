@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "sass": "sass --watch scss:css --style=expanded --poll",
-    "serve": "live-server --port=3000 --watch=css,js,index.html",
+    "serve": "live-server --port=3000 --watch=css,js,partials,index.html,projects.html",
     "dev": "npm-run-all --parallel sass serve",
-    "build:css": "sass scss:css --style=compressed --no-source-map"
+    "build:css": "sass scss:css --style=compressed --no-source-map",
+    "build:projects": "node scripts/build-projects-grid.js"
   },
   "devDependencies": {
     "live-server": "^1.2.2",

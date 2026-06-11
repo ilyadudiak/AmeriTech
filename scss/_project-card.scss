@@ -96,17 +96,6 @@ $project-card-mask-transition:
   top: ui-tokens.$project-card-tall-image-hover-top;
 }
 
-@mixin project-card-medium-eagle-default {
-  -webkit-mask-size: ui-tokens.$project-card-medium-eagle-default-size
-    ui-tokens.$project-card-medium-eagle-default-size;
-  mask-size: ui-tokens.$project-card-medium-eagle-default-size
-    ui-tokens.$project-card-medium-eagle-default-size;
-  -webkit-mask-position: ui-tokens.$project-card-medium-eagle-default-left
-    ui-tokens.$project-card-medium-eagle-default-top;
-  mask-position: ui-tokens.$project-card-medium-eagle-default-left
-    ui-tokens.$project-card-medium-eagle-default-top;
-}
-
 @mixin project-card-medium-eagle-hover {
   opacity: 1;
   -webkit-mask-size: ui-tokens.$project-card-medium-eagle-hover-size
@@ -255,7 +244,7 @@ $project-card-mask-transition:
 
 .project-card--medium {
   .project-card__eagle-fx {
-    @include project-card-medium-eagle-default;
+    @include project-card-tall-eagle-default;
   }
 }
 
@@ -300,10 +289,10 @@ $project-card-mask-transition:
   }
 
   .project-card--medium .project-card__eagle-fx {
-    -webkit-mask-size: 4635.32% 4635.32%;
-    mask-size: 4635.32% 4635.32%;
-    -webkit-mask-position: -3732.73% -3601.6%;
-    mask-position: -3732.73% -3601.6%;
+    -webkit-mask-size: 1831.04% 1831.04%;
+    mask-size: 1831.04% 1831.04%;
+    -webkit-mask-position: -865.52% -1601.6%;
+    mask-position: -865.52% -1601.6%;
   }
 
   @media (hover: hover) and (prefers-reduced-motion: no-preference) and (min-width: ui-tokens.$portfolio-breakpoint-stack) {
@@ -330,10 +319,10 @@ $project-card-mask-transition:
     .project-card--medium .project-card__media:hover,
     .project-card--medium .project-card__media.project-card__media--hover {
       .project-card__eagle-fx {
-        -webkit-mask-size: 459.48% 459.48%;
-        mask-size: 459.48% 459.48%;
-        -webkit-mask-position: -179.74% -303.8%;
-        mask-position: -179.74% -303.8%;
+        -webkit-mask-size: 398.58% 398.58%;
+        mask-size: 398.58% 398.58%;
+        -webkit-mask-position: -149.55% -257.31%;
+        mask-position: -149.55% -257.31%;
       }
     }
   }

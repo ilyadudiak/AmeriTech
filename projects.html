@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Featured Projects | AmeriTech Contracting</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="preload" as="image" href="assets/images/about-cover-lines.svg" />
+  </head>
+  <body class="page-projects">
+    <section class="about-cover">
+      <div id="site-header"></div>
+
+      <picture class="about-cover__lines" aria-hidden="true">
+        <source media="(min-width: 768px)" srcset="assets/images/about-cover-lines.svg" />
+        <img class="about-cover__lines-img" src="assets/images/about-cover-lines-mobile.svg" alt="" />
+      </picture>
+
+      <nav class="breadcrumbs about-cover__breadcrumbs" aria-label="Breadcrumb">
+        <a class="breadcrumbs__item" href="index.html">Home</a>
+        <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+        <span class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">Projects</span>
+      </nav>
+
+      <div class="about-cover__content">
+        <h1 class="about-cover__title">Featured Projects</h1>
+        <p class="about-cover__text">
+          Explore a selection of projects that demonstrate our experience, craftsmanship, and
+          commitment to delivering results that last.
+        </p>
+      </div>
+    </section>
+
+    <!--
+      CMS note: filters + cards come from partials (loaded by main.js).
+      To add a project: edit js/projects-data.js, then run
+      node scripts/build-projects-grid.js
+      Or output the same HTML from your CMS using partials/project-card.html.
+    -->
+    <section class="projects" data-projects-page data-projects-page-size="6" data-projects-page-size-mobile="4" aria-label="Featured projects">
+      <div class="projects__inner">
+        <div class="projects__toolbar">
+          <div id="projects-filters"></div>
+        </div>
+
+        <p class="projects__empty" data-projects-empty hidden>No projects match this filter.</p>
+
+        <div id="projects-grid"></div>
+
+        <nav class="projects__pagination" data-projects-pagination aria-label="Projects pagination" hidden></nav>
+      </div>
+    </section>
+
+    <div id="site-menu"></div>
+    <div id="site-footer"></div>
+
+    <script src="js/menu-data.js"></script>
+    <script src="js/projects-config.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

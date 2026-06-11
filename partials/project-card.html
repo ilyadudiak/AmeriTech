@@ -1,0 +1,73 @@
+<!--
+  Single project card — copy this block inside the CMS loop.
+
+  WordPress example:
+    <li class="projects__item" data-project-item
+        data-project-categories="<?php echo esc_attr( join( ' ', wp_list_pluck( get_the_terms(...), 'slug' ) ) ); ?>">
+      <?php get_template_part( 'partials/project-card' ); ?>
+    </li>
+
+  Replace placeholders:
+    {{SIZE}}       — project-card--small | project-card--big (alternate per Figma grid)
+    {{CATEGORIES}} — taxonomy slugs, space-separated (must match filter data-filter values)
+    {{IMAGE}}      — featured image URL
+    {{ALT}}        — image alt text
+    {{TAG}}        — tag label on the card
+    {{TITLE}}      — project title
+    {{LINK}}       — project permalink
+-->
+<li class="projects__item" data-project-item data-project-categories="{{CATEGORIES}}">
+  <article class="project-card {{SIZE}} projects__card">
+    <div class="project-card__media">
+      <div class="project-card__photo">
+        <img
+          class="project-card__image"
+          src="{{IMAGE}}"
+          alt="{{ALT}}"
+          width="638"
+          height="350"
+          loading="lazy"
+        />
+      </div>
+      <div class="project-card__overlay"></div>
+      <div class="project-card__eagle-fx" aria-hidden="true">
+        <div class="project-card__eagle-blur">
+          <img class="project-card__eagle-blur-img" src="{{IMAGE}}" alt="" width="638" height="350" loading="lazy" />
+        </div>
+      </div>
+      <span class="tag tag--desktop project-card__tag">{{TAG}}</span>
+      <div class="project-card__action">
+        <a class="btn btn--white btn--desktop" href="{{LINK}}">
+          <span class="btn__label">Explore</span>
+          <span class="btn__arrow" aria-hidden="true">
+            <span class="btn__arrow-viewport"><span class="btn__arrow-track">
+              <img class="btn__arrow-icon" src="assets/icons/arrow-black.svg" alt="" width="17" height="17" />
+              <img class="btn__arrow-icon btn__arrow-icon--incoming" src="assets/icons/arrow-black.svg" alt="" width="17" height="17" aria-hidden="true" />
+            </span></span>
+          </span>
+        </a>
+      </div>
+    </div>
+    <h2 class="project-card__title">{{TITLE}}</h2>
+  </article>
+
+  <article class="project-card project-card--mobile projects__card projects__card--mobile">
+    <div class="project-card__media">
+      <img class="project-card__image" src="{{IMAGE}}" alt="{{ALT}}" width="351" height="351" loading="lazy" />
+      <div class="project-card__overlay"></div>
+      <span class="tag tag--mobile project-card__tag">{{TAG}}</span>
+      <div class="project-card__action">
+        <a class="btn btn--white btn--mobile" href="{{LINK}}">
+          <span class="btn__label">Explore</span>
+          <span class="btn__arrow" aria-hidden="true">
+            <span class="btn__arrow-viewport"><span class="btn__arrow-track">
+              <img class="btn__arrow-icon" src="assets/icons/arrow-black.svg" alt="" width="17" height="17" />
+              <img class="btn__arrow-icon btn__arrow-icon--incoming" src="assets/icons/arrow-black.svg" alt="" width="17" height="17" aria-hidden="true" />
+            </span></span>
+          </span>
+        </a>
+      </div>
+    </div>
+    <h2 class="project-card__title">{{TITLE}}</h2>
+  </article>
+</li>

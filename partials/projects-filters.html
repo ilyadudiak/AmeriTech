@@ -1,0 +1,25 @@
+<!--
+  Filter tabs — Featured Projects (Figma 9846:3942 desktop / 9874:6234 mobile).
+  WordPress: loop taxonomy terms into .projects__filters-group.
+-->
+<div class="projects__filters" data-projects-filters aria-label="Filter projects">
+  <div class="projects__filters-row">
+    <div class="projects__filters-primary">
+      <button class="tab tab--desktop projects__filter tab--active" type="button" data-filter="all" aria-pressed="true">All Projects</button>
+    </div>
+    <button class="projects__filters-toggle" type="button" data-projects-filter-toggle aria-expanded="false" aria-controls="projects-filter-panel">
+      <img class="projects__filters-toggle-icon" src="assets/icons/filter-chevron-down.svg" alt="" width="10" height="5" />
+      <span class="projects__filters-toggle-label" data-projects-filter-toggle-label>Filter</span>
+    </button>
+  </div>
+  <div class="projects__filters-group" id="projects-filter-panel" data-projects-filter-panel role="group" aria-label="Project categories">
+    <button class="tab tab--desktop projects__filter" type="button" data-filter="preventative-maintenance" aria-pressed="false">Preventative Maintenance</button>
+    <button class="tab tab--desktop projects__filter" type="button" data-filter="facilities-management-services" aria-pressed="false">Facilities Management Services</button>
+    <button class="tab tab--desktop projects__filter" type="button" data-filter="disaster-response-recover" aria-pressed="false">Disaster Response &amp; Recover</button>
+    <button class="tab tab--desktop projects__filter" type="button" data-filter="emergency-response" aria-pressed="false">Emergency Response and Rapid Mobilization</button>
+    <button class="tab tab--desktop projects__filter" type="button" data-filter="shrine-restoration" aria-pressed="false">Shrine Restoration</button>
+    <button class="tab tab--desktop projects__filter" type="button" data-filter="roofing-exterior" aria-pressed="false">Roofing and Exterior Envelope</button>
+    <button class="tab tab--desktop projects__filter" type="button" data-filter="occupied-facility" aria-pressed="false">Occupied Facility and Mission-Critical Work</button>
+    <button class="tab tab--desktop projects__filter" type="button" data-filter="milcon" aria-pressed="false">Military Construction (MILCON)</button>
+  </div>
+</div>

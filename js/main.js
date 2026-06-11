@@ -596,6 +596,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   await loadPartial("site-footer", "partials/footer.html");
 
+  if (document.body.classList.contains("page-projects")) {
+    await loadPartial("projects-filters", "partials/projects-filters.html");
+    await loadPartial("projects-grid", "partials/projects-grid.html");
+    if (window.ProjectsApp) window.ProjectsApp.init();
+  }
+
   initMenu();
 
   if (document.body.classList.contains("page-team-member")) {
@@ -610,6 +616,46 @@ document.addEventListener("DOMContentLoaded", async () => {
       link.classList.add("header__link--active");
       link.setAttribute("aria-current", "page");
     });
+  }
+
+  if (document.body.classList.contains("page-markets")) {
+    document.querySelectorAll('.header__link[data-menu-trigger="markets"]').forEach((link) => {
+      link.classList.add("header__link--active");
+      link.setAttribute("aria-current", "page");
+    });
+  }
+
+  if (document.body.classList.contains("page-projects")) {
+    document.querySelectorAll('.header__link[href*="projects"]').forEach((link) => {
+      link.classList.add("header__link--active");
+      link.setAttribute("aria-current", "page");
+    });
+  }
+
+  if (document.body.classList.contains("page-project-detail")) {
+    document.querySelectorAll('.header__link[href*="projects"]').forEach((link) => {
+      link.classList.add("header__link--active");
+      link.setAttribute("aria-current", "page");
+    });
+  }
+
+  if (document.body.classList.contains("page-market-detail")) {
+    document.querySelectorAll('.header__link[data-menu-trigger="markets"]').forEach((link) => {
+      link.classList.add("header__link--active");
+      link.setAttribute("aria-current", "page");
+    });
+
+    const footerTitle = document.querySelector(".site-footer__title");
+    const footerLead = document.querySelector(".site-footer__lead");
+
+    if (footerTitle) {
+      footerTitle.textContent = "Partner with AmeriTech Contracting";
+    }
+
+    if (footerLead) {
+      footerLead.textContent =
+        "Contact us today to learn how we can help your facility grow, modernize, and operate at its full potential.";
+    }
   }
 
   initCompetenciesAnimation();
